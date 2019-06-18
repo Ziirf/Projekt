@@ -46,7 +46,7 @@ namespace Projekt
 
         public static void CreateCustomer()
         {
-
+            
         }
 
         public static void UpdateCustomer()
