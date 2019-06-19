@@ -11,6 +11,7 @@ namespace Projekt
 
         static void Main(string[] args)
         {
+            //SQL.ReadCustomerToObj();
             SQL.CreateCustomer();
             //Customer.Create();
             //Customer Nicolai = new Customer(1, "Nicolai", "Friis", "asdvej 28", 3450, "Allerød", 34502329, "asd@asd.asd", DateTime.Now);
