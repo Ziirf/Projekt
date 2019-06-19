@@ -132,7 +132,7 @@ namespace Projekt
                     cmd.Parameters.AddWithValue("@customerID", customerID);
 
                     cmd.ExecuteNonQuery();
-         
+                //friis er stiv
                 } 
             con.Close();
         }
