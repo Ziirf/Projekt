@@ -14,8 +14,9 @@ namespace Projekt
             SQL.ReadCustomerToObj();
             foreach (Customer customer in Customer.customerList)
             {
-                Console.Write(customer.CustomerID + " ");
-                Console.WriteLine(customer.Firstname);
+                Console.Write(customer.CustomerID + "\t ");
+                Console.Write(customer.Firstname + "\t ");
+                Console.WriteLine(customer.City);
             }
 
 
