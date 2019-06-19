@@ -64,5 +64,24 @@ namespace Projekt
             set { fuelType = value; }
         }
 
+        private DateTime createdDate;
+        public DateTime CreatedDate
+        {
+            get { return createdDate; }
+            set { createdDate = value; }
+        }
+
+        public Car(int customerID, string vinNumber, string numberPlate, string carBrand, string carModel, string productionYear, int kmCount, string fuelType, DateTime createdDate)
+        {
+            CustomerID = customerID;
+            VinNumber = vinNumber;
+            NumberPlate = numberPlate;
+            CarBrand = carBrand;
+            CarModel = carModel;
+            ProductionYear = productionYear;
+            KmCount = kmCount;
+            FuelType = fuelType;
+            CreatedDate = createdDate;
+        }
     }
 }
