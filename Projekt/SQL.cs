@@ -121,9 +121,19 @@ namespace Projekt
             con.Close();
         }
 
-        public static void DeleteCustomer()
+        public static void DeleteCustomer(int customerID)
         {
+            con.Open();
+                string query = "DELETE FROM Customer WHERE customerID = @customerID";
 
+                using (SqlCommand cmd = new SqlCommand(query, con))
+                {
+                    cmd.Parameters.AddWithValue("@customerID", customerID);
+
+                    cmd.ExecuteNonQuery();
+         
+                } 
+            con.Close();
         }
     }
 }
