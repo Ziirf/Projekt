@@ -5,12 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Data;
+using System.IO;
 
 namespace Projekt
 {
     class SQL
     {
-        static SqlConnection con = new SqlConnection("Data Source=DESKTOP-8IO9ER9;Initial Catalog=AutoDB;Integrated Security=True");
+        static readonly string path = Path.GetFullPath(Path.Combine(Path.Combine(Environment.CurrentDirectory), @"..\..\"));
+        static readonly SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename= " + path + "MechanicDB.mdf ;Integrated Security=True");
+        //static SqlConnection con = new SqlConnection("Data Source=DESKTOP-8IO9ER9;Initial Catalog=AutoDB;Integrated Security=True");
 
         public static void ReadCustomerToObj()
         {
@@ -18,7 +21,8 @@ namespace Projekt
             // int customerID, string firstname, string lastname, string address, int zipCode, string city, int phoneNumber, string eMail
             con.Open();
 
-            string query = "SELECT customerID, firstname, lastname, [address], zipCode, phoneNumber, eMail, createdDate FROM Customer";
+            string query = "SELECT Customer.customerID, Customer.firstname, Customer.lastname, Customer.[address], Customer.zipCode, ZipAndCity.city, Customer.phoneNumber, Customer.eMail, Customer.createdDate FROM Customerleft join ZipAndCityon Customer.zipCode = ZipAndCity.zipCode; ";
+            //string query = "SELECT customerID, firstname, lastname, [address], zipCode, phoneNumber, eMail, createdDate FROM Customer";
 
             // Inserts the query into a data table
             SqlDataAdapter sda = new SqlDataAdapter(query, con);
@@ -63,33 +67,37 @@ namespace Projekt
             // Opens the connection
             SqlCommand cmd;
             con.Open();
-            string query = "INSERT INTO Customer(firstname, lastname, [address], zipCode, phoneNumber, email, ) VALUES (@firstName, @lastName, @phoneNumber, @eMail, GETDATE());";
+            string query = "INSERT INTO Customer(firstname, lastname, [address], zipCode, phoneNumber, email, createdDate) VALUES (@firstName, @lastName, @address, @zipCode, @phoneNumber, @eMail, GETDATE());";
 
             // Using SqlCommand to inject the variables into the query string
             using (cmd = new SqlCommand(query, con))
             {
-                cmd.Parameters.AddWithValue("@FirstName", firstName);
-                cmd.Parameters.AddWithValue("@LastName", lastName);
-                cmd.Parameters.AddWithValue("@PhoneNumber", phoneNumber);
-                cmd.Parameters.AddWithValue("@Email", email);
+                cmd.Parameters.AddWithValue("@firstName", firstname);
+                cmd.Parameters.AddWithValue("@lastName", lastname);
+                cmd.Parameters.AddWithValue("@address", address);
+                cmd.Parameters.AddWithValue("@zipCode", zipCode);
+                cmd.Parameters.AddWithValue("@phoneNumber", phoneNumber);
+                cmd.Parameters.AddWithValue("@eMail", eMail);
             }
             // Executes the query, and are therefore inserted into the database
             cmd.ExecuteNonQuery();
 
             // Pulls out the data for the newly made customer, to get back the information for the ID, date and status which created in SQL
-            query = "SELECT TOP 1 * FROM Customer ORDER BY CustomerID DESC";
+            // query = "SELECT TOP 1 * FROM Customer join ZipAndCityon Customer.zipCode = ZipAndCity.zipCode ORDER BY CustomerID DESC";
+            query = "SELECT TOP 1 Customer.customerID, Customer.firstname, Customer.lastname, Customer.[address], Customer.zipCode, ZipAndCity.city, Customer.phoneNumber, Customer.eMail, Customer.createdDate FROM Customer left join ZipAndCity on Customer.zipCode = ZipAndCity.zipCode ORDER BY CustomerID DESC ";
             SqlDataAdapter sda = new SqlDataAdapter(query, con);
 
             DataTable dt = new DataTable();
             sda.Fill(dt);
 
             DataRow dr = dt.Rows[0];
-            int customerID = Convert.ToInt32(dr["CustomerID"]);
-            DateTime creationDate = Convert.ToDateTime(dr["CreationDate"]);
-            string status = Convert.ToString(dr["Status"]);
+            int customerID = Convert.ToInt32(dr["customerID"]);
+            DateTime creationDate = Convert.ToDateTime(dr["createdDate"]);
+            string city = Convert.ToString(dr["city"]);
 
             // Creates an object and adds it to the customer list
-            Program.customerList.Add(new Customer(customerID, firstName, lastName, creationDate, phoneNumber, email, status));
+            Customer.customerList.Add(new Customer(customerID, firstname, lastname, address, zipCode, city, phoneNumber, eMail, creationDate));
+            //Program.customerList.Add(new Customer(customerID, firstName, lastName, creationDate, phoneNumber, email, status));
         }
 
         public static void UpdateCustomer()
