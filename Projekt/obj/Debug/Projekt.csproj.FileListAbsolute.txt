@@ -5,6 +5,5 @@ C:\Users\nfrii\OneDrive\Dokumenter\Mine Dokumenter\TEC Skole forløb\Hovedforlø
 C:\Users\nfrii\OneDrive\Dokumenter\Mine Dokumenter\TEC Skole forløb\Hovedforløb 1\Programmering\06 Projekt\Projekt\obj\Debug\Projekt.csproj.CoreCompileInputs.cache
 C:\Users\nfrii\OneDrive\Dokumenter\Mine Dokumenter\TEC Skole forløb\Hovedforløb 1\Programmering\06 Projekt\Projekt\obj\Debug\Projekt.exe
 C:\Users\nfrii\OneDrive\Dokumenter\Mine Dokumenter\TEC Skole forløb\Hovedforløb 1\Programmering\06 Projekt\Projekt\obj\Debug\Projekt.pdb
-C:\Users\nfrii\OneDrive\Dokumenter\Mine Dokumenter\TEC Skole forløb\Hovedforløb 1\Programmering\06 Projekt\Projekt\bin\Debug\AutoDB.mdf
 C:\Users\nfrii\OneDrive\Dokumenter\Mine Dokumenter\TEC Skole forløb\Hovedforløb 1\Programmering\06 Projekt\Projekt\bin\Debug\MechanicDB.mdf
 C:\Users\nfrii\OneDrive\Dokumenter\Mine Dokumenter\TEC Skole forløb\Hovedforløb 1\Programmering\06 Projekt\Projekt\bin\Debug\MechanicDB_log.ldf
