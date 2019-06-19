@@ -101,9 +101,25 @@ namespace Projekt
             //Program.customerList.Add(new Customer(customerID, firstName, lastName, creationDate, phoneNumber, email, status));
         }
 
-        public static void UpdateCustomer()
+        public static void UpdateCustomer(string firstname, string lastname, string address, int zipCode, int phoneNumber, string eMail, int customerID)
         {
+            con.Open();
+                string query = "UPDATE Customer SET firstname = @firstname, lastname = @lastname, [address] = @address, zipCode = @zipCode, phoneNumber = @phoneNumber, eMail = @eMail WHERE customerID = @customerID";
 
+                using (SqlCommand cmd = new SqlCommand(query, con))
+                {
+                    cmd.Parameters.AddWithValue("@firstname", firstname);
+                    cmd.Parameters.AddWithValue("@lastname", lastname);
+                    cmd.Parameters.AddWithValue("@address", address);
+                    cmd.Parameters.AddWithValue("@PzipCode", zipCode);
+                    cmd.Parameters.AddWithValue("@phoneNumber", phoneNumber);
+                    cmd.Parameters.AddWithValue("@eMail", eMail);
+                    cmd.Parameters.AddWithValue("@customerID", customerID);
+
+                    cmd.ExecuteNonQuery();
+         
+                } 
+            con.Close();
         }
 
         public static void DeleteCustomer()
