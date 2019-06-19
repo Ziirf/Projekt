@@ -21,7 +21,8 @@ namespace Projekt
             // int customerID, string firstname, string lastname, string address, int zipCode, string city, int phoneNumber, string eMail
             con.Open();
 
-            string query = "SELECT Customer.customerID, Customer.firstname, Customer.lastname, Customer.[address], Customer.zipCode, ZipAndCity.city, Customer.phoneNumber, Customer.eMail, Customer.createdDate FROM Customerleft join ZipAndCityon Customer.zipCode = ZipAndCity.zipCode; ";
+            string query = "SELECT Customer.customerID, Customer.firstname, Customer.lastname, Customer.[address], Customer.zipCode, ZipAndCity.city, Customer.phoneNumber, Customer.eMail, Customer.createdDate FROM Customer left join ZipAndCity on Customer.zipCode = ZipAndCity.zipCode;";
+            //string query = "SELECT Customer.customerID, Customer.firstname, Customer.lastname, Customer.[address], Customer.zipCode, ZipAndCity.city, Customer.phoneNumber, Customer.eMail, Customer.createdDate FROM Customerleft join ZipAndCityon Customer.zipCode = ZipAndCity.zipCode; ";
             //string query = "SELECT customerID, firstname, lastname, [address], zipCode, phoneNumber, eMail, createdDate FROM Customer";
 
             // Inserts the query into a data table
@@ -36,7 +37,7 @@ namespace Projekt
                 int customerID = Convert.ToInt32(dr["customerID"]);
                 string firstName = dr["firstName"].ToString();
                 string lastName = dr["lastName"].ToString();
-                string address = dr["[address]"].ToString();
+                string address = dr["address"].ToString();
                 int zipCode = Convert.ToInt32(dr["zipCode"]);
                 //string city = dr["city"].ToString();
                 int phoneNumber = Convert.ToInt32(dr["phoneNumber"]);
