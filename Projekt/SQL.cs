@@ -17,14 +17,10 @@ namespace Projekt
 
         public static void ReadCustomerToObj()
         {
-
-            // int customerID, string firstname, string lastname, string address, int zipCode, string city, int phoneNumber, string eMail
             con.Open();
 
             string query = "SELECT Customer.customerID, Customer.firstname, Customer.lastname, Customer.[address], Customer.zipCode, ZipAndCity.city, Customer.phoneNumber, Customer.eMail, Customer.createdDate FROM Customer left join ZipAndCity on Customer.zipCode = ZipAndCity.zipCode;";
-            //string query = "SELECT Customer.customerID, Customer.firstname, Customer.lastname, Customer.[address], Customer.zipCode, ZipAndCity.city, Customer.phoneNumber, Customer.eMail, Customer.createdDate FROM Customerleft join ZipAndCityon Customer.zipCode = ZipAndCity.zipCode; ";
-            //string query = "SELECT customerID, firstname, lastname, [address], zipCode, phoneNumber, eMail, createdDate FROM Customer";
-
+            
             // Inserts the query into a data table
             SqlDataAdapter sda = new SqlDataAdapter(query, con);
             DataTable dt = new DataTable();
@@ -39,32 +35,18 @@ namespace Projekt
                 string lastName = dr["lastName"].ToString();
                 string address = dr["address"].ToString();
                 int zipCode = Convert.ToInt32(dr["zipCode"]);
-                //string city = dr["city"].ToString();
+                string city = dr["city"].ToString();
                 int phoneNumber = Convert.ToInt32(dr["phoneNumber"]);
                 string eMail = dr["eMail"].ToString();
                 DateTime createdDate = Convert.ToDateTime(dr["createdDate"]);
-                Customer.customerList.Add(new Customer(customerID, firstName, lastName, address, zipCode, "placeholder", phoneNumber, eMail, createdDate));
+                Customer.customerList.Add(new Customer(customerID, firstName, lastName, address, zipCode, city, phoneNumber, eMail, createdDate));
             }
 
             con.Close();
         }
 
-        public static void CreateCustomer()
+        public static void CreateCustomer(string firstname, string lastname, string address, int zipCode, int phoneNumber, string eMail)
         {
-            // Takes the info from the textbox and stores it in variables
-            Console.Write("Customer firstname:");
-            string firstname = Console.ReadLine();
-            Console.Write("Customer lastname:");
-            string lastname = Console.ReadLine();
-            Console.Write("Customer address:");
-            string address = Console.ReadLine();
-            Console.Write("Customer zip code:");
-            int zipCode = Convert.ToInt32(Console.ReadLine());
-            Console.Write("Customer Phonenumber:");
-            int phoneNumber = Convert.ToInt32(Console.ReadLine());
-            Console.Write("Customer e-mail:");
-            string eMail = Console.ReadLine();
-
             // Opens the connection
             SqlCommand cmd;
             con.Open();
@@ -84,7 +66,6 @@ namespace Projekt
             cmd.ExecuteNonQuery();
 
             // Pulls out the data for the newly made customer, to get back the information for the ID, date and status which created in SQL
-            // query = "SELECT TOP 1 * FROM Customer join ZipAndCityon Customer.zipCode = ZipAndCity.zipCode ORDER BY CustomerID DESC";
             query = "SELECT TOP 1 Customer.customerID, Customer.firstname, Customer.lastname, Customer.[address], Customer.zipCode, ZipAndCity.city, Customer.phoneNumber, Customer.eMail, Customer.createdDate FROM Customer left join ZipAndCity on Customer.zipCode = ZipAndCity.zipCode ORDER BY CustomerID DESC ";
             SqlDataAdapter sda = new SqlDataAdapter(query, con);
 
@@ -98,7 +79,6 @@ namespace Projekt
 
             // Creates an object and adds it to the customer list
             Customer.customerList.Add(new Customer(customerID, firstname, lastname, address, zipCode, city, phoneNumber, eMail, creationDate));
-            //Program.customerList.Add(new Customer(customerID, firstName, lastName, creationDate, phoneNumber, email, status));
         }
 
         public static void UpdateCustomer(string firstname, string lastname, string address, int zipCode, int phoneNumber, string eMail, int customerID)
