@@ -136,5 +136,47 @@ namespace Projekt
                 } 
             con.Close();
         }
+
+        public static void ReadShopVisit()
+        {
+    
+        }
+
+        public static void CreateShopVisit()
+        {
+            
+        }
+
+        public static void UpdateShopVisit()
+        {
+
+        }
+
+        public static void DeleteShopVisit()
+        {
+
+        }
+
+         public static void ReadCar()
+        {
+    
+        }
+
+        public static void CreateCar()
+        {
+            
+        }
+
+        public static void UpdateCar()
+        {
+
+        }
+
+        public static void DeleteCar()
+        {
+
+        }
+
+
     }
 }
