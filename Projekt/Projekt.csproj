@@ -70,9 +70,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="AutoDB.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="MechanicDB.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
