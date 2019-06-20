@@ -20,7 +20,7 @@ namespace Projekt
         {
             con.Open();
 
-            string query = "SELECT Customer.customerID, Customer.firstname, Customer.lastname, Customer.[address], Customer.zipCode, ZipAndCity.city, Customer.phoneNumber, Customer.eMail, Customer.createdDate FROM Customer left join ZipAndCity on Customer.zipCode = ZipAndCity.zipCode;";
+            string query = "SELECT customerID, firstname, lastname, [address], Customer.zipCode, ZipAndCity.city, phoneNumber, eMail, createdDate FROM Customer left join ZipAndCity on Customer.zipCode = ZipAndCity.zipCode;";
 
             // Inserts the query into a data table
             SqlDataAdapter sda = new SqlDataAdapter(query, con);
@@ -67,7 +67,7 @@ namespace Projekt
             cmd.ExecuteNonQuery();
 
             // Pulls out the data for the newly made customer, to get back the information for the ID, date and status which created in SQL
-            query = "SELECT TOP 1 Customer.customerID, Customer.firstname, Customer.lastname, Customer.[address], Customer.zipCode, ZipAndCity.city, Customer.phoneNumber, Customer.eMail, Customer.createdDate FROM Customer left join ZipAndCity on Customer.zipCode = ZipAndCity.zipCode ORDER BY CustomerID DESC ";
+            query = "SELECT TOP 1 customerID, firstname, lastname, [address], Customer.zipCode, ZipAndCity.city, phoneNumber, eMail, createdDate FROM Customer left join ZipAndCity on Customer.zipCode = ZipAndCity.zipCode ORDER BY CustomerID DESC ";
             SqlDataAdapter sda = new SqlDataAdapter(query, con);
 
             DataTable dt = new DataTable();
@@ -80,6 +80,7 @@ namespace Projekt
 
             // Creates an object and adds it to the customer list
             Customer.customerList.Add(new Customer(customerID, firstname, lastname, address, zipCode, city, phoneNumber, eMail, creationDate));
+            con.Close();
         }
 
         public static void UpdateCustomer(string firstname, string lastname, string address, int zipCode, int phoneNumber, string eMail, int customerID)
@@ -118,7 +119,7 @@ namespace Projekt
         }
 
 
-        public static void ReadShopVisitToObj(/*int visitID, DateTime dateTimeVisit, string mechanic, string vinNumber, int kmCount, string issue, string notes*/)
+        public static void ReadShopVisitToObj()
         {
             con.Open();
 
@@ -168,7 +169,6 @@ namespace Projekt
             cmd.ExecuteNonQuery();
 
             // Pulls out the data for the newly made customer, to get back the information for the ID, date and status which created in SQL
-
             query = "SELECT TOP 1 ShopVisit.visitID, ShopVisit.dateTimeVisit, ShopVisit.mechanic, ShopVisit.vinNumber, ShopVisit.kmCount, ShopVisit.issue, ShopVisit.notes FROM ShopVisit ORDER BY visitID DESC;";
             SqlDataAdapter sda = new SqlDataAdapter(query, con);
 
@@ -181,11 +181,12 @@ namespace Projekt
 
 
             // Creates an object and adds it to the customer list
-            
+
             ShopVisit.ShopVisitList.Add(new ShopVisit(visitID, dateTimeVisit, mechanic, vinNumber, kmCount, issue, notes));
+            con.Close();
         }
 
-        
+
         public static void UpdateShopVisit(int visitID, DateTime dateTimeVisit, string mechanic, string vinNumber, int kmCount, string issue, string notes)
         {
             con.Open();
@@ -202,10 +203,10 @@ namespace Projekt
                 cmd.Parameters.AddWithValue("@visitID", visitID);
 
                 cmd.ExecuteNonQuery();
-            } 
+            }
             con.Close();
         }
-        
+
         public static void DeleteShopVisit(int visitID)
         {
             con.Open();
@@ -220,11 +221,11 @@ namespace Projekt
             con.Close();
         }
 
-        public static void ReadCarToObj(/*int visitID, DateTime dateTimeVisit, string mechanic, string vinNumber, int kmCount, string issue, string notes*/)
+        public static void ReadCarToObj()
         {
             con.Open();
 
-            string query = "SELECT ShopVisit.visitID, ShopVisit.dateTimeVisit, ShopVisit.mechanic, ShopVisit.vinNumber, ShopVisit.kmCount, ShopVisit.issue, ShopVisit.notes FROM ShopVisit;";
+            string query = "SELECT car.customerID, car.vinNumber, car.numberPlate, car.carBrand, car.carModel, car.productionYear, car.kmCount, car.fuelType, car.createdDate FROM Car;";
 
             // Inserts the query into a data table
             SqlDataAdapter sda = new SqlDataAdapter(query, con);
@@ -233,76 +234,85 @@ namespace Projekt
 
             // A loop used to export data from the SQL database into objects
             for (int i = 0; i < dt.Rows.Count; i++)
-            {
+            { //int , string , string , string , string , int , int , string 
                 DataRow dr = dt.Rows[i];
-                int visitID = Convert.ToInt32(dr["visitID"]);
-                DateTime dateTimeVisit = Convert.ToDateTime(dr["dateTimeVisit"]);
-                string mechanic = dr["mechanic"].ToString();
+                int customerID = Convert.ToInt32(dr["customerID"]);
                 string vinNumber = dr["vinNumber"].ToString();
+                string numberPlate = dr["numberPlate"].ToString();
+                string carBrand = dr["carBrand"].ToString();
+                string carModel = dr["carModel"].ToString();
+                int productionYear = Convert.ToInt32(dr["productionYear"]);
                 int kmCount = Convert.ToInt32(dr["kmCount"]);
-                string issue = dr["issue"].ToString();
-                string notes = dr["notes"].ToString();
+                string fuelType = dr["fuelType"].ToString();                
+                DateTime createdDate = Convert.ToDateTime(dr["createdDate"]);
 
-                ShopVisit.ShopVisitList.Add(new ShopVisit(visitID, dateTimeVisit, mechanic, vinNumber, kmCount, issue, notes));
+                Car.CarList.Add(new Car(customerID, vinNumber, numberPlate, carBrand, carModel, productionYear, kmCount, fuelType, createdDate));
             }
 
             con.Close();
         }
 
 
-        public static void CreateCar(string mechanic, string vinNumber, int kmCount, string issue, string notes)
+        public static void CreateCar(int customerID, string vinNumber, string numberPlate, string carBrand, string carModel, int productionYear, int kmCount, string fuelType)
         {
             // Opens the connection
             SqlCommand cmd;
             con.Open();
-            string query = "INSERT INTO ShopVisit(dateTimeVisit, mechanic, vinNumber, kmCount, issue, notes) VALUES (GETDATE(), @mechanic, @vinNumber, @kmCount, @issue, @notes);";
+            string query = "INSERT INTO Car(customerID, vinNumber, numberPlate, carBrand, carModel, productionYear, kmCount, fuelType, createdDate) VALUES (@customerID, @vinNumber, @numberPlate, @carBrand, @carModel, @productionYear, @kmCount, @fuelType, GETDATE());";
 
             // Using SqlCommand to inject the variables into the query string
             using (cmd = new SqlCommand(query, con))
             {
-                cmd.Parameters.AddWithValue("@mechanic", mechanic);
+                cmd.Parameters.AddWithValue("@customerID", customerID);
                 cmd.Parameters.AddWithValue("@vinNumber", vinNumber);
-                cmd.Parameters.AddWithValue("@kmCount", kmCount);
-                cmd.Parameters.AddWithValue("@issue", issue);
-                cmd.Parameters.AddWithValue("@notes", notes);
-            }
-            // Executes the query, and are therefore inserted into the database
-            cmd.ExecuteNonQuery();
-
-            // Pulls out the data for the newly made customer, to get back the information for the ID, date and status which created in SQL
-
-            query = "SELECT TOP 1 ShopVisit.visitID, ShopVisit.dateTimeVisit, ShopVisit.mechanic, ShopVisit.vinNumber, ShopVisit.kmCount, ShopVisit.issue, ShopVisit.notes FROM ShopVisit ORDER BY visitID DESC;";
-            SqlDataAdapter sda = new SqlDataAdapter(query, con);
-
-            DataTable dt = new DataTable();
-            sda.Fill(dt);
-
-            DataRow dr = dt.Rows[0];
-            int visitID = Convert.ToInt32(dr["visitID"]);
-            DateTime dateTimeVisit = Convert.ToDateTime(dr["dateTimeVisit"]);
-
-
-            // Creates an object and adds it to the customer list
-
-            ShopVisit.ShopVisitList.Add(new ShopVisit(visitID, dateTimeVisit, mechanic, vinNumber, kmCount, issue, notes));
-        }
-
-         
-        public static void UpdateCar(int customerID, string numberPlate, string carBrand, string carModel, int productionYear, int kmCount, string fuelType, DateTime createdDate)
-        {
-            con.Open();
-            string query = "UPDATE Car SET numberPlate = @numberPlate, carBrand = @carBrand, carModel = @carModel, productionYear = @productionYear, kmCount = @kmCount, fuelType = @fuelType, createdDate = @createdDate WHERE customerID = @customerID";
-
-            using (SqlCommand cmd = new SqlCommand(query, con))
-            {
                 cmd.Parameters.AddWithValue("@numberPlate", numberPlate);
                 cmd.Parameters.AddWithValue("@carBrand", carBrand);
                 cmd.Parameters.AddWithValue("@carModel", carModel);
                 cmd.Parameters.AddWithValue("@productionYear", productionYear);
                 cmd.Parameters.AddWithValue("@kmCount", kmCount);
                 cmd.Parameters.AddWithValue("@fuelType", fuelType);
-                cmd.Parameters.AddWithValue("@createdDate", createdDate);
+
+            }
+            // Executes the query, and are therefore inserted into the database
+            cmd.ExecuteNonQuery();
+
+            // Pulls out the data for the newly made customer, to get back the information for the ID, date and status which created in SQL
+
+            query = "SELECT TOP 1 customerID, vinNumber, numberPlate, carBrand, carModel, productionYear, kmCount, fuelType, createdDate FROM Car WHERE vinNumber = @vinNumber;";
+            SqlDataAdapter sda = new SqlDataAdapter(query, con);
+            sda.SelectCommand.Parameters.AddWithValue("@vinNumber", vinNumber);
+
+            DataTable dt = new DataTable();
+            sda.Fill(dt);
+
+            DataRow dr = dt.Rows[0];
+
+            DateTime createdDate = Convert.ToDateTime(dr["createdDate"]);
+
+
+            // Creates an object and adds it to the customer list
+
+            Car.CarList.Add(new Car(customerID, vinNumber, numberPlate, carBrand, carModel, productionYear, kmCount, fuelType, createdDate));
+            con.Close();
+        }
+
+
+        public static void UpdateCar(int customerID, string vinNumber,string numberPlate, string carBrand, string carModel, int productionYear, int kmCount, string fuelType, DateTime createdDate)
+        {
+            con.Open();
+            string query = "UPDATE Car SET customerID = @customerID, vinNumber = @ vinNumber, numberPlate = @numberPlate, carBrand = @carBrand, carModel = @carModel, productionYear = @productionYear, kmCount = @kmCount, fuelType = @fuelType, createdDate = @createdDate WHERE vinNumber = @vinNumber";
+            
+            using (SqlCommand cmd = new SqlCommand(query, con))
+            {
                 cmd.Parameters.AddWithValue("@customerID", customerID);
+                cmd.Parameters.AddWithValue("@vinNumber", vinNumber);
+                cmd.Parameters.AddWithValue("@numberPlate", numberPlate);
+                cmd.Parameters.AddWithValue("@carBrand", carBrand); 
+                cmd.Parameters.AddWithValue("@carModel", carModel);
+                cmd.Parameters.AddWithValue("@productionYear", productionYear);
+                cmd.Parameters.AddWithValue("@kmCount", kmCount);
+                cmd.Parameters.AddWithValue("@fuelType", fuelType);
+                cmd.Parameters.AddWithValue("@createdDate", createdDate);                
 
                 cmd.ExecuteNonQuery();
             }
@@ -322,7 +332,5 @@ namespace Projekt
             }
             con.Close();
         }
-
-
     }
 }

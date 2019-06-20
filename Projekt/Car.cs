@@ -8,8 +8,6 @@ namespace Projekt
 {
     class Car
     {
-        public static List<Car> CarList = new List<Car>();
-
         private int customerID;
         public int CustomerID
         {
@@ -45,8 +43,8 @@ namespace Projekt
             set { carModel = value; }
         }
 
-        private string productionYear;
-        public string ProductionYear
+        private int productionYear;
+        public int ProductionYear
         {
             get { return productionYear; }
             set { productionYear = value; }
@@ -73,7 +71,7 @@ namespace Projekt
             set { createdDate = value; }
         }
 
-        public Car(int customerID, string vinNumber, string numberPlate, string carBrand, string carModel, string productionYear, int kmCount, string fuelType, DateTime createdDate)
+        public Car(int customerID, string vinNumber, string numberPlate, string carBrand, string carModel, int productionYear, int kmCount, string fuelType, DateTime createdDate)
         {
             CustomerID = customerID;
             VinNumber = vinNumber;
