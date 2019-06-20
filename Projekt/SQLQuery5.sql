@@ -97,3 +97,7 @@ SELECT * FROM ZipAndCity
 
 SELECT Customer.customerID, Customer.firstname, Customer.lastname, Customer.[address], Customer.zipCode, ZipAndCity.city, Customer.phoneNumber, Customer.eMail, Customer.createdDate FROM Customer left join ZipAndCity
 on Customer.zipCode = ZipAndCity.zipCode;
+
+
+ALTER TABLE ShopVisit
+ADD visitID int identity primary key;

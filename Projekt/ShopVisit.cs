@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Projekt;
 
 namespace Projekt
 {
     class ShopVisit
     {
+        public static List<ShopVisit> ShopVisitList = new List<ShopVisit>();
+
         private int visitID;
         public int VisitID
         {
@@ -29,8 +32,8 @@ namespace Projekt
             set { mechanic = value; }
         }
 
-        private int vinNumber;
-        public int VinNumber
+        private string vinNumber;
+        public string VinNumber  //ÆNDRET FRA INT TIL STRING
         {
             get { return vinNumber; }
             set { vinNumber = value; }
@@ -57,7 +60,7 @@ namespace Projekt
             set { notes = value; }
         }
 
-        public ShopVisit(int visitID, DateTime dateTimeVisit, string mechanic, int vinNumber, int kmCount, string issue, string notes)
+        public ShopVisit(int visitID, DateTime dateTimeVisit, string mechanic, string vinNumber, int kmCount, string issue, string notes)
         {
             VisitID = visitID;
             DateTimeVisit = dateTimeVisit;

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Data;
 using System.IO;
+using Projekt;
 
 namespace Projekt
 {
@@ -105,22 +106,106 @@ namespace Projekt
         public static void DeleteCustomer(int customerID)
         {
             con.Open();
-                string query = "DELETE FROM Customer WHERE customerID = @customerID";
+            string query = "DELETE FROM Customer WHERE customerID = @customerID";
 
-                using (SqlCommand cmd = new SqlCommand(query, con))
-                {
-                    cmd.Parameters.AddWithValue("@customerID", customerID);
+            using (SqlCommand cmd = new SqlCommand(query, con))
+            {
+                cmd.Parameters.AddWithValue("@customerID", customerID);
 
-                    cmd.ExecuteNonQuery();
-                //friis er stiv
-                } 
+                cmd.ExecuteNonQuery();
+            } 
             con.Close();
         }
 
-        public static void ReadShopVisit()
+          
+        public static void ReadShopVisit(int visitID, DateTime dateTimeVisit, string mechanic, string vinNumber, int kmCount, string issue, string notes)
         {
-    
+            con.Open();
+
+            string query = "SELECT ShopVisit.visitID, ShopVisit.dateTimeVisit, ShopVisit.mechanic, ShopVisit.vinNumber, ShopVisit.kmCount, ShopVisit.issue, ShopVisit.notes FROM ShopVisit;";
+            
+            // Inserts the query into a data table
+            SqlDataAdapter sda = new SqlDataAdapter(query, con);
+            DataTable dt = new DataTable();
+            sda.Fill(dt);
+
+            // A loop used to export data from the SQL database into objects
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                DataRow dr = dt.Rows[i];
+                visitID = Convert.ToInt32(dr["visitID"]);
+                dateTimeVisit = Convert.ToDateTime(dr["dateTimeVisit"]);
+                mechanic = dr["mechanic"].ToString();
+                vinNumber = dr["vinNumber"].ToString();
+                kmCount = Convert.ToInt32(dr["kmCount"]);
+                issue = dr["issue"].ToString();               
+                notes = dr["notes"].ToString();
+                
+                ShopVisit.ShopVisitList.Add(new ShopVisit(visitID, dateTimeVisit, mechanic, vinNumber, kmCount, issue, notes));
+            }
+
+            con.Close();
         }
+
+        
+        public static void CreateShopVisit(DateTime dateTimeVisit, string mechanic, string vinNumber, int kmCount, string issue, string notes)
+        {
+            // Opens the connection
+            SqlCommand cmd;
+            con.Open();
+            string query = "INSERT INTO ShopVisit(dateTimeVisit, mechanic, vinNumber, kmCount, issue, notes) VALUES (GETDATE(), @mechanic, @vinNumber, @kmCount, @issue, @notes);";
+
+            // Using SqlCommand to inject the variables into the query string
+            using (cmd = new SqlCommand(query, con))
+            {
+                cmd.Parameters.AddWithValue("@mechanic", mechanic);
+                cmd.Parameters.AddWithValue("@vinNumber", vinNumber);
+                cmd.Parameters.AddWithValue("@kmCount", kmCount);
+                cmd.Parameters.AddWithValue("@issue", issue);
+                cmd.Parameters.AddWithValue("@notes", notes);
+            }
+            // Executes the query, and are therefore inserted into the database
+            cmd.ExecuteNonQuery();
+
+            // Pulls out the data for the newly made customer, to get back the information for the ID, date and status which created in SQL
+            
+            query = "SELECT TOP 1 ShopVisit.visitID, ShopVisit.dateTimeVisit, ShopVisit.mechanic, ShopVisit.vinNumber, ShopVisit.kmCount, ShopVisit.issue, ShopVisit.notes FROM ShopVisit ORDER BY CustomerID DESC;";
+            SqlDataAdapter sda = new SqlDataAdapter(query, con);
+
+            DataTable dt = new DataTable();
+            sda.Fill(dt);
+
+            DataRow dr = dt.Rows[0];
+            int visitID = Convert.ToInt32(dr["visitID"]);
+            DateTime dateTimeVisit = Convert.ToDateTime(dr["dateTimeVisit"]);
+            
+
+            // Creates an object and adds it to the customer list
+            shop
+            //ShopVisit.ShopVisitList.Add(new (visitID, dateTimeVisit, mechanic, vinNumber, kmCount, issue, notes));
+        }
+        
+        /*
+        public static void UpdateShopVisit(int visitID, DateTime dateTimeVisit, string mechanic, string vinNumber, int kmCount, string issue, string notes)
+        {
+            con.Open();
+            string query = "UPDATE Customer SET firstname = @firstname, lastname = @lastname, [address] = @address, zipCode = @zipCode, phoneNumber = @phoneNumber, eMail = @eMail WHERE customerID = @customerID";
+
+            using (SqlCommand cmd = new SqlCommand(query, con))
+            {
+                cmd.Parameters.AddWithValue("@firstname", firstname);
+                cmd.Parameters.AddWithValue("@lastname", lastname);
+                cmd.Parameters.AddWithValue("@address", address);
+                cmd.Parameters.AddWithValue("@PzipCode", zipCode);
+                cmd.Parameters.AddWithValue("@phoneNumber", phoneNumber);
+                cmd.Parameters.AddWithValue("@eMail", eMail);
+                cmd.Parameters.AddWithValue("@customerID", customerID);
+
+                cmd.ExecuteNonQuery();
+            } 
+            con.Close();
+        }
+        */
 
         public static void CreateShopVisit()
         {
@@ -132,12 +217,21 @@ namespace Projekt
 
         }
 
-        public static void DeleteShopVisit()
+        public static void DeleteShopVisit(int visitID)
         {
+            con.Open();
+            string query = "DELETE FROM Car WHERE visitID = @visitID";
 
+            using (SqlCommand cmd = new SqlCommand(query, con))
+            {
+                cmd.Parameters.AddWithValue("@visitID", visitID);
+
+                cmd.ExecuteNonQuery();
+            } 
+            con.Close();
         }
 
-         public static void ReadCar()
+        public static void ReadCar()
         {
     
         }
@@ -152,9 +246,18 @@ namespace Projekt
 
         }
 
-        public static void DeleteCar()
+        public static void DeleteCar(string vinNumber)
         {
+            con.Open();
+            string query = "DELETE FROM Car WHERE vinNumber = @vinNumber";
 
+            using (SqlCommand cmd = new SqlCommand(query, con))
+            {
+                cmd.Parameters.AddWithValue("@vinNumber", vinNumber);
+
+                cmd.ExecuteNonQuery();
+            } 
+            con.Close();
         }
 
 
