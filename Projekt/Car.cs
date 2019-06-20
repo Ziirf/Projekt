@@ -8,6 +8,8 @@ namespace Projekt
 {
     class Car
     {
+        public static List<Car> CarList = new List<Car>();
+
         private int customerID;
         public int CustomerID
         {
