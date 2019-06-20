@@ -118,7 +118,7 @@ namespace Projekt
         }
 
 
-        public static void ReadShopVisit(int visitID, DateTime dateTimeVisit, string mechanic, string vinNumber, int kmCount, string issue, string notes)
+        public static void ReadShopVisitToObj(/*int visitID, DateTime dateTimeVisit, string mechanic, string vinNumber, int kmCount, string issue, string notes*/)
         {
             con.Open();
 
@@ -133,13 +133,13 @@ namespace Projekt
             for (int i = 0; i < dt.Rows.Count; i++)
             {
                 DataRow dr = dt.Rows[i];
-                visitID = Convert.ToInt32(dr["visitID"]);
-                dateTimeVisit = Convert.ToDateTime(dr["dateTimeVisit"]);
-                mechanic = dr["mechanic"].ToString();
-                vinNumber = dr["vinNumber"].ToString();
-                kmCount = Convert.ToInt32(dr["kmCount"]);
-                issue = dr["issue"].ToString();
-                notes = dr["notes"].ToString();
+                int visitID = Convert.ToInt32(dr["visitID"]);
+                DateTime dateTimeVisit = Convert.ToDateTime(dr["dateTimeVisit"]);
+                string mechanic = dr["mechanic"].ToString();
+                string vinNumber = dr["vinNumber"].ToString();
+                int kmCount = Convert.ToInt32(dr["kmCount"]);
+                string issue = dr["issue"].ToString();
+                string notes = dr["notes"].ToString();
 
                 ShopVisit.ShopVisitList.Add(new ShopVisit(visitID, dateTimeVisit, mechanic, vinNumber, kmCount, issue, notes));
             }
@@ -148,7 +148,7 @@ namespace Projekt
         }
 
 
-        public static void CreateShopVisit(DateTime dateTimeVisit, string mechanic, string vinNumber, int kmCount, string issue, string notes)
+        public static void CreateShopVisit(string mechanic, string vinNumber, int kmCount, string issue, string notes)
         {
             // Opens the connection
             SqlCommand cmd;
@@ -169,7 +169,7 @@ namespace Projekt
 
             // Pulls out the data for the newly made customer, to get back the information for the ID, date and status which created in SQL
 
-            query = "SELECT TOP 1 ShopVisit.visitID, ShopVisit.dateTimeVisit, ShopVisit.mechanic, ShopVisit.vinNumber, ShopVisit.kmCount, ShopVisit.issue, ShopVisit.notes FROM ShopVisit ORDER BY CustomerID DESC;";
+            query = "SELECT TOP 1 ShopVisit.visitID, ShopVisit.dateTimeVisit, ShopVisit.mechanic, ShopVisit.vinNumber, ShopVisit.kmCount, ShopVisit.issue, ShopVisit.notes FROM ShopVisit ORDER BY visitID DESC;";
             SqlDataAdapter sda = new SqlDataAdapter(query, con);
 
             DataTable dt = new DataTable();
@@ -177,12 +177,12 @@ namespace Projekt
 
             DataRow dr = dt.Rows[0];
             int visitID = Convert.ToInt32(dr["visitID"]);
-            dateTimeVisit = Convert.ToDateTime(dr["dateTimeVisit"]);
+            DateTime dateTimeVisit = Convert.ToDateTime(dr["dateTimeVisit"]);
 
 
             // Creates an object and adds it to the customer list
             
-            //ShopVisit.ShopVisitList.Add(new (visitID, dateTimeVisit, mechanic, vinNumber, kmCount, issue, notes));
+            ShopVisit.ShopVisitList.Add(new ShopVisit(visitID, dateTimeVisit, mechanic, vinNumber, kmCount, issue, notes));
         }
 
         /*
