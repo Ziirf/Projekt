@@ -338,3 +338,6 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+.vs/06 Projekt/v16/Server/sqlite3/storage.ide
+.vs/06 Projekt/v16/Server/sqlite3/storage.ide-shm
+.vs/06 Projekt/v16/Server/sqlite3/storage.ide-wal
