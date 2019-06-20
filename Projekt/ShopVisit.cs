@@ -9,7 +9,7 @@ namespace Projekt
 {
     class ShopVisit
     {
-        public static List<ShopVisit> ShopVisitList = new List<ShopVisit>();
+        public static List<ShopVisit> shopVisitList = new List<ShopVisit>();
 
         private int visitID;
         public int VisitID

@@ -142,7 +142,7 @@ namespace Projekt
                 string issue = dr["issue"].ToString();
                 string notes = dr["notes"].ToString();
 
-                ShopVisit.ShopVisitList.Add(new ShopVisit(visitID, dateTimeVisit, mechanic, vinNumber, kmCount, issue, notes));
+                ShopVisit.shopVisitList.Add(new ShopVisit(visitID, dateTimeVisit, mechanic, vinNumber, kmCount, issue, notes));
             }
 
             con.Close();
@@ -182,7 +182,7 @@ namespace Projekt
 
             // Creates an object and adds it to the customer list
 
-            ShopVisit.ShopVisitList.Add(new ShopVisit(visitID, dateTimeVisit, mechanic, vinNumber, kmCount, issue, notes));
+            ShopVisit.shopVisitList.Add(new ShopVisit(visitID, dateTimeVisit, mechanic, vinNumber, kmCount, issue, notes));
             con.Close();
         }
 
@@ -246,7 +246,7 @@ namespace Projekt
                 string fuelType = dr["fuelType"].ToString();                
                 DateTime createdDate = Convert.ToDateTime(dr["createdDate"]);
 
-                Car.CarList.Add(new Car(customerID, vinNumber, numberPlate, carBrand, carModel, productionYear, kmCount, fuelType, createdDate));
+                Car.carList.Add(new Car(customerID, vinNumber, numberPlate, carBrand, carModel, productionYear, kmCount, fuelType, createdDate));
             }
 
             con.Close();
@@ -292,7 +292,7 @@ namespace Projekt
 
             // Creates an object and adds it to the customer list
 
-            Car.CarList.Add(new Car(customerID, vinNumber, numberPlate, carBrand, carModel, productionYear, kmCount, fuelType, createdDate));
+            Car.carList.Add(new Car(customerID, vinNumber, numberPlate, carBrand, carModel, productionYear, kmCount, fuelType, createdDate));
             con.Close();
         }
 

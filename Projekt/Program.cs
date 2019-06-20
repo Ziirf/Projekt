@@ -21,14 +21,14 @@ namespace Projekt
                 Console.Write(customer.Firstname + "\t ");
                 Console.WriteLine(customer.City);
             }
-            foreach (Car car in Car.CarList)
+            foreach (Car car in Car.carList)
             {
                 Console.Write(car.VinNumber + "\t ");
                 Console.Write(car.CustomerID + "\t ");
                 Console.WriteLine(car.KmCount);
             }
 
-            foreach (ShopVisit visit in ShopVisit.ShopVisitList)
+            foreach (ShopVisit visit in ShopVisit.shopVisitList)
             {
                 Console.Write(visit.VinNumber + "\t");
                 Console.WriteLine(visit.VisitID);
