@@ -21,7 +21,7 @@ namespace Projekt
             con.Open();
 
             string query = "SELECT Customer.customerID, Customer.firstname, Customer.lastname, Customer.[address], Customer.zipCode, ZipAndCity.city, Customer.phoneNumber, Customer.eMail, Customer.createdDate FROM Customer left join ZipAndCity on Customer.zipCode = ZipAndCity.zipCode;";
-            
+
             // Inserts the query into a data table
             SqlDataAdapter sda = new SqlDataAdapter(query, con);
             DataTable dt = new DataTable();
@@ -85,21 +85,21 @@ namespace Projekt
         public static void UpdateCustomer(string firstname, string lastname, string address, int zipCode, int phoneNumber, string eMail, int customerID)
         {
             con.Open();
-                string query = "UPDATE Customer SET firstname = @firstname, lastname = @lastname, [address] = @address, zipCode = @zipCode, phoneNumber = @phoneNumber, eMail = @eMail WHERE customerID = @customerID";
+            string query = "UPDATE Customer SET firstname = @firstname, lastname = @lastname, [address] = @address, zipCode = @zipCode, phoneNumber = @phoneNumber, eMail = @eMail WHERE customerID = @customerID";
 
-                using (SqlCommand cmd = new SqlCommand(query, con))
-                {
-                    cmd.Parameters.AddWithValue("@firstname", firstname);
-                    cmd.Parameters.AddWithValue("@lastname", lastname);
-                    cmd.Parameters.AddWithValue("@address", address);
-                    cmd.Parameters.AddWithValue("@PzipCode", zipCode);
-                    cmd.Parameters.AddWithValue("@phoneNumber", phoneNumber);
-                    cmd.Parameters.AddWithValue("@eMail", eMail);
-                    cmd.Parameters.AddWithValue("@customerID", customerID);
+            using (SqlCommand cmd = new SqlCommand(query, con))
+            {
+                cmd.Parameters.AddWithValue("@firstname", firstname);
+                cmd.Parameters.AddWithValue("@lastname", lastname);
+                cmd.Parameters.AddWithValue("@address", address);
+                cmd.Parameters.AddWithValue("@PzipCode", zipCode);
+                cmd.Parameters.AddWithValue("@phoneNumber", phoneNumber);
+                cmd.Parameters.AddWithValue("@eMail", eMail);
+                cmd.Parameters.AddWithValue("@customerID", customerID);
 
-                    cmd.ExecuteNonQuery();
-         
-                } 
+                cmd.ExecuteNonQuery();
+
+            }
             con.Close();
         }
 
@@ -113,17 +113,17 @@ namespace Projekt
                 cmd.Parameters.AddWithValue("@customerID", customerID);
 
                 cmd.ExecuteNonQuery();
-            } 
+            }
             con.Close();
         }
 
-          
+
         public static void ReadShopVisit(int visitID, DateTime dateTimeVisit, string mechanic, string vinNumber, int kmCount, string issue, string notes)
         {
             con.Open();
 
             string query = "SELECT ShopVisit.visitID, ShopVisit.dateTimeVisit, ShopVisit.mechanic, ShopVisit.vinNumber, ShopVisit.kmCount, ShopVisit.issue, ShopVisit.notes FROM ShopVisit;";
-            
+
             // Inserts the query into a data table
             SqlDataAdapter sda = new SqlDataAdapter(query, con);
             DataTable dt = new DataTable();
@@ -138,16 +138,16 @@ namespace Projekt
                 mechanic = dr["mechanic"].ToString();
                 vinNumber = dr["vinNumber"].ToString();
                 kmCount = Convert.ToInt32(dr["kmCount"]);
-                issue = dr["issue"].ToString();               
+                issue = dr["issue"].ToString();
                 notes = dr["notes"].ToString();
-                
+
                 ShopVisit.ShopVisitList.Add(new ShopVisit(visitID, dateTimeVisit, mechanic, vinNumber, kmCount, issue, notes));
             }
 
             con.Close();
         }
 
-        
+
         public static void CreateShopVisit(DateTime dateTimeVisit, string mechanic, string vinNumber, int kmCount, string issue, string notes)
         {
             // Opens the connection
@@ -168,7 +168,7 @@ namespace Projekt
             cmd.ExecuteNonQuery();
 
             // Pulls out the data for the newly made customer, to get back the information for the ID, date and status which created in SQL
-            
+
             query = "SELECT TOP 1 ShopVisit.visitID, ShopVisit.dateTimeVisit, ShopVisit.mechanic, ShopVisit.vinNumber, ShopVisit.kmCount, ShopVisit.issue, ShopVisit.notes FROM ShopVisit ORDER BY CustomerID DESC;";
             SqlDataAdapter sda = new SqlDataAdapter(query, con);
 
@@ -177,14 +177,14 @@ namespace Projekt
 
             DataRow dr = dt.Rows[0];
             int visitID = Convert.ToInt32(dr["visitID"]);
-            DateTime dateTimeVisit = Convert.ToDateTime(dr["dateTimeVisit"]);
-            
+            dateTimeVisit = Convert.ToDateTime(dr["dateTimeVisit"]);
+
 
             // Creates an object and adds it to the customer list
-            shop
+            
             //ShopVisit.ShopVisitList.Add(new (visitID, dateTimeVisit, mechanic, vinNumber, kmCount, issue, notes));
         }
-        
+
         /*
         public static void UpdateShopVisit(int visitID, DateTime dateTimeVisit, string mechanic, string vinNumber, int kmCount, string issue, string notes)
         {
@@ -209,7 +209,7 @@ namespace Projekt
 
         public static void CreateShopVisit()
         {
-            
+
         }
 
         public static void UpdateShopVisit()
@@ -227,18 +227,18 @@ namespace Projekt
                 cmd.Parameters.AddWithValue("@visitID", visitID);
 
                 cmd.ExecuteNonQuery();
-            } 
+            }
             con.Close();
         }
 
         public static void ReadCar()
         {
-    
+
         }
 
         public static void CreateCar()
         {
-            
+
         }
 
         public static void UpdateCar()
@@ -256,7 +256,7 @@ namespace Projekt
                 cmd.Parameters.AddWithValue("@vinNumber", vinNumber);
 
                 cmd.ExecuteNonQuery();
-            } 
+            }
             con.Close();
         }
 
