@@ -8,6 +8,9 @@ namespace Projekt
 {
     class Frame
     {
+        List<int> DividerVertical = new List<int>();
+        List<int[]> DividerHorizontal = new List<int[]>();
+
         private int height;
         public int Height
         {
@@ -22,64 +25,100 @@ namespace Projekt
             set { width = value; }
         }
 
-        private int offsetVertical;
-        public int OffsetVertical
+        private int offsetTop;
+        public int OffsetTop
         {
-            get { return offsetVertical; }
-            set { offsetVertical = value; }
+            get { return offsetTop; }
+            set { offsetTop = value; }
         }
 
-        private int offsetHorizontal;
-        public int OffsetHorizontal
+        private int offsetLeft;
+        public int OffsetLeft
         {
-            get { return offsetHorizontal; }
-            set { offsetHorizontal = value; }
+            get { return offsetLeft; }
+            set { offsetLeft = value; }
         }
 
-        public Frame(int height, int width)
+        public Frame(int width, int height)
         {
-            Height = height;
             Width = width;
-            OffsetVertical = 0;
-            OffsetHorizontal = 0;
-        }
-
-        public Frame(int height, int width, int offsetVertical, int offsetHorizontal)
-        {
             Height = height;
-            Width = width;
-            OffsetVertical = offsetVertical;
-            OffsetHorizontal = offsetHorizontal;
+            OffsetLeft = 0;
+            OffsetTop = 0;
         }
 
-        public void HorizontalDivider()
+        public Frame(int width,int height, int offsetLeft, int offsetTop)
         {
-
+            Width = width;
+            Height = height;
+            OffsetLeft = offsetLeft;
+            OffsetTop = offsetTop;
         }
 
         public void Print()
         {
-            Console.SetCursorPosition(offsetHorizontal, offsetVertical);
+            Console.SetCursorPosition(offsetLeft, offsetTop);
             Console.Write("╔");
             for (int i = 0; i < width - 2; i++)
             {
                 Console.Write("═");
             }
             Console.Write("╗");
-            for (int i = 0; i < height - 2; i++)
+            for (int i = 0; i < height - 3; i++)
             {
-                Console.SetCursorPosition(offsetHorizontal, offsetVertical + i + 1);
-                Console.WriteLine("║");
-                Console.SetCursorPosition(offsetHorizontal + width - 1, offsetVertical + i + 1);
-                Console.WriteLine("║");
+                Console.SetCursorPosition(offsetLeft, offsetTop + i + 1);
+                Console.Write("║");
+                Console.SetCursorPosition(offsetLeft + width - 1, offsetTop + i + 1);
+                Console.Write("║");
             }
-            Console.SetCursorPosition(offsetHorizontal, offsetVertical + height - 1);
+            Console.SetCursorPosition(offsetLeft, offsetTop + height - 2);
             Console.Write("╚");
             for (int i = 0; i < width - 2; i++)
             {
                 Console.Write("═");
             }
             Console.Write("╝");
+
+            if (DividerVertical.Count > 0)
+            {
+                for (int i = 0; i < DividerVertical.Count; i++)
+                {
+                    Console.SetCursorPosition(offsetLeft, OffsetTop + DividerVertical[i]);
+                    Console.Write("╠");
+                    for (int j = 0; j < width - 2; j++)
+                    {
+                        Console.Write("═");
+                    }
+                    Console.Write("╣");
+                }
+            }
+
+            if (DividerHorizontal.Count > 0)
+            {
+                for (int i = 0; i < DividerHorizontal.Count; i++)
+                {
+                    Console.SetCursorPosition(DividerHorizontal[i][0] + offsetLeft, DividerHorizontal[i][1] + offsetTop);
+                    Console.Write("╦");
+                    for (int j = 0; j < DividerHorizontal[i][2] - DividerHorizontal[i][1] - 1; j++)
+                    {
+                    Console.SetCursorPosition(DividerHorizontal[i][0] + offsetLeft, DividerHorizontal[i][1] + offsetTop + j + 1);
+                        Console.Write("║");
+                    }
+                    Console.SetCursorPosition(DividerHorizontal[i][0] + offsetLeft, DividerHorizontal[i][2] + offsetTop);
+                    Console.Write("╩");
+                }
+            }
+        }
+
+        public void AddVerticalDivider(int row)
+        {
+            DividerVertical.Add(row);
+        }
+
+        public void AddHorizontalDivider(int collumn,int start, int stop)
+        {
+            int[] output = { collumn, start, stop };
+            DividerHorizontal.Add(output);
         }
     }
 }
