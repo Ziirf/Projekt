@@ -130,90 +130,63 @@ namespace Projekt
             DividerHorizontal.Add(output);
         }
 
-        // Need further work
-        public void CustomerOverview(int offsetLeft, int offsetTop, int[] buffer)
+        public void CustomerOverview(int offsetLeft, int offsetTop, int[] buffer, string[] titles)
         {
             offsetTop += this.OffsetTop;
             offsetLeft += this.OffsetLeft;
 
-            Console.SetCursorPosition(offsetLeft + buffer[0], offsetTop);
-            Console.Write("#ID");
-            Console.SetCursorPosition(offsetLeft + buffer[1], offsetTop);
-            Console.Write("FirstName");
-            Console.SetCursorPosition(offsetLeft + buffer[2], offsetTop);
-            Console.Write("LastName");
-            Console.SetCursorPosition(offsetLeft + buffer[3], offsetTop);
-            Console.WriteLine("Zip Code");
-            Console.SetCursorPosition(offsetLeft + buffer[4], offsetTop);
-            Console.WriteLine("City");
-            Console.SetCursorPosition(offsetLeft + buffer[5], offsetTop);
-            Console.Write("Phone Number");
-            Console.SetCursorPosition(offsetLeft + buffer[6], offsetTop);
-            Console.Write("Email");
-            Console.SetCursorPosition(offsetLeft + buffer[7], offsetTop);
-            Console.Write("Customer Since");
-            
+            for (int i = 0; i < titles.Length; i++)
+            {
+                Console.SetCursorPosition(offsetLeft + buffer[i], offsetTop);
+                Console.Write(titles[i]);
+            }
+
             for (int i = 0; i < Customer.customerList.Count; i++)
             {
-                Console.SetCursorPosition(offsetLeft + buffer[0], offsetTop + 2 + i);
-                Console.WriteLine(Customer.customerList[i].CustomerID);
-                Console.SetCursorPosition(offsetLeft + buffer[1], offsetTop + 2 + i);
-                Console.WriteLine(Customer.customerList[i].Firstname);
-                Console.SetCursorPosition(offsetLeft + buffer[2], offsetTop + 2 + i);
-                Console.WriteLine(Customer.customerList[i].Lastname);
-                Console.SetCursorPosition(offsetLeft + buffer[3], offsetTop + 2 + i);
-                Console.WriteLine(Customer.customerList[i].ZipCode);
-                Console.SetCursorPosition(offsetLeft + buffer[4], offsetTop + 2 + i);
-                Console.WriteLine(Customer.customerList[i].City);
-                Console.SetCursorPosition(offsetLeft + buffer[5], offsetTop + 2 + i);
-                Console.WriteLine(Customer.customerList[i].PhoneNumber);
-                Console.SetCursorPosition(offsetLeft + buffer[6], offsetTop + 2 + i);
-                Console.WriteLine(Customer.customerList[i].EMail);
-                Console.SetCursorPosition(offsetLeft + buffer[7], offsetTop + 2 + i);
-                Console.WriteLine(Customer.customerList[i].CreatedDate.ToString("dd-MM-yyyy"));
+                string[] strArrayCustomer = Customer.customerList[i].CustomerInfo();
+                for (int j = 0; j < buffer.Length; j++)
+                {
+                Console.SetCursorPosition(offsetLeft + buffer[j], offsetTop + 2 + i);
+                Console.WriteLine(strArrayCustomer[j]);
+                }
             }
         }
 
-        public void CarOverview(int offsetLeft, int offsetTop, int[] buffer)
+        public void CarOverview(int offsetLeft, int offsetTop, int[] buffer, string[] titles)
         {
             offsetTop += this.OffsetTop;
             offsetLeft += this.OffsetLeft;
 
-            Console.SetCursorPosition(offsetLeft + buffer[0], offsetTop);
-            Console.Write("CusID");
-            Console.SetCursorPosition(offsetLeft + buffer[1], offsetTop);
-            Console.Write("VinNumber");
-            Console.SetCursorPosition(offsetLeft + buffer[2], offsetTop);
-            Console.Write("Number Plate");
-            Console.SetCursorPosition(offsetLeft + buffer[3], offsetTop);
-            Console.WriteLine("Car Brand");
-            Console.SetCursorPosition(offsetLeft + buffer[4], offsetTop);
-            Console.WriteLine("Car Model");
-            Console.SetCursorPosition(offsetLeft + buffer[5], offsetTop);
-            Console.Write("Production Year");
-            Console.SetCursorPosition(offsetLeft + buffer[6], offsetTop);
-            Console.Write("Km Count");
-            Console.SetCursorPosition(offsetLeft + buffer[7], offsetTop);
-            Console.Write("Fuel Type");
+            for (int i = 0; i < titles.Length; i++)
+            {
+                Console.SetCursorPosition(offsetLeft + buffer[i], offsetTop);
+                Console.Write(titles[i]);
+            }
 
             for (int i = 0; i < Car.carList.Count; i++)
             {
-                Console.SetCursorPosition(offsetLeft + buffer[0], offsetTop + 2 + i);
-                Console.WriteLine(Car.carList[i].CustomerID);
-                Console.SetCursorPosition(offsetLeft + buffer[1], offsetTop + 2 + i);
-                Console.WriteLine(Car.carList[i].VinNumber);
-                Console.SetCursorPosition(offsetLeft + buffer[2], offsetTop + 2 + i);
-                Console.WriteLine(Car.carList[i].NumberPlate);
-                Console.SetCursorPosition(offsetLeft + buffer[3], offsetTop + 2 + i);
-                Console.WriteLine(Car.carList[i].CarBrand);
-                Console.SetCursorPosition(offsetLeft + buffer[4], offsetTop + 2 + i);
-                Console.WriteLine(Car.carList[i].CarModel);
-                Console.SetCursorPosition(offsetLeft + buffer[5], offsetTop + 2 + i);
-                Console.WriteLine(Car.carList[i].ProductionYear);
-                Console.SetCursorPosition(offsetLeft + buffer[6], offsetTop + 2 + i);
-                Console.WriteLine(Car.carList[i].KmCount);
-                Console.SetCursorPosition(offsetLeft + buffer[7], offsetTop + 2 + i);
-                Console.WriteLine(Car.carList[i].FuelType);
+                string[] strArrayCar = Car.carList[i].CarInfo();
+                for (int j = 0; j < buffer.Length; j++)
+                {
+                    Console.SetCursorPosition(offsetLeft + buffer[j], offsetTop + 2 + i);
+                    Console.WriteLine(strArrayCar[j]);
+                }
+            }
+        }
+
+        public void CreateCustomer(int offsetLeft, int offsetTop, string[] information)
+        {
+            offsetTop += this.OffsetTop;
+            offsetLeft += this.OffsetLeft;
+
+            Console.SetCursorPosition(offsetLeft, offsetTop);
+            Console.WriteLine("Customer Infomartion:");
+            string[] customerArray = Customer.customerList[0].CustomerInfo(false).ToArray();
+
+            for (int i = 0; i < information.Length; i++)
+            {
+                Console.SetCursorPosition(offsetLeft, offsetTop + 2 + i);
+                Console.Write(information[i] +  ": ");
             }
         }
     }
