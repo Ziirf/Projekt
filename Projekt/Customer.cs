@@ -74,6 +74,10 @@ namespace Projekt
             set { createdDate = value; }
         }
 
+        private Customer()
+        {
+
+        }
 
         public Customer(int customerID, string firstname, string lastname, string address, int zipCode, string city, int phoneNumber, string eMail, DateTime createdDate)
         {
@@ -86,6 +90,23 @@ namespace Projekt
             PhoneNumber = phoneNumber;
             EMail = eMail;
             CreatedDate = createdDate;
+        }
+
+        public static void Create()
+        {
+            Console.Write("Customer firstname:");
+            string firstname = Console.ReadLine();
+            Console.Write("Customer lastname:");
+            string lastname = Console.ReadLine();
+            Console.Write("Customer address:");
+            string address = Console.ReadLine();
+            Console.Write("Customer zip code:");
+            int zipCode = Convert.ToInt32(Console.ReadLine());
+            Console.Write("Customer Phonenumber:");
+            int phoneNumber = Convert.ToInt32(Console.ReadLine());
+            Console.Write("Customer e-mail:");
+            string eMail = Console.ReadLine();
+            DateTime createdDate = DateTime.Now;
         }
 
         public void Print()
