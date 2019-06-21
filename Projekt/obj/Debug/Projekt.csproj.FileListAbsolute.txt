@@ -25,3 +25,12 @@ C:\Users\nfrii\Source\Repos\Ziirf\Projekt\Projekt\obj\Debug\Projekt.csprojAssemb
 C:\Users\nfrii\Source\Repos\Ziirf\Projekt\Projekt\obj\Debug\Projekt.csproj.CoreCompileInputs.cache
 C:\Users\nfrii\Source\Repos\Ziirf\Projekt\Projekt\obj\Debug\Projekt.exe
 C:\Users\nfrii\Source\Repos\Ziirf\Projekt\Projekt\obj\Debug\Projekt.pdb
+C:\Users\nfrii\Documents\GitHub\Projekt\Projekt\bin\Debug\MechanicDB.mdf
+C:\Users\nfrii\Documents\GitHub\Projekt\Projekt\bin\Debug\MechanicDB_log.ldf
+C:\Users\nfrii\Documents\GitHub\Projekt\Projekt\bin\Debug\Projekt.exe.config
+C:\Users\nfrii\Documents\GitHub\Projekt\Projekt\bin\Debug\Projekt.exe
+C:\Users\nfrii\Documents\GitHub\Projekt\Projekt\bin\Debug\Projekt.pdb
+C:\Users\nfrii\Documents\GitHub\Projekt\Projekt\obj\Debug\Projekt.csprojAssemblyReference.cache
+C:\Users\nfrii\Documents\GitHub\Projekt\Projekt\obj\Debug\Projekt.csproj.CoreCompileInputs.cache
+C:\Users\nfrii\Documents\GitHub\Projekt\Projekt\obj\Debug\Projekt.exe
+C:\Users\nfrii\Documents\GitHub\Projekt\Projekt\obj\Debug\Projekt.pdb
