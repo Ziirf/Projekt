@@ -11,29 +11,15 @@ namespace Projekt
 
         static void Main(string[] args)
         {
-            SQL.ReadCustomerToObj();
-            SQL.ReadCarToObj();
-            SQL.ReadShopVisitToObj();
+            Console.SetWindowSize(150, 40);
+            Console.SetBufferSize(150, 40);
 
-            foreach (Customer customer in Customer.customerList)
-            {
-                Console.Write(customer.CustomerID + "\t ");
-                Console.Write(customer.Firstname + "\t ");
-                Console.WriteLine(customer.City);
-            }
-            foreach (Car car in Car.carList)
-            {
-                Console.Write(car.VinNumber + "\t ");
-                Console.Write(car.CustomerID + "\t ");
-                Console.WriteLine(car.KmCount);
-            }
+            Frame FrameMain = new Frame(148, 39, 2, 1);
+            FrameMain.AddVerticalDivider(2);
+            FrameMain.AddVerticalDivider(34);
+            FrameMain.AddHorizontalDivider(32, 2, 34);
+            FrameMain.Print();
 
-            foreach (ShopVisit visit in ShopVisit.shopVisitList)
-            {
-                Console.Write(visit.VinNumber + "\t");
-                Console.WriteLine(visit.VisitID);
-            }
-            
 
             Console.ReadKey();
         }
