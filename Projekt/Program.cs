@@ -38,9 +38,7 @@ namespace Projekt
             //int[] bufferCarOverview = { 0, 7, 22, 38, 48, 48, 58, 73, 86 };
             //FrameMain.CarOverview(34, 3, bufferCarOverview, titlesCarOverview);
 
-            //string firstname, string lastname, string address, int zipCode, int phoneNumber, string eMail
-            string[] infoCustomer = {"Firstname", "Lastname", "Address", "Zip code", "Phone number", "E-Mail"};
-            FrameMain.CreateCustomer(34, 3, infoCustomer);
+            FrameMain.CreateCustomer(34, 3);
 
             Console.ReadKey();
         }
