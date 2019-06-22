@@ -85,5 +85,12 @@ namespace Projekt
             FuelType = fuelType;
             CreatedDate = createdDate;
         }
+
+        public string[] CarInfo()
+        {
+            string[] car = { CustomerID.ToString(), VinNumber, NumberPlate, CarBrand, CarModel, ProductionYear.ToString(), KmCount.ToString(), FuelType, CreatedDate.ToString("dd-MM-yyyy") };
+
+            return car;
+        }
     }
 }

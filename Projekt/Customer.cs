@@ -8,6 +8,8 @@ namespace Projekt
 {
     class Customer
     {
+        #region Properties
+
         public static List<Customer> customerList = new List<Customer>();
 
         private int customerID;
@@ -51,8 +53,7 @@ namespace Projekt
             get { return city; }
             set { city = value; }
         }
-
-
+        
         private int phoneNumber;
         public int PhoneNumber
         {
@@ -74,6 +75,8 @@ namespace Projekt
             set { createdDate = value; }
         }
 
+        #endregion Properties
+
         private Customer()
         {
 
@@ -90,6 +93,20 @@ namespace Projekt
             PhoneNumber = phoneNumber;
             EMail = eMail;
             CreatedDate = createdDate;
+        }
+
+        public string[] CustomerInfo(bool comb = true)
+        {
+            List<string> CustomerInfoList = new List<string>();
+            string nameComb = lastname + ", " + firstname;
+            string cityComb = zipCode + ", " + city;
+
+            if (comb == true)
+                CustomerInfoList.AddRange(new string[] { customerID.ToString(), nameComb, address, cityComb, phoneNumber.ToString(), eMail, createdDate.ToString("dd-MM-yyyy") });
+            else
+                CustomerInfoList.AddRange(new string[] { customerID.ToString(), firstname, lastname, address, zipCode.ToString(), city, phoneNumber.ToString(), eMail, createdDate.ToString("dd-MM-yyyy") });
+
+            return CustomerInfoList.ToArray();
         }
 
         public static void Create()
