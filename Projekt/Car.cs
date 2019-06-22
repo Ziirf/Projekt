@@ -86,11 +86,37 @@ namespace Projekt
             CreatedDate = createdDate;
         }
 
-        public string[] CarInfo()
+        public string[] Info()
         {
             string[] car = { CustomerID.ToString(), VinNumber, NumberPlate, CarBrand, CarModel, ProductionYear.ToString(), KmCount.ToString(), FuelType, CreatedDate.ToString("dd-MM-yyyy") };
 
             return car;
+        }
+
+        public static void Create(Frame frame, int offsetLeft, int offsetTop)
+        {
+            string[] information = { "Owner ID", "VIN", "Number plate", "Car Brand", "Car Model", "Production Year", "KM Counter", "Fuel type"};
+            offsetTop += frame.OffsetTop;
+            offsetLeft += frame.OffsetLeft;
+
+            Console.SetCursorPosition(offsetLeft, offsetTop);
+            Console.WriteLine("Car Form:");
+
+            for (int i = 0; i < information.Length; i++)
+            {
+                Console.SetCursorPosition(offsetLeft, offsetTop + 2 + i);
+                Console.Write(information[i] + ": ");
+            }
+            int id = Tool.BuildInt(offsetLeft + information[0].Length + 2, offsetTop + 2, 20);
+            string vin = Tool.BuildString(offsetLeft + information[1].Length + 2, offsetTop + 3, 20);
+            string numberPlate = Tool.BuildString(offsetLeft + information[2].Length + 2, offsetTop + 4, 20);
+            string brand = Tool.BuildString(offsetLeft + information[3].Length + 2, offsetTop + 5, 20);
+            string model = Tool.BuildString(offsetLeft + information[4].Length + 2, offsetTop + 6, 20);
+            int productionYear = Tool.BuildInt(offsetLeft + information[5].Length + 2, offsetTop + 7, 4);
+            int kmCount = Tool.BuildInt(offsetLeft + information[6].Length + 2, offsetTop + 8, 20);
+            string fuelType = Tool.BuildString(offsetLeft + information[7].Length + 2, offsetTop + 9, 20);
+
+            SQL.CreateCar(id, vin, numberPlate, brand, model, productionYear, kmCount, fuelType);
         }
     }
 }

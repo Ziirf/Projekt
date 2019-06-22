@@ -21,36 +21,6 @@ namespace Projekt
             }
         }
 
-        //public static string BuildString(int left, int top, int lenght)
-        //{
-        //    Console.SetCursorPosition(left, top);
-        //    Console.Write(new string(' ', 20));
-        //    string output = "";
-        //    ConsoleKeyInfo cki;
-
-        //    do
-        //    {
-        //        Console.SetCursorPosition(left + output.Length, top);
-        //        cki = Console.ReadKey(true);
-                
-        //        if (Char.IsLetter(cki.KeyChar) && output.Length < lenght)
-        //        {
-        //            output += cki.KeyChar.ToString();
-        //        }
-        //        else if (cki.Key == ConsoleKey.Backspace && output.Length > 0)
-        //        {
-        //            output = output.Substring(0, output.Length - 1);
-        //            Console.SetCursorPosition(left + output.Length, top);
-        //            Console.Write(' ');
-        //        }
-
-        //        Console.SetCursorPosition(left, top);
-        //        Console.WriteLine(output);
-        //    } while (cki.Key != ConsoleKey.Enter);
-
-        //    return output;
-        //}
-
         public static string BuildString(int left, int top, int lenght)
         {
             Console.SetCursorPosition(left, top);

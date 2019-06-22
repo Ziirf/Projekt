@@ -13,11 +13,12 @@ namespace Projekt
         {
             int[] winSize = { 190, 40 };            // Height, Width
             int[] frameMainDim = { 190, 39, 0, 1 }; // Height, Width, offsetLeft, OffsetTop
-
+            
             // Sets the console size
             Console.SetWindowSize(winSize[0], winSize[1]);
             Console.SetBufferSize(winSize[0], winSize[1]);
             Console.SetWindowPosition(0, 0);
+            Console.CursorVisible = false;
 
             // Reads all the information from the SQL server into the project
             SQL.ReadCustomerToObj();
@@ -30,6 +31,7 @@ namespace Projekt
             FrameMain.AddHorizontalDivider(32, 2, 35);
             FrameMain.Print();
 
+
             //string[] titlesCustomerOverview = { "#ID", "Name", "Addresse", "City", "PhoneNumber", "Email", "Customer Since" };
             //int[] bufferCustomerOverview = { 0, 7, 30, 50, 73, 87, 112 };
             //FrameMain.CustomerOverview(34, 3, bufferCustomerOverview, titlesCustomerOverview);
@@ -38,7 +40,9 @@ namespace Projekt
             //int[] bufferCarOverview = { 0, 7, 22, 38, 48, 48, 58, 73, 86 };
             //FrameMain.CarOverview(34, 3, bufferCarOverview, titlesCarOverview);
 
-            FrameMain.CreateCustomer(34, 3);
+            //ShopVisit.Create(FrameMain, 34, 3);
+            //Car.Create(FrameMain, 34, 3);
+            //Customer.Create(FrameMain, 34, 3);
 
             Console.ReadKey();
         }

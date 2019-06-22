@@ -95,7 +95,7 @@ namespace Projekt
             CreatedDate = createdDate;
         }
 
-        public string[] CustomerInfo(bool comb = true)
+        public string[] Info(bool comb = true)
         {
             List<string> CustomerInfoList = new List<string>();
             string nameComb = lastname + ", " + firstname;
@@ -109,23 +109,6 @@ namespace Projekt
             return CustomerInfoList.ToArray();
         }
 
-        public static void Create()
-        {
-            Console.Write("Customer firstname:");
-            string firstname = Console.ReadLine();
-            Console.Write("Customer lastname:");
-            string lastname = Console.ReadLine();
-            Console.Write("Customer address:");
-            string address = Console.ReadLine();
-            Console.Write("Customer zip code:");
-            int zipCode = Convert.ToInt32(Console.ReadLine());
-            Console.Write("Customer Phonenumber:");
-            int phoneNumber = Convert.ToInt32(Console.ReadLine());
-            Console.Write("Customer e-mail:");
-            string eMail = Console.ReadLine();
-            DateTime createdDate = DateTime.Now;
-        }
-
         public void Print()
         {
             Console.WriteLine(CustomerID);
@@ -137,6 +120,30 @@ namespace Projekt
             Console.WriteLine(PhoneNumber);
             Console.WriteLine(EMail);
             Console.WriteLine(CreatedDate.ToString("dd-MM-yyyy"));
+        }
+
+        public static void Create(Frame frame, int offsetLeft, int offsetTop)
+        {
+            string[] information = { "Firstname", "Lastname", "Address", "Zip code", "Phone number", "E-Mail" };
+            offsetTop += frame.OffsetTop;
+            offsetLeft += frame.OffsetLeft;
+
+            Console.SetCursorPosition(offsetLeft, offsetTop);
+            Console.WriteLine("Customer Form:");
+
+            for (int i = 0; i < information.Length; i++)
+            {
+                Console.SetCursorPosition(offsetLeft, offsetTop + 2 + i);
+                Console.Write(information[i] + ": ");
+            }
+            string firstname = Tool.BuildString(offsetLeft + information[0].Length + 2, offsetTop + 2, 20);
+            string lastname = Tool.BuildString(offsetLeft + information[1].Length + 2, offsetTop + 3, 20);
+            string address = Tool.BuildString(offsetLeft + information[2].Length + 2, offsetTop + 4, 40);
+            int zipcode = Tool.BuildInt(offsetLeft + information[3].Length + 2, offsetTop + 5, 4);
+            int phoneNumber = Tool.BuildInt(offsetLeft + information[4].Length + 2, offsetTop + 6, 8);
+            string email = Tool.BuildEmail(offsetLeft + information[5].Length + 2, offsetTop + 7, 30);
+
+            SQL.CreateCustomer(firstname, lastname, address, zipcode, phoneNumber, email);
         }
     }
 }

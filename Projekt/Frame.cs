@@ -143,7 +143,7 @@ namespace Projekt
 
             for (int i = 0; i < Customer.customerList.Count; i++)
             {
-                string[] strArrayCustomer = Customer.customerList[i].CustomerInfo();
+                string[] strArrayCustomer = Customer.customerList[i].Info();
                 for (int j = 0; j < buffer.Length; j++)
                 {
                 Console.SetCursorPosition(offsetLeft + buffer[j], offsetTop + 2 + i);
@@ -165,38 +165,13 @@ namespace Projekt
 
             for (int i = 0; i < Car.carList.Count; i++)
             {
-                string[] strArrayCar = Car.carList[i].CarInfo();
+                string[] strArrayCar = Car.carList[i].Info();
                 for (int j = 0; j < buffer.Length; j++)
                 {
                     Console.SetCursorPosition(offsetLeft + buffer[j], offsetTop + 2 + i);
                     Console.WriteLine(strArrayCar[j]);
                 }
             }
-        }
-
-        public void CreateCustomer(int offsetLeft, int offsetTop)
-        {
-            string[] information = { "Firstname", "Lastname", "Address", "Zip code", "Phone number", "E-Mail"};
-            offsetTop += this.OffsetTop;
-            offsetLeft += this.OffsetLeft;
-
-            Console.SetCursorPosition(offsetLeft, offsetTop);
-            Console.WriteLine("Customer Form:");
-            string[] customerArray = Customer.customerList[0].CustomerInfo(false).ToArray();
-
-            for (int i = 0; i < information.Length; i++)
-            {
-                Console.SetCursorPosition(offsetLeft, offsetTop + 2 + i);
-                Console.Write(information[i] +  ": ");
-            }
-            string firstname = Tool.BuildString(offsetLeft + information[0].Length + 2, offsetTop + 2, 20);
-            string lastname = Tool.BuildString(offsetLeft + information[1].Length + 2, offsetTop + 3, 20);
-            string address = Tool.BuildString(offsetLeft + information[2].Length + 2, offsetTop + 4, 40);
-            int zipcode = Tool.BuildInt(offsetLeft + information[3].Length + 2, offsetTop + 5, 4);
-            int phoneNumber = Tool.BuildInt(offsetLeft + information[4].Length + 2, offsetTop + 6, 8);
-            string email = Tool.BuildEmail(offsetLeft + information[5].Length + 2, offsetTop + 7, 30);
-
-            SQL.CreateCustomer(firstname, lastname, address, zipcode, phoneNumber, email);
         }
     }
 }

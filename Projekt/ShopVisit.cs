@@ -33,7 +33,7 @@ namespace Projekt
         }
 
         private string vinNumber;
-        public string VinNumber  //ÆNDRET FRA INT TIL STRING
+        public string VinNumber
         {
             get { return vinNumber; }
             set { vinNumber = value; }
@@ -69,6 +69,29 @@ namespace Projekt
             KmCount = kmCount;
             Issue = issue;
             Notes = notes;
+        }
+
+        public static void Create(Frame frame, int offsetLeft, int offsetTop)
+        {
+            string[] information = { "Mechanic", "VIN", "KM Count", "Issue", "Note" };
+            offsetTop += frame.OffsetTop;
+            offsetLeft += frame.OffsetLeft;
+
+            Console.SetCursorPosition(offsetLeft, offsetTop);
+            Console.WriteLine("Shop Visit Form:");
+
+            for (int i = 0; i < information.Length; i++)
+            {
+                Console.SetCursorPosition(offsetLeft, offsetTop + 2 + i);
+                Console.Write(information[i] + ": ");
+            }
+            string mechanic = Tool.BuildString(offsetLeft + information[0].Length + 2, offsetTop + 2, 20);
+            string vin = Tool.BuildString(offsetLeft + information[1].Length + 2, offsetTop + 3, 20);
+            int kmCount = Tool.BuildInt(offsetLeft + information[2].Length + 2, offsetTop + 4, 20);
+            string issue = Tool.BuildString(offsetLeft + information[3].Length + 2, offsetTop + 5, 20);
+            string note = Tool.BuildString(offsetLeft + information[4].Length + 2, offsetTop + 6, 50);
+
+            SQL.CreateShopVisit(mechanic, vin, kmCount, issue, note);
         }
     }
 }

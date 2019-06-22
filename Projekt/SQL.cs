@@ -119,107 +119,107 @@ namespace Projekt
         }
 
 
-        public static void ReadShopVisitToObj()
-        {
-            con.Open();
+        //public static void ReadShopVisitToObj()
+        //{
+        //    con.Open();
 
-            string query = "SELECT ShopVisit.visitID, ShopVisit.dateTimeVisit, ShopVisit.mechanic, ShopVisit.vinNumber, ShopVisit.kmCount, ShopVisit.issue, ShopVisit.notes FROM ShopVisit;";
+        //    string query = "SELECT ShopVisit.visitID, ShopVisit.dateTimeVisit, ShopVisit.mechanic, ShopVisit.vinNumber, ShopVisit.kmCount, ShopVisit.issue, ShopVisit.notes FROM ShopVisit;";
 
-            // Inserts the query into a data table
-            SqlDataAdapter sda = new SqlDataAdapter(query, con);
-            DataTable dt = new DataTable();
-            sda.Fill(dt);
+        //    // Inserts the query into a data table
+        //    SqlDataAdapter sda = new SqlDataAdapter(query, con);
+        //    DataTable dt = new DataTable();
+        //    sda.Fill(dt);
 
-            // A loop used to export data from the SQL database into objects
-            for (int i = 0; i < dt.Rows.Count; i++)
-            {
-                DataRow dr = dt.Rows[i];
-                int visitID = Convert.ToInt32(dr["visitID"]);
-                DateTime dateTimeVisit = Convert.ToDateTime(dr["dateTimeVisit"]);
-                string mechanic = dr["mechanic"].ToString();
-                string vinNumber = dr["vinNumber"].ToString();
-                int kmCount = Convert.ToInt32(dr["kmCount"]);
-                string issue = dr["issue"].ToString();
-                string notes = dr["notes"].ToString();
+        //    // A loop used to export data from the SQL database into objects
+        //    for (int i = 0; i < dt.Rows.Count; i++)
+        //    {
+        //        DataRow dr = dt.Rows[i];
+        //        int visitID = Convert.ToInt32(dr["visitID"]);
+        //        DateTime dateTimeVisit = Convert.ToDateTime(dr["dateTimeVisit"]);
+        //        string mechanic = dr["mechanic"].ToString();
+        //        string vinNumber = dr["vinNumber"].ToString();
+        //        int kmCount = Convert.ToInt32(dr["kmCount"]);
+        //        string issue = dr["issue"].ToString();
+        //        string notes = dr["notes"].ToString();
 
-                ShopVisit.shopVisitList.Add(new ShopVisit(visitID, dateTimeVisit, mechanic, vinNumber, kmCount, issue, notes));
-            }
+        //        ShopVisit.shopVisitList.Add(new ShopVisit(visitID, dateTimeVisit, mechanic, vinNumber, kmCount, issue, notes));
+        //    }
 
-            con.Close();
-        }
-
-
-        public static void CreateShopVisit(string mechanic, string vinNumber, int kmCount, string issue, string notes)
-        {
-            // Opens the connection
-            SqlCommand cmd;
-            con.Open();
-            string query = "INSERT INTO ShopVisit(dateTimeVisit, mechanic, vinNumber, kmCount, issue, notes) VALUES (GETDATE(), @mechanic, @vinNumber, @kmCount, @issue, @notes);";
-
-            // Using SqlCommand to inject the variables into the query string
-            using (cmd = new SqlCommand(query, con))
-            {
-                cmd.Parameters.AddWithValue("@mechanic", mechanic);
-                cmd.Parameters.AddWithValue("@vinNumber", vinNumber);
-                cmd.Parameters.AddWithValue("@kmCount", kmCount);
-                cmd.Parameters.AddWithValue("@issue", issue);
-                cmd.Parameters.AddWithValue("@notes", notes);
-            }
-            // Executes the query, and are therefore inserted into the database
-            cmd.ExecuteNonQuery();
-
-            // Pulls out the data for the newly made customer, to get back the information for the ID, date and status which created in SQL
-            query = "SELECT TOP 1 ShopVisit.visitID, ShopVisit.dateTimeVisit, ShopVisit.mechanic, ShopVisit.vinNumber, ShopVisit.kmCount, ShopVisit.issue, ShopVisit.notes FROM ShopVisit ORDER BY visitID DESC;";
-            SqlDataAdapter sda = new SqlDataAdapter(query, con);
-
-            DataTable dt = new DataTable();
-            sda.Fill(dt);
-
-            DataRow dr = dt.Rows[0];
-            int visitID = Convert.ToInt32(dr["visitID"]);
-            DateTime dateTimeVisit = Convert.ToDateTime(dr["dateTimeVisit"]);
+        //    con.Close();
+        //}
 
 
-            // Creates an object and adds it to the customer list
+        //public static void CreateShopVisit(string mechanic, string vinNumber, int kmCount, string issue, string notes)
+        //{
+        //    // Opens the connection
+        //    SqlCommand cmd;
+        //    con.Open();
+        //    string query = "INSERT INTO ShopVisit(dateTimeVisit, mechanic, vinNumber, kmCount, issue, notes) VALUES (GETDATE(), @mechanic, @vinNumber, @kmCount, @issue, @notes);";
 
-            ShopVisit.shopVisitList.Add(new ShopVisit(visitID, dateTimeVisit, mechanic, vinNumber, kmCount, issue, notes));
-            con.Close();
-        }
+        //    // Using SqlCommand to inject the variables into the query string
+        //    using (cmd = new SqlCommand(query, con))
+        //    {
+        //        cmd.Parameters.AddWithValue("@mechanic", mechanic);
+        //        cmd.Parameters.AddWithValue("@vinNumber", vinNumber);
+        //        cmd.Parameters.AddWithValue("@kmCount", kmCount);
+        //        cmd.Parameters.AddWithValue("@issue", issue);
+        //        cmd.Parameters.AddWithValue("@notes", notes);
+        //    }
+        //    // Executes the query, and are therefore inserted into the database
+        //    cmd.ExecuteNonQuery();
+
+        //    // Pulls out the data for the newly made customer, to get back the information for the ID, date and status which created in SQL
+        //    query = "SELECT TOP 1 ShopVisit.visitID, ShopVisit.dateTimeVisit, ShopVisit.mechanic, ShopVisit.vinNumber, ShopVisit.kmCount, ShopVisit.issue, ShopVisit.notes FROM ShopVisit ORDER BY visitID DESC;";
+        //    SqlDataAdapter sda = new SqlDataAdapter(query, con);
+
+        //    DataTable dt = new DataTable();
+        //    sda.Fill(dt);
+
+        //    DataRow dr = dt.Rows[0];
+        //    int visitID = Convert.ToInt32(dr["visitID"]);
+        //    DateTime dateTimeVisit = Convert.ToDateTime(dr["dateTimeVisit"]);
 
 
-        public static void UpdateShopVisit(int visitID, DateTime dateTimeVisit, string mechanic, string vinNumber, int kmCount, string issue, string notes)
-        {
-            con.Open();
-            string query = "UPDATE ShopVisit SET dateTimeVisit = @dateTimeVisit, mechanic = @mechanic, vinNumber = @vinNumber, kmCount = @kmCount, issue = @issue, notes = @notes WHERE visitID = @visitID";
+        //    // Creates an object and adds it to the customer list
 
-            using (SqlCommand cmd = new SqlCommand(query, con))
-            {
-                cmd.Parameters.AddWithValue("@dateTimeVisit", dateTimeVisit);
-                cmd.Parameters.AddWithValue("@mechanic", mechanic);
-                cmd.Parameters.AddWithValue("@vinNumber", vinNumber);
-                cmd.Parameters.AddWithValue("@kmCount", kmCount);
-                cmd.Parameters.AddWithValue("@issue", issue);
-                cmd.Parameters.AddWithValue("@notes", notes);
-                cmd.Parameters.AddWithValue("@visitID", visitID);
+        //    ShopVisit.shopVisitList.Add(new ShopVisit(visitID, dateTimeVisit, mechanic, vinNumber, kmCount, issue, notes));
+        //    con.Close();
+        //}
 
-                cmd.ExecuteNonQuery();
-            }
-            con.Close();
-        }
 
-        public static void DeleteShopVisit(int visitID)
-        {
-            con.Open();
-            string query = "DELETE FROM Car WHERE visitID = @visitID";
+        //public static void UpdateShopVisit(int visitID, DateTime dateTimeVisit, string mechanic, string vinNumber, int kmCount, string issue, string notes)
+        //{
+        //    con.Open();
+        //    string query = "UPDATE ShopVisit SET dateTimeVisit = @dateTimeVisit, mechanic = @mechanic, vinNumber = @vinNumber, kmCount = @kmCount, issue = @issue, notes = @notes WHERE visitID = @visitID";
 
-            using (SqlCommand cmd = new SqlCommand(query, con))
-            {
-                cmd.Parameters.AddWithValue("@visitID", visitID);
+        //    using (SqlCommand cmd = new SqlCommand(query, con))
+        //    {
+        //        cmd.Parameters.AddWithValue("@dateTimeVisit", dateTimeVisit);
+        //        cmd.Parameters.AddWithValue("@mechanic", mechanic);
+        //        cmd.Parameters.AddWithValue("@vinNumber", vinNumber);
+        //        cmd.Parameters.AddWithValue("@kmCount", kmCount);
+        //        cmd.Parameters.AddWithValue("@issue", issue);
+        //        cmd.Parameters.AddWithValue("@notes", notes);
+        //        cmd.Parameters.AddWithValue("@visitID", visitID);
 
-                cmd.ExecuteNonQuery();
-            }
-            con.Close();
-        }
+        //        cmd.ExecuteNonQuery();
+        //    }
+        //    con.Close();
+        //}
+
+        //public static void DeleteShopVisit(int visitID)
+        //{
+        //    con.Open();
+        //    string query = "DELETE FROM Car WHERE visitID = @visitID";
+
+        //    using (SqlCommand cmd = new SqlCommand(query, con))
+        //    {
+        //        cmd.Parameters.AddWithValue("@visitID", visitID);
+
+        //        cmd.ExecuteNonQuery();
+        //    }
+        //    con.Close();
+        //}
 
         public static void ReadCarToObj()
         {
@@ -332,5 +332,109 @@ namespace Projekt
             }
             con.Close();
         }
+
+
+        public static void ReadShopVisitToObj()
+        {
+            con.Open();
+
+            string query = "SELECT ShopVisit.visitID, ShopVisit.dateTimeVisit, ShopVisit.mechanic, ShopVisit.vinNumber, ShopVisit.kmCount, ShopVisit.issue, ShopVisit.notes FROM ShopVisit;";
+
+            // Inserts the query into a data table
+            SqlDataAdapter sda = new SqlDataAdapter(query, con);
+            DataTable dt = new DataTable();
+            sda.Fill(dt);
+
+            // A loop used to export data from the SQL database into objects
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                DataRow dr = dt.Rows[i];
+                int visitID = Convert.ToInt32(dr["visitID"]);
+                DateTime dateTimeVisit = Convert.ToDateTime(dr["dateTimeVisit"]);
+                string mechanic = dr["mechanic"].ToString();
+                string vinNumber = dr["vinNumber"].ToString();
+                int kmCount = Convert.ToInt32(dr["kmCount"]);
+                string issue = dr["issue"].ToString();
+                string notes = dr["notes"].ToString();
+
+                ShopVisit.shopVisitList.Add(new ShopVisit(visitID, dateTimeVisit, mechanic, vinNumber, kmCount, issue, notes));
+            }
+
+            con.Close();
+        }
+
+
+        public static void CreateShopVisit(string mechanic, string vinNumber, int kmCount, string issue, string notes)
+        {
+            // Opens the connection
+            SqlCommand cmd;
+            con.Open();
+            string query = "INSERT INTO ShopVisit(dateTimeVisit, mechanic, vinNumber, kmCount, issue, notes) VALUES (GETDATE(), @mechanic, @vinNumber, @kmCount, @issue, @notes);";
+
+            // Using SqlCommand to inject the variables into the query string
+            using (cmd = new SqlCommand(query, con))
+            {
+                cmd.Parameters.AddWithValue("@mechanic", mechanic);
+                cmd.Parameters.AddWithValue("@vinNumber", vinNumber);
+                cmd.Parameters.AddWithValue("@kmCount", kmCount);
+                cmd.Parameters.AddWithValue("@issue", issue);
+                cmd.Parameters.AddWithValue("@notes", notes);
+            }
+            // Executes the query, and are therefore inserted into the database
+            cmd.ExecuteNonQuery();
+
+            // Pulls out the data for the newly made customer, to get back the information for the ID, date and status which created in SQL
+            query = "SELECT TOP 1 ShopVisit.visitID, ShopVisit.dateTimeVisit, ShopVisit.mechanic, ShopVisit.vinNumber, ShopVisit.kmCount, ShopVisit.issue, ShopVisit.notes FROM ShopVisit ORDER BY visitID DESC;";
+            SqlDataAdapter sda = new SqlDataAdapter(query, con);
+
+            DataTable dt = new DataTable();
+            sda.Fill(dt);
+
+            DataRow dr = dt.Rows[0];
+            int visitID = Convert.ToInt32(dr["visitID"]);
+            DateTime dateTimeVisit = Convert.ToDateTime(dr["dateTimeVisit"]);
+
+
+            // Creates an object and adds it to the customer list
+
+            ShopVisit.shopVisitList.Add(new ShopVisit(visitID, dateTimeVisit, mechanic, vinNumber, kmCount, issue, notes));
+            con.Close();
+        }
+
+
+        public static void UpdateShopVisit(int visitID, DateTime dateTimeVisit, string mechanic, string vinNumber, int kmCount, string issue, string notes)
+        {
+            con.Open();
+            string query = "UPDATE ShopVisit SET dateTimeVisit = @dateTimeVisit, mechanic = @mechanic, vinNumber = @vinNumber, kmCount = @kmCount, issue = @issue, notes = @notes WHERE visitID = @visitID";
+
+            using (SqlCommand cmd = new SqlCommand(query, con))
+            {
+                cmd.Parameters.AddWithValue("@dateTimeVisit", dateTimeVisit);
+                cmd.Parameters.AddWithValue("@mechanic", mechanic);
+                cmd.Parameters.AddWithValue("@vinNumber", vinNumber);
+                cmd.Parameters.AddWithValue("@kmCount", kmCount);
+                cmd.Parameters.AddWithValue("@issue", issue);
+                cmd.Parameters.AddWithValue("@notes", notes);
+                cmd.Parameters.AddWithValue("@visitID", visitID);
+
+                cmd.ExecuteNonQuery();
+            }
+            con.Close();
+        }
+
+        public static void DeleteShopVisit(int visitID)
+        {
+            con.Open();
+            string query = "DELETE FROM Car WHERE visitID = @visitID";
+
+            using (SqlCommand cmd = new SqlCommand(query, con))
+            {
+                cmd.Parameters.AddWithValue("@visitID", visitID);
+
+                cmd.ExecuteNonQuery();
+            }
+            con.Close();
+        }
+
     }
 }
