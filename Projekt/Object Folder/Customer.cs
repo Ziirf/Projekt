@@ -11,69 +11,79 @@ namespace Projekt
         #region Properties
 
         public static List<Customer> customerList = new List<Customer>();
+        public static int[] buffer = { 0, 7, 30, 50, 73, 87, 112 };
 
         private int customerID;
         public int CustomerID
         {
             get { return customerID; }
-            set { customerID = value; }
+            private set { customerID = value; }
         }
 
         private string firstname;
         public string Firstname
         {
             get { return firstname; }
-            set { firstname = value; }
+            private set { firstname = value; }
         }
 
         private string lastname;
         public string Lastname
         {
             get { return lastname; }
-            set { lastname = value; }
+            private set { lastname = value; }
         }
 
         private string address;
         public string Address
         {
             get { return address; }
-            set { address = value; }
+            private set { address = value; }
         }
 
         private int zipCode;
         public int ZipCode
         {
             get { return zipCode; }
-            set { zipCode = value; }
+            private set { zipCode = value; }
         }
 
         private string city;
         public string City
         {
             get { return city; }
-            set { city = value; }
+            private set { city = value; }
         }
         
         private int phoneNumber;
         public int PhoneNumber
         {
             get { return phoneNumber; }
-            set { phoneNumber = value; }
+            private set { phoneNumber = value; }
         }
 
         private string eMail;
         public string EMail
         {
             get { return eMail; }
-            set { eMail = value; }
+            private set { eMail = value; }
         }
 
         private DateTime createdDate;
         public DateTime CreatedDate
         {
             get { return createdDate; }
-            set { createdDate = value; }
+            private set { createdDate = value; }
         }
+
+        private string stringFormat;
+        public string StringFormat
+        {
+            get { return stringFormat; }
+            set { stringFormat = value; }
+        }
+
+
 
         #endregion Properties
 
@@ -93,6 +103,7 @@ namespace Projekt
             PhoneNumber = phoneNumber;
             EMail = eMail;
             CreatedDate = createdDate;
+            stringFormat = Tool.FormatString(buffer, Info());
         }
 
         public string[] Info(bool comb = true)

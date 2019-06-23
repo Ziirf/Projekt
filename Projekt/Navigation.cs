@@ -119,5 +119,132 @@ namespace Projekt
             Console.CursorVisible = cursorState;
             return selectorPos;
         }
+
+        public int Selector(int maxEntries)
+        {
+            var cursorState = Console.CursorVisible;    // gemmer staten af cursorens blinken-status.
+            Console.CursorVisible = false;              // gør cursoren usynlig.
+            int selectorPos = 0;
+            int min = 0;
+            ConsoleColor color = Console.ForegroundColor;
+            ConsoleKeyInfo cki;
+
+            do
+            {
+                if (selectorPos >= maxEntries)
+                {
+                    maxEntries++;
+                    min++;
+                }
+                else if (selectorPos < min)
+                {
+                    maxEntries--;
+                    min--;
+                }
+
+                for (int i = min; i < maxEntries; i++)
+                {
+                    Console.SetCursorPosition(offsetLeft, offsetTop + i - min);
+                    Console.WriteLine(options[i]);
+                }
+
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.SetCursorPosition(offsetLeft, offsetTop + selectorPos - min);
+                Console.WriteLine(options[selectorPos]);
+                Console.ForegroundColor = color;
+
+                // læser tastede indput.
+                cki = Console.ReadKey(true);
+
+                // hopper op og ned i menuen alt efter hvad der bliver trykket.
+                if (cki.Key == ConsoleKey.UpArrow && selectorPos > 0)
+                    selectorPos--;
+                if (cki.Key == ConsoleKey.DownArrow && selectorPos < options.Length - 1)
+                    selectorPos++;
+                if (cki.Key == ConsoleKey.Escape)
+                    return -1;
+                // hopper ud af loopen hvis der bliver trykket på enter.
+            } while (cki.Key != ConsoleKey.Enter);
+
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.SetCursorPosition(offsetLeft, offsetTop + selectorPos);
+            Console.WriteLine(options[selectorPos]);
+            Console.ForegroundColor = color;
+
+            // gendanner cursorens status til den tidligere status og derefter returnere værdien for det valgte emne.
+            Console.CursorVisible = cursorState;
+            return selectorPos;
+        }
+
+        public int Selector(int maxEntries, List<Customer> list)
+        {
+            if (maxEntries > list.Count)
+                maxEntries = list.Count;
+
+            var cursorState = Console.CursorVisible;    // gemmer staten af cursorens blinken-status.
+            Console.CursorVisible = false;              // gør cursoren usynlig.
+            int selectorPos = 0;
+            int min = 0;
+            int sort = 1;
+            ConsoleColor color = Console.ForegroundColor;
+            ConsoleKeyInfo cki;
+
+            do
+            {
+                if (selectorPos >= maxEntries + min)
+                    min++;
+                else if (selectorPos < min)
+                    min--;
+
+                for (int i = min; i < maxEntries + min; i++)
+                {
+                    Console.SetCursorPosition(offsetLeft, offsetTop + i - min);
+                    Console.WriteLine(list[i].StringFormat);
+                }
+
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.SetCursorPosition(offsetLeft, offsetTop + selectorPos - min);
+                Console.WriteLine(list[selectorPos].StringFormat);
+                Console.ForegroundColor = color;
+
+                // læser tastede input.
+                cki = Console.ReadKey(true);
+
+                // hopper op og ned i menuen alt efter hvad der bliver trykket.
+                if (cki.Key == ConsoleKey.UpArrow && selectorPos > 0)
+                    selectorPos--;
+                if (cki.Key == ConsoleKey.DownArrow && selectorPos < options.Length - 1)
+                    selectorPos++;
+                if (cki.Key == ConsoleKey.Escape)
+                    return -1;
+                if (cki.Key == ConsoleKey.S)
+                {
+                    if (sort == 0)
+                        list = list.OrderBy(order => order.CustomerID).ToList();
+                    else if (sort == 1)
+                        list = list.OrderBy(order => order.Lastname).ToList();
+                    else if (sort == 2)
+                        list = list.OrderBy(order => order.ZipCode).ToList();
+
+                    if (sort >= 2)
+                        sort = 0;
+                    else
+                        sort++;
+
+                    selectorPos = 0;
+                    min = 0;
+                }
+                // hopper ud af loopen hvis der bliver trykket på enter.
+            } while (cki.Key != ConsoleKey.Enter);
+
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.SetCursorPosition(offsetLeft, offsetTop + selectorPos);
+            Console.WriteLine(list[selectorPos].StringFormat);
+            Console.ForegroundColor = color;
+
+            // gendanner cursorens status til den tidligere status og derefter returnere værdien for det valgte emne.
+            Console.CursorVisible = cursorState;
+            return list[selectorPos].CustomerID;
+        }
     }
 }

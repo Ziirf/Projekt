@@ -19,21 +19,13 @@ namespace Projekt
             FrameMain.AddVerticalDivider(35, 0, frameMainDim[0]);
             FrameMain.AddHorizontalDivider(32, 2, 35);
 
-            Navigation menuSelection = new Navigation(FrameMain, 3, 5, new string[] { "Customer Overview", "Car Overview", "Create Customer", "Search" });
+            //Frame FrameCustomer = new Frame(frameMainDim);
+            //FrameCustomer.AddVerticalDivider(2, 0, frameMainDim[0]);
+            //FrameCustomer.AddVerticalDivider(35, 0, frameMainDim[0]);
+            //FrameCustomer.Print();
+            //Console.ReadKey();
 
-            //int[] customerBuffer = { 0, 7, 30, 50, 73, 87, 112 };
-            //string customerTitle = Tool.FormatString(customerBuffer, new string[] { "#ID", "Name", "Addresse", "City", "PhoneNumber", "Email", "Customer Since" });
-            //List<string> customerFormattedList = new List<string>();
-            //foreach (var item in Customer.customerList)
-            //    customerFormattedList.Add(Tool.FormatString(customerBuffer, item.Info()));
-            //Navigation customerSelection = new Navigation(FrameMain, 34, 6, customerFormattedList.ToArray(), customerTitle);
-
-            //int[] carBuffer = { 0, 7, 22, 38, 48, 48, 58, 73, 86 };
-            //string carTitle = Tool.FormatString(carBuffer, new string[] { "#ID", "VIN Number", "Number plate", "Brand", "Model", "Year", "Kilometers", "Fuel Type", "Registration Date" });
-            //List<string> carFormattedList = new List<string>();
-            //foreach (var item in Car.carList)
-            //    carFormattedList.Add(Tool.FormatString(carBuffer, item.Info()));
-            //Navigation carSelection = new Navigation(FrameMain, 34, 6, carFormattedList.ToArray(), carTitle);
+            Navigation menuSelection = new Navigation(FrameMain, 3, 5, new string[] { "Customer Overview", "Car Overview", "Create Customer", "Exit Program" });
 
             do
             {
@@ -42,15 +34,19 @@ namespace Projekt
                 switch (menuSelection.Selector())
                 {
                     case 0:
-                        int[] customerBuffer = { 0, 7, 30, 50, 73, 87, 112 };
-                        string customerTitle = Tool.FormatString(customerBuffer, new string[] { "#ID", "Name", "Addresse", "City", "PhoneNumber", "Email", "Customer Since" });
+                        string customerTitle = Tool.FormatString(Customer.buffer, new string[] { "#ID", "Name", "Addresse", "City", "PhoneNumber", "Email", "Customer Since" });
+
                         List<string> customerFormattedList = new List<string>();
                         foreach (var item in Customer.customerList)
-                            customerFormattedList.Add(Tool.FormatString(customerBuffer, item.Info()));
+                            customerFormattedList.Add(item.StringFormat);
                         Navigation customerSelection = new Navigation(FrameMain, 34, 6, customerFormattedList.ToArray(), customerTitle);
 
                         customerSelection.PrintTitle();
-                        customerSelection.Selector();
+                        int selectionID = customerSelection.Selector(28, Customer.customerList);
+                        if (selectionID >= 0)
+                        {
+
+                        }
                         break;
                     case 1:
                         int[] carBuffer = { 0, 7, 22, 38, 48, 48, 58, 73, 86 };
@@ -61,10 +57,12 @@ namespace Projekt
                         Navigation carSelection = new Navigation(FrameMain, 34, 6, carFormattedList.ToArray(), carTitle);
 
                         carSelection.PrintTitle();
-                        carSelection.Selector();
+                        carSelection.Selector(5);
                         break;
                     case 2:
                         Customer.Create(FrameMain, 35, 3);
+                        break;
+                    case 3:
                         break;
                     default:
                         break;

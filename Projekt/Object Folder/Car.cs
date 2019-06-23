@@ -14,63 +14,63 @@ namespace Projekt
         public int CustomerID
         {
             get { return customerID; }
-            set { customerID = value; }
+            private set { customerID = value; }
         }
 
         private string vinNumber;
         public string VinNumber
         {
             get { return vinNumber; }
-            set { vinNumber = value; }
+            private set { vinNumber = value; }
         }
 
         private string numberPlate;
         public string NumberPlate
         {
             get { return numberPlate; }
-            set { numberPlate = value; }
+            private set { numberPlate = value; }
         }
 
         private string carBrand;
         public string CarBrand
         {
             get { return carBrand; }
-            set { carBrand = value; }
+            private set { carBrand = value; }
         }
 
         private string carModel;
         public string CarModel
         {
             get { return carModel; }
-            set { carModel = value; }
+            private set { carModel = value; }
         }
 
         private int productionYear;
         public int ProductionYear
         {
             get { return productionYear; }
-            set { productionYear = value; }
+            private set { productionYear = value; }
         }
 
         private int kmCount;
         public int KmCount
         {
             get { return kmCount; }
-            set { kmCount = value; }
+            private set { kmCount = value; }
         }
 
         private string fuelType;
         public string FuelType
         {
             get { return fuelType; }
-            set { fuelType = value; }
+            private set { fuelType = value; }
         }
 
         private DateTime createdDate;
         public DateTime CreatedDate
         {
             get { return createdDate; }
-            set { createdDate = value; }
+            private set { createdDate = value; }
         }
 
         public Car(int customerID, string vinNumber, string numberPlate, string carBrand, string carModel, int productionYear, int kmCount, string fuelType, DateTime createdDate)
