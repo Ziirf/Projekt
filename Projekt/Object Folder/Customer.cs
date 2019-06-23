@@ -109,17 +109,57 @@ namespace Projekt
             return CustomerInfoList.ToArray();
         }
 
-        public void Print()
+        public void Print(int offsetLeft, int offsetTop, int[] buffer)
         {
-            Console.WriteLine(CustomerID);
-            Console.WriteLine(Firstname);
-            Console.WriteLine(Lastname);
-            Console.WriteLine(Address);
-            Console.WriteLine(ZipCode);
-            Console.WriteLine(City);
-            Console.WriteLine(PhoneNumber);
-            Console.WriteLine(EMail);
-            Console.WriteLine(CreatedDate.ToString("dd-MM-yyyy"));
+            string[] strArrayCustomer = Info();
+            for (int i = 0; i < buffer.Length; i++)
+            {
+                Console.SetCursorPosition(offsetLeft + buffer[i], offsetTop + 2);
+                Console.WriteLine(strArrayCustomer[i]);
+            }
+        }
+
+        public string FormatString(int[] buffer)
+        {
+            string output = "";
+            int currentStringLength = 0;
+
+            string[] InfoArray = Info();
+            for (int i = 0; i < buffer.Length; i++)
+            {
+                if (buffer[i] > currentStringLength)
+                {
+                    int temp = buffer[i] - currentStringLength;
+                    output += new string(' ', temp);
+                }
+                else if (buffer[i] < currentStringLength)
+                {
+                    int temp = currentStringLength - buffer[i];
+                    output = output.Substring(0, output.Length - temp);
+                }
+                output += InfoArray[i];
+                currentStringLength = output.Length;
+            }
+
+            return output;
+        }
+
+        public static void CustomerOverview(Frame frame, int offsetLeft, int offsetTop, int[] buffer, string[] titles)
+        {
+            offsetTop += frame.OffsetTop;
+            offsetLeft += frame.OffsetLeft;
+
+            for (int i = 0; i < titles.Length; i++)
+            {
+                Console.SetCursorPosition(offsetLeft + buffer[i], offsetTop);
+                Console.Write(titles[i]);
+            }
+
+            for (int i = 0; i < customerList.Count; i++)
+            {
+                Console.SetCursorPosition(offsetLeft, offsetTop + i + 2);
+                Console.Write(Customer.customerList[i].FormatString(buffer));
+            }
         }
 
         public static void Create(Frame frame, int offsetLeft, int offsetTop)
@@ -136,6 +176,8 @@ namespace Projekt
                 Console.SetCursorPosition(offsetLeft, offsetTop + 2 + i);
                 Console.Write(information[i] + ": ");
             }
+            ConsoleColor[] palette = { Console.ForegroundColor, Console.BackgroundColor, ConsoleColor.Black, ConsoleColor.White };
+
             string firstname = Tool.BuildString(offsetLeft + information[0].Length + 2, offsetTop + 2, 20);
             string lastname = Tool.BuildString(offsetLeft + information[1].Length + 2, offsetTop + 3, 20);
             string address = Tool.BuildString(offsetLeft + information[2].Length + 2, offsetTop + 4, 40);
@@ -144,6 +186,23 @@ namespace Projekt
             string email = Tool.BuildEmail(offsetLeft + information[5].Length + 2, offsetTop + 7, 30);
 
             SQL.CreateCustomer(firstname, lastname, address, zipcode, phoneNumber, email);
+        }
+
+        private static void ColorChange(ConsoleColor[] palette, bool oldColor = true)
+        {
+            ConsoleColor[] colorOld = { Console.ForegroundColor, Console.BackgroundColor };
+            ConsoleColor[] color = { ConsoleColor.Black, ConsoleColor.White };
+
+            if (oldColor == true)
+            {
+                Console.ForegroundColor = palette[0];
+                Console.BackgroundColor = palette[1];
+            }
+            else
+            {
+                Console.ForegroundColor = palette[3];
+                Console.BackgroundColor = palette[4];
+            }
         }
     }
 }

@@ -24,6 +24,7 @@ namespace Projekt
         public static string BuildString(int left, int top, int lenght)
         {
             Console.SetCursorPosition(left, top);
+            ColorChange(false);
             Console.Write(new string(' ', lenght));
             string output = "";
             ConsoleKeyInfo cki;
@@ -48,12 +49,19 @@ namespace Projekt
                 Console.WriteLine(output);
             } while (cki.Key != ConsoleKey.Enter);
 
+            ColorChange();
+            Console.SetCursorPosition(left, top);
+            Console.Write(new string(' ', lenght));
+            Console.SetCursorPosition(left, top);
+            Console.Write(output);
+
             return output;
         }
 
         public static int BuildInt(int left, int top, int lenght)
         {
             Console.SetCursorPosition(left, top);
+            ColorChange(false);
             Console.Write(new string(' ', lenght));
             string output = "";
             ConsoleKeyInfo cki;
@@ -76,8 +84,13 @@ namespace Projekt
 
                 Console.SetCursorPosition(left, top);
                 Console.WriteLine(output);
-            } while (cki.Key != ConsoleKey.Enter);
+            } while (cki.Key != ConsoleKey.Enter && output.Length > 0);
 
+            ColorChange();
+            Console.SetCursorPosition(left, top);
+            Console.Write(new string(' ', lenght));
+            Console.SetCursorPosition(left, top);
+            Console.Write(output);
 
             return Convert.ToInt32(output);
         }
@@ -85,6 +98,7 @@ namespace Projekt
         public static string BuildEmail(int left, int top, int lenght)
         {
             Console.SetCursorPosition(left, top);
+            ColorChange(false);
             Console.Write(new string(' ', lenght));
             string output = "";
             ConsoleKeyInfo cki;
@@ -109,7 +123,54 @@ namespace Projekt
                 Console.WriteLine(output);
             } while (cki.Key != ConsoleKey.Enter);
 
+            ColorChange();
+            Console.SetCursorPosition(left, top);
+            Console.Write(new string(' ', lenght));
+            Console.SetCursorPosition(left, top);
+            Console.Write(output);
+
             return output;
+        }
+
+        public static string FormatString(int[] buffer, string[] input)
+        {
+            string output = "";
+            int currentStringLength = 0;
+
+            //string[] InfoArray = Info();
+            for (int i = 0; i < buffer.Length; i++)
+            {
+                if (buffer[i] > currentStringLength)
+                {
+                    int temp = buffer[i] - currentStringLength;
+                    output += new string(' ', temp);
+                }
+                else if (buffer[i] < currentStringLength)
+                {
+                    int temp = currentStringLength - buffer[i];
+                    output = output.Substring(0, output.Length - temp);
+                }
+                output += input[i];
+                currentStringLength = output.Length;
+            }
+
+            return output;
+        }
+
+        private static void ColorChange(bool useOldColors = true)
+        {
+            ConsoleColor[] palette = {ConsoleColor.Black, ConsoleColor.Gray };
+
+            if (useOldColors == true)
+            {
+                Console.ForegroundColor = palette[1];
+                Console.BackgroundColor = palette[0];
+            }
+            else
+            {
+                Console.ForegroundColor = palette[0];
+                Console.BackgroundColor = palette[1];
+            }
         }
     }
 }
