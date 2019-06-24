@@ -9,14 +9,14 @@ namespace Projekt
     class Program
     {
         static int[] winSize = { 190, 40 };            // Height, Width
-        static int[] frameMainDim = { 190, 39, 0, 1 }; // Height, Width, offsetLeft, OffsetTop
+        public static int[] frameDim = { 190, 39, 0, 1 }; // Height, Width, offsetLeft, OffsetTop
 
         static void Main(string[] args)
         {
             StartUp();
-            Frame FrameMain = new Frame(frameMainDim);
-            FrameMain.AddVerticalDivider(2, 0, frameMainDim[0]);
-            FrameMain.AddVerticalDivider(35, 0, frameMainDim[0]);
+            Frame FrameMain = new Frame(frameDim);
+            FrameMain.AddVerticalDivider(2, 0, frameDim[0]);
+            FrameMain.AddVerticalDivider(35, 0, frameDim[0]);
             FrameMain.AddHorizontalDivider(32, 2, 35);
 
             //Frame FrameCustomer = new Frame(frameMainDim);
