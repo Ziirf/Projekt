@@ -67,6 +67,7 @@
     <Compile Include="Object Folder\ShopVisit.cs" />
     <Compile Include="SQL.cs" />
     <Compile Include="Tool.cs" />
+    <Compile Include="Windows.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
