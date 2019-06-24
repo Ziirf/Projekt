@@ -14,10 +14,13 @@ namespace Projekt
         static void Main(string[] args)
         {
             StartUp();
-            Frame FrameMain = new Frame(frameDim);
-            FrameMain.AddVerticalDivider(2, 0, frameDim[0]);
-            FrameMain.AddVerticalDivider(35, 0, frameDim[0]);
-            FrameMain.AddHorizontalDivider(32, 2, 35);
+            Windows.MainWindow();
+            Windows.CustomerWindow();
+
+            //Frame FrameMain = new Frame(frameDim);
+            //FrameMain.AddVerticalDivider(2, 0, frameDim[0]);
+            //FrameMain.AddVerticalDivider(35, 0, frameDim[0]);
+            //FrameMain.AddHorizontalDivider(32, 2, 35);
 
             //Frame FrameCustomer = new Frame(frameMainDim);
             //FrameCustomer.AddVerticalDivider(2, 0, frameMainDim[0]);
@@ -25,66 +28,66 @@ namespace Projekt
             //FrameCustomer.Print();
             //Console.ReadKey();
 
-            Navigation menuSelection = new Navigation(FrameMain, 3, 5, new string[] { "Customer Overview", "Car Overview", "Create Customer", "Shopvisit", "Exit Program" });
+            //Navigation menuSelection = new Navigation(FrameMain, 3, 5, new string[] { "Customer Overview", "Car Overview", "Create Customer", "Shopvisit", "Exit Program" });
 
-            do
-            {
-                int selectedCustomer;
-                int selectedCar;
+            //do
+            //{
+            //    int selectedCustomer;
+            //    int selectedCar;
 
-                Console.Clear();
-                FrameMain.Print();
+            //    Console.Clear();
+            //    FrameMain.Print();
 
-                switch (menuSelection.Selector())
-                {
-                    case 0:
-                        string customerTitle = Tool.FormatString(Customer.buffer, new string[] { "#ID", "Name", "Addresse", "City", "PhoneNumber", "Email", "Customer Since" });
+            //    switch (menuSelection.Selector())
+            //    {
+            //        case 0:
+            //            string customerTitle = Tool.FormatString(Customer.buffer, new string[] { "#ID", "Name", "Addresse", "City", "PhoneNumber", "Email", "Customer Since" });
 
-                        List<string> customerFormattedList = new List<string>();
-                        foreach (var item in Customer.customerList)
-                            customerFormattedList.Add(item.StringFormat);
-                        Navigation navigationCustomer = new Navigation(FrameMain, 34, 6, customerFormattedList.ToArray(), customerTitle);
+            //            List<string> customerFormattedList = new List<string>();
+            //            foreach (var item in Customer.customerList)
+            //                customerFormattedList.Add(item.StringFormat);
+            //            Navigation navigationCustomer = new Navigation(FrameMain, 34, 6, customerFormattedList.ToArray(), customerTitle);
 
-                        navigationCustomer.PrintTitle();
-                        selectedCustomer = navigationCustomer.Selector(28, Customer.customerList);
-                        if (selectedCustomer >= 0)
-                        {
+            //            navigationCustomer.PrintTitle();
+            //            selectedCustomer = navigationCustomer.Selector(28, Customer.customerList);
+            //            if (selectedCustomer >= 0)
+            //            {
 
-                        }
-                        break;
-                    case 1:
-                        string carTitle = Tool.FormatString(Car.buffer, new string[] { "#ID", "VIN Number", "Number plate", "Brand", "Model", "Year", "Kilometers", "Fuel Type", "Registration Date" });
+            //            }
+            //            break;
+            //        case 1:
+            //            string carTitle = Tool.FormatString(Car.buffer, new string[] { "#ID", "VIN Number", "Number plate", "Brand", "Model", "Year", "Kilometers", "Fuel Type", "Registration Date" });
 
-                        List<string> carFormattedList = new List<string>();
-                        foreach (var item in Car.carList)
-                            carFormattedList.Add(item.StringFormat);
-                        Navigation navigationCar = new Navigation(FrameMain, 34, 6, carFormattedList.ToArray(), carTitle);
+            //            List<string> carFormattedList = new List<string>();
+            //            foreach (var item in Car.carList)
+            //                carFormattedList.Add(item.StringFormat);
+            //            Navigation navigationCar = new Navigation(FrameMain, 34, 6, carFormattedList.ToArray(), carTitle);
 
-                        navigationCar.PrintTitle();
-                        selectedCar = navigationCar.Selector();
-                        if (selectedCar >= 0)
-                        {
+            //            navigationCar.PrintTitle();
+            //            selectedCar = navigationCar.Selector();
+            //            if (selectedCar >= 0)
+            //            {
 
-                        }
-                        break;
-                    case 2:
-                        Customer.Create(FrameMain, 35, 3);
-                        break;
-                    case 3:
-                        string shopVisitTitle = Tool.FormatString(ShopVisit.buffer, new string[] { "#Shop ID", "Mechanic", "VIN", "KM", "Issue", "Notes", "Visit Date" });
+            //            }
+            //            break;
+            //        case 2:
+            //            Customer.Create(FrameMain, 35, 3);
+            //            break;
+            //        case 3:
+            //            string shopVisitTitle = Tool.FormatString(ShopVisit.buffer, new string[] { "#Shop ID", "Mechanic", "VIN", "KM", "Issue", "Notes", "Visit Date" });
 
-                        List<string> shopVisitFormattedList = new List<string>();
-                        foreach (var item in Customer.customerList)
-                            shopVisitFormattedList.Add(item.StringFormat);
-                        Navigation navigationShopVisit = new Navigation(FrameMain, 34, 6, shopVisitFormattedList.ToArray(), shopVisitTitle);
+            //            List<string> shopVisitFormattedList = new List<string>();
+            //            foreach (var item in Customer.customerList)
+            //                shopVisitFormattedList.Add(item.StringFormat);
+            //            Navigation navigationShopVisit = new Navigation(FrameMain, 34, 6, shopVisitFormattedList.ToArray(), shopVisitTitle);
 
-                        navigationShopVisit.PrintTitle();
-                        navigationShopVisit.Selector(28, ShopVisit.shopVisitList);
-                        break;
-                    default:
-                        break;
-                }
-            } while (true);
+            //            navigationShopVisit.PrintTitle();
+            //            navigationShopVisit.Selector(28, ShopVisit.shopVisitList);
+            //            break;
+            //        default:
+            //            break;
+            //    }
+            //} while (true);
 
 
 

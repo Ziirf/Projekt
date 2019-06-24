@@ -51,7 +51,7 @@ namespace Projekt
                         Navigation navigationCar = new Navigation(FrameMain, 34, 6, carFormattedList.ToArray(), carTitle);
 
                         navigationCar.PrintTitle();
-                        selectedCar = navigationCar.Selector(5);
+                        selectedCar = navigationCar.Selector(5, Car.carList);
                         if (selectedCar >= 0)
                         {
 
@@ -70,6 +70,10 @@ namespace Projekt
 
         public static void CustomerWindow()
         {
+            // VerticalDivider
+            // HorizontalDivider
+
+
             Frame frameCustomer = new Frame(frameDim);
             frameCustomer.AddHorizontalDivider(2, 0, frameDim[0]);
             frameCustomer.AddHorizontalDivider(35, 0, frameDim[0]);
@@ -95,7 +99,7 @@ namespace Projekt
                         Navigation navigationCar = new Navigation(frameCustomer, 34, 30, carFormattedList.ToArray(), carTitle);
 
                         navigationCar.PrintTitle();
-                        selectedCar = navigationCar.Selector(2);
+                        selectedCar = navigationCar.Selector(5, Car.carList);
                         if (selectedCar >= 0)
                         {
 

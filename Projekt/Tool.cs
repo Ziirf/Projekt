@@ -84,7 +84,7 @@ namespace Projekt
 
                 Console.SetCursorPosition(left, top);
                 Console.WriteLine(output);
-            } while (cki.Key != ConsoleKey.Enter && output.Length > 0);
+            } while (cki.Key != ConsoleKey.Enter || output.Length <= 0);
 
             ColorChange();
             Console.SetCursorPosition(left, top);
