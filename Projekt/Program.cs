@@ -29,6 +29,9 @@ namespace Projekt
 
             do
             {
+                int selectedCustomer;
+                int selectedCar;
+
                 Console.Clear();
                 FrameMain.Print();
                 switch (menuSelection.Selector())
@@ -39,25 +42,29 @@ namespace Projekt
                         List<string> customerFormattedList = new List<string>();
                         foreach (var item in Customer.customerList)
                             customerFormattedList.Add(item.StringFormat);
-                        Navigation customerSelection = new Navigation(FrameMain, 34, 6, customerFormattedList.ToArray(), customerTitle);
+                        Navigation navigationCustomer = new Navigation(FrameMain, 34, 6, customerFormattedList.ToArray(), customerTitle);
 
-                        customerSelection.PrintTitle();
-                        int selectionID = customerSelection.Selector(28, Customer.customerList);
-                        if (selectionID >= 0)
+                        navigationCustomer.PrintTitle();
+                        selectedCustomer = navigationCustomer.Selector(28, Customer.customerList);
+                        if (selectedCustomer >= 0)
                         {
 
                         }
                         break;
                     case 1:
-                        int[] carBuffer = { 0, 7, 22, 38, 48, 48, 58, 73, 86 };
-                        string carTitle = Tool.FormatString(carBuffer, new string[] { "#ID", "VIN Number", "Number plate", "Brand", "Model", "Year", "Kilometers", "Fuel Type", "Registration Date" });
+                        string carTitle = Tool.FormatString(Car.buffer, new string[] { "#ID", "VIN Number", "Number plate", "Brand", "Model", "Year", "Kilometers", "Fuel Type", "Registration Date" });
+
                         List<string> carFormattedList = new List<string>();
                         foreach (var item in Car.carList)
-                            carFormattedList.Add(Tool.FormatString(carBuffer, item.Info()));
-                        Navigation carSelection = new Navigation(FrameMain, 34, 6, carFormattedList.ToArray(), carTitle);
+                            carFormattedList.Add(item.StringFormat);
+                        Navigation navigationCar = new Navigation(FrameMain, 34, 6, carFormattedList.ToArray(), carTitle);
 
-                        carSelection.PrintTitle();
-                        carSelection.Selector();
+                        navigationCar.PrintTitle();
+                        selectedCar = navigationCar.Selector(5);
+                        if (selectedCar >= 0)
+                        {
+
+                        }
                         break;
                     case 2:
                         Customer.Create(FrameMain, 35, 3);

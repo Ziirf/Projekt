@@ -9,6 +9,7 @@ namespace Projekt
     class Car
     {
         public static List<Car> carList = new List<Car>();
+        public static int[] buffer = { 0, 7, 22, 38, 48, 48, 58, 73, 86 };
 
         private int customerID;
         public int CustomerID
@@ -73,6 +74,13 @@ namespace Projekt
             private set { createdDate = value; }
         }
 
+        private string stringFormat;
+        public string StringFormat
+        {
+            get { return stringFormat; }
+            set { stringFormat = value; }
+        }
+
         public Car(int customerID, string vinNumber, string numberPlate, string carBrand, string carModel, int productionYear, int kmCount, string fuelType, DateTime createdDate)
         {
             CustomerID = customerID;
@@ -84,6 +92,7 @@ namespace Projekt
             KmCount = kmCount;
             FuelType = fuelType;
             CreatedDate = createdDate;
+            stringFormat = Tool.FormatString(buffer, Info());
         }
 
         public string[] Info()

@@ -10,6 +10,7 @@ namespace Projekt
     class ShopVisit
     {
         public static List<ShopVisit> shopVisitList = new List<ShopVisit>();
+        public static int[] buffer = { 0, 7, 30, 50, 73, 87, 112 };
 
         private int visitID;
         public int VisitID
@@ -60,6 +61,13 @@ namespace Projekt
             private set { notes = value; }
         }
 
+        private string stringFormat;
+        public string StringFormat
+        {
+            get { return stringFormat; }
+            set { stringFormat = value; }
+        }
+
         public ShopVisit(int visitID, DateTime dateTimeVisit, string mechanic, string vinNumber, int kmCount, string issue, string notes)
         {
             VisitID = visitID;
@@ -69,6 +77,14 @@ namespace Projekt
             KmCount = kmCount;
             Issue = issue;
             Notes = notes;
+            stringFormat = Tool.FormatString(buffer, Info());
+        }
+
+        public string[] Info()
+        {
+            string[] car = { VisitID.ToString(), Mechanic, VinNumber, KmCount.ToString(), Issue, Notes, DateTimeVisit.ToString("dd-MM-yyyy") };
+
+            return car;
         }
 
         public static void Create(Frame frame, int offsetLeft, int offsetTop)
