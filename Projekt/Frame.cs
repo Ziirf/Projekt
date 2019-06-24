@@ -118,13 +118,13 @@ namespace Projekt
             }
         }
 
-        public void AddVerticalDivider(int row, int start, int stop)
+        public void AddHorizontalDivider(int row, int start, int stop)
         {
             int[] output = { row, start, stop };
             DividerVertical.Add(output);
         }
 
-        public void AddHorizontalDivider(int collumn, int start, int stop)
+        public void AddVerticalDivider(int collumn, int start, int stop)
         {
             int[] output = { collumn, start, stop };
             DividerHorizontal.Add(output);
