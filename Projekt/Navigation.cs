@@ -246,75 +246,75 @@ namespace Projekt
             Console.CursorVisible = cursorState;
             return list[selectorPos].CustomerID;
         }
-        public int Selector(int maxEntries, List<Car> list)
-        {
-            if (maxEntries > list.Count)
-                maxEntries = list.Count;
+        //public int Selector(int maxEntries, List<Car> list)
+        //{
+        //    if (maxEntries > list.Count)
+        //        maxEntries = list.Count;
 
-            var cursorState = Console.CursorVisible;    // Saves the blinking status of the cursor.
-            Console.CursorVisible = false;              // Makes cursor invisible.
-            int selectorPos = 0;
-            int min = 0;
-            int sort = 1;
-            ConsoleColor color = Console.ForegroundColor;
-            ConsoleKeyInfo cki;
+        //    var cursorState = Console.CursorVisible;    // Saves the blinking status of the cursor.
+        //    Console.CursorVisible = false;              // Makes cursor invisible.
+        //    int selectorPos = 0;
+        //    int min = 0;
+        //    int sort = 1;
+        //    ConsoleColor color = Console.ForegroundColor;
+        //    ConsoleKeyInfo cki;
 
-            do
-            {
-                if (selectorPos >= maxEntries + min)
-                    min++;
-                else if (selectorPos < min)
-                    min--;
+        //    do
+        //    {
+        //        if (selectorPos >= maxEntries + min)
+        //            min++;
+        //        else if (selectorPos < min)
+        //            min--;
 
-                for (int i = min; i < maxEntries + min; i++)
-                {
-                    Console.SetCursorPosition(offsetLeft, offsetTop + i - min);
-                    Console.WriteLine(list[i].StringFormat);
-                }
+        //        for (int i = min; i < maxEntries + min; i++)
+        //        {
+        //            Console.SetCursorPosition(offsetLeft, offsetTop + i - min);
+        //            Console.WriteLine(list[i].StringFormat);
+        //        }
 
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.SetCursorPosition(offsetLeft, offsetTop + selectorPos - min);
-                Console.WriteLine(list[selectorPos].StringFormat);
-                Console.ForegroundColor = color;
+        //        Console.ForegroundColor = ConsoleColor.Green;
+        //        Console.SetCursorPosition(offsetLeft, offsetTop + selectorPos - min);
+        //        Console.WriteLine(list[selectorPos].StringFormat);
+        //        Console.ForegroundColor = color;
 
-                // Read key input.
-                cki = Console.ReadKey(true);
+        //        // Read key input.
+        //        cki = Console.ReadKey(true);
 
-                // Changes up and down in menu, depending on key press.
-                if (cki.Key == ConsoleKey.UpArrow && selectorPos > 0)
-                    selectorPos--;
-                if (cki.Key == ConsoleKey.DownArrow && selectorPos < options.Length - 1)
-                    selectorPos++;
-                if (cki.Key == ConsoleKey.Escape)
-                    return -1;
-                if (cki.Key == ConsoleKey.S)
-                {
-                    if (sort == 0)
-                        list = list.OrderBy(order => order.CustomerID).ToList();
-                    else if (sort == 1)
-                        list = list.OrderBy(order => order.Lastname).ToList();
-                    else if (sort == 2)
-                        list = list.OrderBy(order => order.ZipCode).ToList();
+        //        // Changes up and down in menu, depending on key press.
+        //        if (cki.Key == ConsoleKey.UpArrow && selectorPos > 0)
+        //            selectorPos--;
+        //        if (cki.Key == ConsoleKey.DownArrow && selectorPos < options.Length - 1)
+        //            selectorPos++;
+        //        if (cki.Key == ConsoleKey.Escape)
+        //            return -1;
+        //        if (cki.Key == ConsoleKey.S)
+        //        {
+        //            if (sort == 0)
+        //                list = list.OrderBy(order => order.CustomerID).ToList();
+        //            else if (sort == 1)
+        //                list = list.OrderBy(order => order.Lastname).ToList();
+        //            else if (sort == 2)
+        //                list = list.OrderBy(order => order.ZipCode).ToList();
 
-                    if (sort >= 2)
-                        sort = 0;
-                    else
-                        sort++;
+        //            if (sort >= 2)
+        //                sort = 0;
+        //            else
+        //                sort++;
 
-                    selectorPos = 0;
-                    min = 0;
-                }
-                // Exits loop if enter is pressed.
-            } while (cki.Key != ConsoleKey.Enter);
+        //            selectorPos = 0;
+        //            min = 0;
+        //        }
+        //        // Exits loop if enter is pressed.
+        //    } while (cki.Key != ConsoleKey.Enter);
 
-            Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.SetCursorPosition(offsetLeft, offsetTop + selectorPos);
-            Console.WriteLine(list[selectorPos].StringFormat);
-            Console.ForegroundColor = color;
+        //    Console.ForegroundColor = ConsoleColor.DarkGray;
+        //    Console.SetCursorPosition(offsetLeft, offsetTop + selectorPos);
+        //    Console.WriteLine(list[selectorPos].StringFormat);
+        //    Console.ForegroundColor = color;
 
-            //Reverts cursor to previous status and returns value for the chosen subject.
-            Console.CursorVisible = cursorState;
-            return list[selectorPos].CustomerID;
-        }
+        //    //Reverts cursor to previous status and returns value for the chosen subject.
+        //    Console.CursorVisible = cursorState;
+        //    return list[selectorPos].CustomerID;
+        //}
     }
 }
