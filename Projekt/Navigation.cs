@@ -153,7 +153,7 @@ namespace Projekt
                 Console.WriteLine(options[selectorPos]);
                 Console.ForegroundColor = color;
 
-                // læser tastede indput.
+                // reads the key indput.
                 cki = Console.ReadKey(true);
 
                 // hopper op og ned i menuen alt efter hvad der bliver trykket.
@@ -163,7 +163,7 @@ namespace Projekt
                     selectorPos++;
                 if (cki.Key == ConsoleKey.Escape)
                     return -1;
-                // hopper ud af loopen hvis der bliver trykket på enter.
+                // stops loop if enter is pressed.
             } while (cki.Key != ConsoleKey.Enter);
 
             Console.ForegroundColor = ConsoleColor.DarkGray;

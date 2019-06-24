@@ -57,7 +57,7 @@ namespace Projekt
                         Navigation carSelection = new Navigation(FrameMain, 34, 6, carFormattedList.ToArray(), carTitle);
 
                         carSelection.PrintTitle();
-                        carSelection.Selector(5);
+                        carSelection.Selector();
                         break;
                     case 2:
                         Customer.Create(FrameMain, 35, 3);
