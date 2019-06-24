@@ -8,29 +8,41 @@ namespace Projekt
 {
     class Tool
     {
-        public static bool CheckInt(string input)
+        //public static bool CheckInt(string input)
+        //{
+        //    bool parse = Int32.TryParse(input, out int output);
+        //    if (parse)
+        //    {
+        //        return true;
+        //    }
+        //    else
+        //    {
+        //        return false;
+        //    }
+        //}
+
+
+        public static void Write(int left, int top, string text, ConsoleColor color)
         {
-            bool parse = Int32.TryParse(input, out int output);
-            if (parse)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            ConsoleColor oldColor = Console.ForegroundColor;
+            Console.ForegroundColor = color;
+            Console.SetCursorPosition(left, top);
+            Console.Write(text);
+            Console.ForegroundColor = oldColor;
         }
 
-        public static string BuildString(int left, int top, int lenght)
+        public static string BuildString(int left, int top, int lenght, string output = "")
         {
             Console.SetCursorPosition(left, top);
             ColorChange(false);
             Console.Write(new string(' ', lenght));
-            string output = "";
             ConsoleKeyInfo cki;
 
             do
             {
+                Console.SetCursorPosition(left, top);
+                Console.WriteLine(output);
+
                 Console.SetCursorPosition(left + output.Length, top);
                 cki = Console.ReadKey(true);
 
@@ -45,8 +57,6 @@ namespace Projekt
                     Console.Write(' ');
                 }
 
-                Console.SetCursorPosition(left, top);
-                Console.WriteLine(output);
             } while (cki.Key != ConsoleKey.Enter);
 
             ColorChange();
@@ -58,16 +68,18 @@ namespace Projekt
             return output;
         }
 
-        public static int BuildInt(int left, int top, int lenght)
+        public static int BuildInt(int left, int top, int lenght, string output = "")
         {
             Console.SetCursorPosition(left, top);
             ColorChange(false);
             Console.Write(new string(' ', lenght));
-            string output = "";
             ConsoleKeyInfo cki;
 
             do
             {
+                Console.SetCursorPosition(left, top);
+                Console.WriteLine(output);
+
                 Console.SetCursorPosition(left + output.Length, top);
                 cki = Console.ReadKey(true);
 
@@ -81,9 +93,6 @@ namespace Projekt
                     Console.SetCursorPosition(left + output.Length, top);
                     Console.Write(' ');
                 }
-
-                Console.SetCursorPosition(left, top);
-                Console.WriteLine(output);
             } while (cki.Key != ConsoleKey.Enter || output.Length <= 0);
 
             ColorChange();
@@ -95,16 +104,18 @@ namespace Projekt
             return Convert.ToInt32(output);
         }
 
-        public static string BuildEmail(int left, int top, int lenght)
+        public static string BuildEmail(int left, int top, int lenght, string output = "")
         {
             Console.SetCursorPosition(left, top);
             ColorChange(false);
             Console.Write(new string(' ', lenght));
-            string output = "";
             ConsoleKeyInfo cki;
 
             do
             {
+                Console.SetCursorPosition(left, top);
+                Console.WriteLine(output);
+
                 Console.SetCursorPosition(left + output.Length, top);
                 cki = Console.ReadKey(true);
 
@@ -118,9 +129,6 @@ namespace Projekt
                     Console.SetCursorPosition(left + output.Length, top);
                     Console.Write(' ');
                 }
-
-                Console.SetCursorPosition(left, top);
-                Console.WriteLine(output);
             } while (cki.Key != ConsoleKey.Enter);
 
             ColorChange();
@@ -137,7 +145,6 @@ namespace Projekt
             string output = "";
             int currentStringLength = 0;
 
-            //string[] InfoArray = Info();
             for (int i = 0; i < buffer.Length; i++)
             {
                 if (buffer[i] > currentStringLength)
@@ -159,7 +166,7 @@ namespace Projekt
 
         private static void ColorChange(bool useOldColors = true)
         {
-            ConsoleColor[] palette = {ConsoleColor.Black, ConsoleColor.Gray };
+            ConsoleColor[] palette = { ConsoleColor.Black, ConsoleColor.Gray };
 
             if (useOldColors == true)
             {
@@ -172,5 +179,17 @@ namespace Projekt
                 Console.BackgroundColor = palette[1];
             }
         }
+
+        //public static void printLoop(int left, int top, int max, List<Car> list)
+        //{
+        //    if (list.Count < max)
+        //        max = list.Count;
+
+        //    for (int i = 0; i < max; i++)
+        //    {
+        //        Console.SetCursorPosition(left, top + i);
+        //        Console.WriteLine(list[i].StringFormat);
+        //    }
+        //}
     }
 }

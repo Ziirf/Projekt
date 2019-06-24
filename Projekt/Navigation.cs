@@ -106,6 +106,8 @@ namespace Projekt
                     selectorPos--;
                 if (cki.Key == ConsoleKey.DownArrow && selectorPos < options.Length - 1)
                     selectorPos++;
+                if (cki.Key == ConsoleKey.Escape)
+                    return -1;
 
                 // hopper ud af loopen hvis der bliver trykket på enter.
             } while (cki.Key != ConsoleKey.Enter);
@@ -246,7 +248,8 @@ namespace Projekt
             Console.CursorVisible = cursorState;
             return list[selectorPos].CustomerID;
         }
-        public int Selector(int maxEntries, List<Car> list)
+
+        public string Selector(int maxEntries, List<Car> list)
         {
             if (maxEntries > list.Count)
                 maxEntries = list.Count;
@@ -286,7 +289,7 @@ namespace Projekt
                 if (cki.Key == ConsoleKey.DownArrow && selectorPos < options.Length - 1)
                     selectorPos++;
                 if (cki.Key == ConsoleKey.Escape)
-                    return -1;
+                    return "-1";
                 if (cki.Key == ConsoleKey.S)
                 {
                     if (sort == 0)
@@ -314,7 +317,7 @@ namespace Projekt
 
             //Reverts cursor to previous status and returns value for the chosen subject.
             Console.CursorVisible = cursorState;
-            return list[selectorPos].CustomerID;
+            return list[selectorPos].VinNumber;
         }
         public int Selector(int maxEntries, List<ShopVisit> list)
         {

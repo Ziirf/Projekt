@@ -24,49 +24,49 @@ namespace Projekt
         public string Firstname
         {
             get { return firstname; }
-            private set { firstname = value; }
+            set { firstname = value; }
         }
 
         private string lastname;
         public string Lastname
         {
             get { return lastname; }
-            private set { lastname = value; }
+            set { lastname = value; }
         }
 
         private string address;
         public string Address
         {
             get { return address; }
-            private set { address = value; }
+            set { address = value; }
         }
 
         private int zipCode;
         public int ZipCode
         {
             get { return zipCode; }
-            private set { zipCode = value; }
+            set { zipCode = value; }
         }
 
         private string city;
         public string City
         {
             get { return city; }
-            private set { city = value; }
+            set { city = value; }
         }
         
         private int phoneNumber;
         public int PhoneNumber
         {
             get { return phoneNumber; }
-            private set { phoneNumber = value; }
+            set { phoneNumber = value; }
         }
 
         private string eMail;
         public string EMail
         {
             get { return eMail; }
-            private set { eMail = value; }
+            set { eMail = value; }
         }
 
         private DateTime createdDate;
@@ -171,8 +171,7 @@ namespace Projekt
         //        Console.Write(Customer.customerList[i].FormatString(buffer));
         //    }
         //}
-
-        public static void Create(Frame frame, int offsetLeft, int offsetTop)
+        public static void Read(Frame frame, int offsetLeft, int offsetTop)
         {
             string[] information = { "Firstname", "Lastname", "Address", "Zip code", "Phone number", "E-Mail" };
             offsetTop += frame.OffsetTop;
@@ -186,33 +185,75 @@ namespace Projekt
                 Console.SetCursorPosition(offsetLeft, offsetTop + 2 + i);
                 Console.Write(information[i] + ": ");
             }
-            ConsoleColor[] palette = { Console.ForegroundColor, Console.BackgroundColor, ConsoleColor.Black, ConsoleColor.White };
+        }
 
-            string firstname = Tool.BuildString(offsetLeft + information[0].Length + 2, offsetTop + 2, 20);
-            string lastname = Tool.BuildString(offsetLeft + information[1].Length + 2, offsetTop + 3, 20);
-            string address = Tool.BuildString(offsetLeft + information[2].Length + 2, offsetTop + 4, 40);
-            int zipcode = Tool.BuildInt(offsetLeft + information[3].Length + 2, offsetTop + 5, 4);
-            int phoneNumber = Tool.BuildInt(offsetLeft + information[4].Length + 2, offsetTop + 6, 8);
-            string email = Tool.BuildEmail(offsetLeft + information[5].Length + 2, offsetTop + 7, 30);
+        public static void Read(Frame frame, int offsetLeft, int offsetTop, Customer customer)
+        {
+            string[] information = { "Firstname", "Lastname", "Address", "Zip code", "Phone number", "E-Mail" };
+            string[] data = { customer.firstname, customer.lastname, customer.address, customer.zipCode.ToString(), customer.phoneNumber.ToString(), customer.eMail };
+            offsetTop += frame.OffsetTop;
+            offsetLeft += frame.OffsetLeft;
+
+            Console.SetCursorPosition(offsetLeft, offsetTop);
+            Console.WriteLine("Customer Form:");
+
+            for (int i = 0; i < information.Length; i++)
+            {
+                Console.SetCursorPosition(offsetLeft, offsetTop + 2 + i);
+                Console.Write(information[i] + ": " + data[i]);
+            }
+        }
+
+        public static void Create(Frame frame, int left, int top)
+        {
+            string[] information = { "Firstname", "Lastname", "Address", "Zip code", "Phone number", "E-Mail" };
+            top += frame.OffsetTop;
+            left += frame.OffsetLeft;
+
+            Console.SetCursorPosition(left, top);
+            Console.WriteLine("Customer Form:");
+
+            for (int i = 0; i < information.Length; i++)
+            {
+                Console.SetCursorPosition(left, top + 2 + i);
+                Console.Write(information[i] + ": ");
+            }
+
+            string firstname = Tool.BuildString(left + information[0].Length + 2, top + 2, 20);
+            string lastname = Tool.BuildString(left + information[1].Length + 2, top + 3, 20);
+            string address = Tool.BuildString(left + information[2].Length + 2, top + 4, 40);
+            int zipcode = Tool.BuildInt(left + information[3].Length + 2, top + 5, 4);
+            int phoneNumber = Tool.BuildInt(left + information[4].Length + 2, top + 6, 8);
+            string email = Tool.BuildEmail(left + information[5].Length + 2, top + 7, 30).ToLower();
 
             SQL.CreateCustomer(firstname, lastname, address, zipcode, phoneNumber, email);
         }
 
-        //private static void ColorChange(ConsoleColor[] palette, bool oldColor = true)
-        //{
-        //    ConsoleColor[] colorOld = { Console.ForegroundColor, Console.BackgroundColor };
-        //    ConsoleColor[] color = { ConsoleColor.Black, ConsoleColor.White };
+        public static void Update(Frame frame, Customer customer, int offsetLeft, int offsetTop)
+        {
+            string[] information = { "Firstname", "Lastname", "Address", "Zip code", "Phone number", "E-Mail" };
+            string[] data = { customer.firstname, customer.lastname, customer.address, customer.zipCode.ToString(), customer.phoneNumber.ToString(), customer.eMail };
+            offsetTop += frame.OffsetTop;
+            offsetLeft += frame.OffsetLeft;
 
-        //    if (oldColor == true)
-        //    {
-        //        Console.ForegroundColor = palette[0];
-        //        Console.BackgroundColor = palette[1];
-        //    }
-        //    else
-        //    {
-        //        Console.ForegroundColor = palette[3];
-        //        Console.BackgroundColor = palette[4];
-        //    }
-        //}
+            Console.SetCursorPosition(offsetLeft, offsetTop);
+            Console.WriteLine("Customer Form:");
+
+            for (int i = 0; i < information.Length; i++)
+            {
+                Console.SetCursorPosition(offsetLeft, offsetTop + 2 + i);
+                Console.Write(information[i] + ": " + data[i]);
+            }
+            //ConsoleColor[] palette = { Console.ForegroundColor, Console.BackgroundColor, ConsoleColor.Black, ConsoleColor.White };
+
+            string firstname = Tool.BuildString(offsetLeft + information[0].Length + 2, offsetTop + 2, 20, data[0]);
+            string lastname = Tool.BuildString(offsetLeft + information[1].Length + 2, offsetTop + 3, 20, data[1]);
+            string address = Tool.BuildString(offsetLeft + information[2].Length + 2, offsetTop + 4, 40, data[2]);
+            int zipcode = Tool.BuildInt(offsetLeft + information[3].Length + 2, offsetTop + 5, 4, data[3]);
+            int phoneNumber = Tool.BuildInt(offsetLeft + information[4].Length + 2, offsetTop + 6, 8, data[4]);
+            string email = Tool.BuildEmail(offsetLeft + information[5].Length + 2, offsetTop + 7, 30, data[5]).ToLower();
+
+            SQL.UpdateCustomer(firstname, lastname, address, zipcode, phoneNumber, email, customer.CustomerID);
+        }
     }
 }
