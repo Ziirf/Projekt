@@ -25,7 +25,7 @@ namespace Projekt
             //FrameCustomer.Print();
             //Console.ReadKey();
 
-            Navigation menuSelection = new Navigation(FrameMain, 3, 5, new string[] { "Customer Overview", "Car Overview", "Create Customer", "Exit Program" });
+            Navigation menuSelection = new Navigation(FrameMain, 3, 5, new string[] { "Customer Overview", "Car Overview", "Create Customer", "Shopvisit", "Exit Program" });
 
             do
             {
@@ -34,6 +34,7 @@ namespace Projekt
 
                 Console.Clear();
                 FrameMain.Print();
+
                 switch (menuSelection.Selector())
                 {
                     case 0:
@@ -60,7 +61,7 @@ namespace Projekt
                         Navigation navigationCar = new Navigation(FrameMain, 34, 6, carFormattedList.ToArray(), carTitle);
 
                         navigationCar.PrintTitle();
-                        selectedCar = navigationCar.Selector(5);
+                        selectedCar = navigationCar.Selector();
                         if (selectedCar >= 0)
                         {
 
@@ -70,6 +71,15 @@ namespace Projekt
                         Customer.Create(FrameMain, 35, 3);
                         break;
                     case 3:
+                        string shopVisitTitle = Tool.FormatString(ShopVisit.buffer, new string[] { "#Shop ID", "Mechanic", "VIN", "KM", "Issue", "Notes", "Visit Date" });
+
+                        List<string> shopVisitFormattedList = new List<string>();
+                        foreach (var item in Customer.customerList)
+                            shopVisitFormattedList.Add(item.StringFormat);
+                        Navigation navigationShopVisit = new Navigation(FrameMain, 34, 6, shopVisitFormattedList.ToArray(), shopVisitTitle);
+
+                        navigationShopVisit.PrintTitle();
+                        navigationShopVisit.Selector(28, ShopVisit.shopVisitList);
                         break;
                     default:
                         break;

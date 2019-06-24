@@ -9,7 +9,7 @@ namespace Projekt
     class Car
     {
         public static List<Car> carList = new List<Car>();
-        public static int[] buffer = { 0, 7, 22, 38, 48, 48, 58, 73, 86 };
+        public static int[] buffer = { 0, 7, 22, 38, 48, 58, 68, 83, 96 };
 
         private int customerID;
         public int CustomerID

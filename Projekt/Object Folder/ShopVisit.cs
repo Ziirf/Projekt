@@ -10,7 +10,7 @@ namespace Projekt
     class ShopVisit
     {
         public static List<ShopVisit> shopVisitList = new List<ShopVisit>();
-        public static int[] buffer = { 0, 7, 30, 50, 73, 87, 112 };
+        public static int[] buffer = { 0, 12, 24, 44, 54, 80, 112 };
 
         private int visitID;
         public int VisitID
