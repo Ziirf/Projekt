@@ -58,6 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Object Folder\IObjects.cs" />
     <Compile Include="Object Folder\Car.cs" />
     <Compile Include="Object Folder\Customer.cs" />
     <Compile Include="Frame.cs" />

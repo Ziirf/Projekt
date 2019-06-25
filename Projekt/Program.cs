@@ -22,7 +22,12 @@ namespace Projekt
             SQL.ReadCarToObj();
             SQL.ReadShopVisitToObj();
 
+            //Windows.ShopVisitWindow("ASD123");
             Windows.MainWindow();
         }
+    }
+    interface ITester
+    {
+        
     }
 }

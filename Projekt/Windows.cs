@@ -75,9 +75,8 @@ namespace Projekt
             } while (run);
         }
 
-        public static void CustomerWindow(int selectedCustomerID = 0)
+        public static void CustomerWindow(int selectedCustomerID)
         {
-            //int accIndex = Program.accountList.FindIndex(account => account.AccountNumber == Utility.SelectedAccountNumber);
             int selectedCustomerIndex = Customer.customerList.FindIndex(customer => customer.CustomerID == selectedCustomerID);
             Console.Clear();
 
@@ -90,23 +89,7 @@ namespace Projekt
             frameCustomer.AddVerticalDivider(110, 2, 26);
             Customer.Read(frameCustomer, 35, 3, Customer.customerList[selectedCustomerIndex]);
 
-            //// Makes a list of the current selected customers cars, and populates it.
-            //List<Car> selectedCustomerCarList = new List<Car>();
-            //selectedCustomerCarList = Car.carList.Where(id => id.CustomerID == selectedCustomerID).ToList();
-            //string carTitle = Tool.FormatString(Car.buffer, new string[] { "#ID", "VIN Number", "Number plate", "Brand", "Model", "Year", "Kilometers", "Fuel Type", "Registration Date" });
-            //if (selectedCustomerCarList.Count > 0)
-            //    Car.Overview(frameCustomer, 34, 27, carTitle, selectedCustomerCarList, 5);
-            //else
-            //{
-            //    Console.SetCursorPosition((frameDim[0] + 34 - 10) / 2, 28);
-            //    var color = Console.ForegroundColor;
-            //    Console.ForegroundColor = ConsoleColor.Red;
-            //    Console.WriteLine("< No Cars >");
-            //    Console.ForegroundColor = color;
-            //}
-            //Customer.Read(frameCustomer, 35, 3, Customer.customerList[selectedCustomerIndex]);
-            // Makes a list of the current selected customers cars, and populates it.
-
+            // Creates a list of the selected customers cars
             List<Car> selectedCustomerCarList = new List<Car>();
             selectedCustomerCarList = Car.carList.Where(id => id.CustomerID == selectedCustomerID).ToList();
             string carTitle = Tool.FormatString(Car.buffer, new string[] { "#ID", "VIN Number", "Number plate", "Brand", "Model", "Year", "Kilometers", "Fuel Type", "Registration Date" });
@@ -114,6 +97,7 @@ namespace Projekt
             // Makes the menu to choose from.
             Navigation menuSelection = new Navigation(frameCustomer, 3, 5, new string[] { "Select Car", "Open Shop Visits", "Edit Customer", "Remove Customer", "Create Car", "Edit Car", "Remove Car", "Back" });
 
+            // Default values set before going into the loop
             string selectedCarVin = "";
             int selectedCarIndex = -1;
             bool run = true;
@@ -205,12 +189,72 @@ namespace Projekt
 
         public static void ShopVisitWindow(string vinNumber)
         {
+            int selectedCarIndex = Car.carList.FindIndex(car => car.VinNumber == vinNumber);
+
             Frame frameVisit = new Frame(frameDim);
             frameVisit.AddHorizontalDivider(2, 0, frameDim[0]);
             frameVisit.AddHorizontalDivider(35, 0, frameDim[0]);
+            frameVisit.AddHorizontalDivider(26, 32, frameDim[0]);
             frameVisit.AddVerticalDivider(32, 2, 35);
+            frameVisit.Print();
 
+            //Car.Read(frameVisit, 35, 3, Customer.customerList[selectedCarIndex]);
 
+            List<ShopVisit> selectedShopVisitList = new List<ShopVisit>();
+            selectedShopVisitList = ShopVisit.shopVisitList.Where(car => car.VinNumber == vinNumber).ToList();
+            string shopVisitTitle = Tool.FormatString(ShopVisit.buffer, new string[] { "#ID", "Mechanic", "VIN", "KM Count", "Issue", "Note", "Date" });
+
+            // Makes the menu to choose from.
+            Navigation menuSelection = new Navigation(frameVisit, 3, 5, new string[] { "Select ShopVisit", "Create ShopVisit", "Edit ShopVisit", "Remove ShopVisit", "Back" });
+
+            //string selectedCarVin = "";
+            //int selectedCarIndex = -1;
+            //bool run = true;
+
+            int selectedShopVisitIndex = -1;
+            int selectedShopVisitID = -1;
+            bool run = true;
+            do
+            {
+                if (selectedShopVisitList.Count > 0)
+                    ShopVisit.Overview(frameVisit, 34, 27, shopVisitTitle, selectedShopVisitList, 5);
+                else
+                {
+                    Console.SetCursorPosition((frameDim[0] + 34 - 10) / 2, 28);
+                    var color = Console.ForegroundColor;
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("< No Entries >");
+                    Console.ForegroundColor = color;
+                }
+                frameVisit.Print();
+                switch (menuSelection.Selector())
+                {
+                    case 0:
+                        if (selectedShopVisitList.Count > 0)
+                        {
+                            List<string> shopVisitFormattedList = new List<string>();
+                            foreach (var item in selectedShopVisitList)
+                                shopVisitFormattedList.Add(item.StringFormat);
+                            Navigation navigationCar = new Navigation(frameVisit, 34, 30, shopVisitFormattedList.ToArray(), shopVisitTitle);
+
+                            navigationCar.PrintTitle();
+                            selectedShopVisitID = navigationCar.Selector(5, selectedShopVisitList);
+                            selectedShopVisitIndex = selectedShopVisitList.FindIndex(shopVisit => shopVisit.VisitID == selectedShopVisitID);
+                            if (selectedCarIndex >= 0)
+                            {
+                                ShopVisit.Read(frameVisit, selectedShopVisitList[selectedShopVisitIndex], 35, 3);
+                            }
+                        }
+                        break;
+                    case 1:
+                        break;
+                    default:
+                        break;
+                }
+
+            } while (run);
+
+            Console.ReadKey();
         }
     }
 }

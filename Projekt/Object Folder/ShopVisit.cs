@@ -109,5 +109,41 @@ namespace Projekt
 
             SQL.CreateShopVisit(mechanic, vin, kmCount, issue, note);
         }
+
+        public static void Overview(Frame frame, int left, int top, string title, List<ShopVisit> list, int max)
+        {
+            top += frame.OffsetTop;
+            left += frame.OffsetLeft;
+            if (list.Count < max)
+                max = list.Count;
+
+
+            Console.SetCursorPosition(left, top);
+            Console.Write(title);
+
+            for (int i = 0; i < max; i++)
+            {
+                Console.SetCursorPosition(left, top + i + 2);
+                Console.Write(list[i].StringFormat);
+            }
+        }
+
+        //int visitID, DateTime dateTimeVisit, string mechanic, string vinNumber, int kmCount, string issue, string notes
+        public static void Read(Frame frame, ShopVisit shopVisit, int offsetLeft, int offsetTop)
+        {
+            string[] information = { "Mechanic", "VIN", "KM Count", "Issue", "Note" };
+            string[] data = {  };
+            offsetTop += frame.OffsetTop;
+            offsetLeft += frame.OffsetLeft;
+
+            Console.SetCursorPosition(offsetLeft, offsetTop);
+            Console.WriteLine("Shop Visit Form:");
+
+            for (int i = 0; i < information.Length; i++)
+            {
+                Console.SetCursorPosition(offsetLeft, offsetTop + 2 + i);
+                Console.Write(information[i] + ": ");
+            }
+        }
     }
 }
