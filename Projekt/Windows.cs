@@ -140,7 +140,8 @@ namespace Projekt
                     case 1: // Open Shop Visits
                         if (selectedCarVin != "")
                         {
-                            ShopVisitWindow(Car.carList[selectedCarIndex].VinNumber);
+                            Console.Clear();
+                            ShopVisitWindow(selectedCustomerCarList[selectedCarIndex].VinNumber);
                         }
                         break;
                     case 2: // Edit Customer
@@ -179,9 +180,11 @@ namespace Projekt
                         }
                         break;
                     case 7:
+                        Console.Clear();
                         run = false;
                         break;
                     case -1:
+                        Console.Clear();
                         run = false;
                         break;
                     default:
@@ -194,6 +197,7 @@ namespace Projekt
         public static void ShopVisitWindow(string vinNumber)
         {
             int selectedCarIndex = Car.carList.FindIndex(car => car.VinNumber == vinNumber);
+            Console.Clear();
 
             Frame frameVisit = new Frame(frameDim);
             frameVisit.AddHorizontalDivider(2, 0, frameDim[0]);

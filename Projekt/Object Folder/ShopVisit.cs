@@ -128,7 +128,6 @@ namespace Projekt
             }
         }
 
-        //int visitID, DateTime dateTimeVisit, string mechanic, string vinNumber, int kmCount, string issue, string notes
         public static void Read(Frame frame, ShopVisit shopVisit, int offsetLeft, int offsetTop)
         {
             string[] information = { "Visit ID", "Date", "Mechanic", "VIN", "KM Count", "Issue", "Note" };
@@ -145,7 +144,6 @@ namespace Projekt
                 Console.Write(information[i] + ": " + data[i]);
             }
         }
-
         public static void Update(Frame frame, ShopVisit shopVisit, int offsetLeft, int offsetTop)
         {
             string[] information = { "Visit ID", "Date", "Mechanic", "VIN", "KM Count", "Issue", "Note" };
@@ -171,32 +169,5 @@ namespace Projekt
 
             SQL.UpdateShopVisit(shopVisit.VisitID, shopVisit.DateTimeVisit, mechanic, vin, kmCount, issue, note);
         }
-
-        //public static void Update(Frame frame, Car car, int offsetLeft, int offsetTop)
-        //{
-        //    string[] information = { "Owner ID", "VIN", "Number plate", "Car Brand", "Car Model", "Production Year", "KM Counter", "Fuel type" };
-        //    string[] data = { car.customerID.ToString(), car.vinNumber, car.numberPlate, car.carBrand, car.carModel, car.productionYear.ToString(), car.kmCount.ToString(), car.fuelType };
-        //    offsetTop += frame.OffsetTop;
-        //    offsetLeft += frame.OffsetLeft;
-
-        //    Console.SetCursorPosition(offsetLeft, offsetTop);
-        //    Console.WriteLine("Car Form:");
-
-        //    for (int i = 0; i < information.Length; i++)
-        //    {
-        //        Console.SetCursorPosition(offsetLeft, offsetTop + 2 + i);
-        //        Console.Write(information[i] + ": " + data[i]);
-        //    }
-        //    Tool.Write(offsetLeft + information[0].Length + 2, offsetTop + 2, data[0].ToString(), ConsoleColor.DarkGray);
-        //    string vin = Tool.BuildString(offsetLeft + information[1].Length + 2, offsetTop + 3, 20, data[1]).ToUpper();
-        //    string numberPlate = Tool.BuildString(offsetLeft + information[2].Length + 2, offsetTop + 4, 7, data[2]).ToUpper();
-        //    string brand = Tool.BuildString(offsetLeft + information[3].Length + 2, offsetTop + 5, 20, data[3]);
-        //    string model = Tool.BuildString(offsetLeft + information[4].Length + 2, offsetTop + 6, 20, data[4]);
-        //    int productionYear = Tool.BuildInt(offsetLeft + information[5].Length + 2, offsetTop + 7, 4, data[5]);
-        //    int kmCount = Tool.BuildInt(offsetLeft + information[6].Length + 2, offsetTop + 8, 20, data[6]);
-        //    string fuelType = Tool.BuildString(offsetLeft + information[7].Length + 2, offsetTop + 9, 20, data[7]);
-
-        //    SQL.UpdateCar(car.customerID, vin, numberPlate, brand, model, productionYear, kmCount, fuelType, car.VinNumber);
-        //}
     }
 }
