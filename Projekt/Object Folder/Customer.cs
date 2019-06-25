@@ -54,7 +54,7 @@ namespace Projekt
             get { return city; }
             set { city = value; }
         }
-        
+
         private int phoneNumber;
         public int PhoneNumber
         {

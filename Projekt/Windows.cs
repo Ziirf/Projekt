@@ -11,12 +11,12 @@ namespace Projekt
         static readonly int[] frameDim = { 190, 39, 0, 1 };
         public static void MainWindow()
         {
-            Frame FrameMain = new Frame(frameDim);
-            FrameMain.AddHorizontalDivider(2, 0, frameDim[0]);
-            FrameMain.AddHorizontalDivider(35, 0, frameDim[0]);
-            FrameMain.AddVerticalDivider(32, 2, 35);
+            Frame frameMain = new Frame(frameDim);
+            frameMain.AddHorizontalDivider(2, 0, frameDim[0]);
+            frameMain.AddHorizontalDivider(35, 0, frameDim[0]);
+            frameMain.AddVerticalDivider(32, 2, 35);
 
-            Navigation menuSelection = new Navigation(FrameMain, 3, 5, new string[] { "Customer Overview", "Car Overview", "Create Customer", "Exit Program" });
+            Navigation menuSelection = new Navigation(frameMain, 3, 5, new string[] { "Customer Overview", "Car Overview", "Create Customer", "Exit Program" });
 
             bool run = true;
             do
@@ -26,7 +26,7 @@ namespace Projekt
                 int selectedCarIndex;
 
                 Console.Clear();
-                FrameMain.Print();
+                frameMain.Print();
                 switch (menuSelection.Selector())
                 {
                     case 0:
@@ -35,7 +35,7 @@ namespace Projekt
                         List<string> customerFormattedList = new List<string>();
                         foreach (var item in Customer.customerList)
                             customerFormattedList.Add(item.StringFormat);
-                        Navigation navigationCustomer = new Navigation(FrameMain, 34, 6, customerFormattedList.ToArray(), customerTitle);
+                        Navigation navigationCustomer = new Navigation(frameMain, 34, 6, customerFormattedList.ToArray(), customerTitle);
 
                         navigationCustomer.PrintTitle();
                         selectedCustomerIndex = navigationCustomer.Selector(28, Customer.customerList);
@@ -50,7 +50,7 @@ namespace Projekt
                         List<string> carFormattedList = new List<string>();
                         foreach (var item in Car.carList)
                             carFormattedList.Add(item.StringFormat);
-                        Navigation navigationCar = new Navigation(FrameMain, 34, 6, carFormattedList.ToArray(), carTitle);
+                        Navigation navigationCar = new Navigation(frameMain, 34, 6, carFormattedList.ToArray(), carTitle);
 
                         navigationCar.PrintTitle();
                         selectedCarVin = navigationCar.Selector(5, Car.carList);
@@ -61,7 +61,7 @@ namespace Projekt
                         }
                         break;
                     case 2:
-                        Customer.Create(FrameMain, 35, 3);
+                        Customer.Create(frameMain, 35, 3);
                         break;
                     case 3:
                         run = false;
@@ -74,7 +74,6 @@ namespace Projekt
                 }
             } while (run);
         }
-
 
         public static void CustomerWindow(int selectedCustomerID = 0)
         {
@@ -202,6 +201,16 @@ namespace Projekt
                 }
 
             } while (run);
+        }
+
+        public static void ShopVisitWindow(string vinNumber)
+        {
+            Frame frameVisit = new Frame(frameDim);
+            frameVisit.AddHorizontalDivider(2, 0, frameDim[0]);
+            frameVisit.AddHorizontalDivider(35, 0, frameDim[0]);
+            frameVisit.AddVerticalDivider(32, 2, 35);
+
+
         }
     }
 }
