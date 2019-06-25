@@ -8,48 +8,188 @@ namespace Projekt
 {
     class Tool
     {
-        /* Not needed
-        public static void FillOutCustomer()
-        {
-            // Takes the info from the textbox and stores it in variables
-            Console.Write("Customer firstname:");
-            string firstname = Console.ReadLine();
-            Console.Write("Customer lastname:");
-            string lastname = Console.ReadLine();
-            Console.Write("Customer address:");
-            string address = Console.ReadLine();
-            Console.Write("Customer zip code:");
-            int zipCode = Convert.ToInt32(Console.ReadLine());
-            Console.Write("Customer Phonenumber:");
-            int phoneNumber = Convert.ToInt32(Console.ReadLine());
-            Console.Write("Customer e-mail:");
-            string eMail = Console.ReadLine();
+        //public static bool CheckInt(string input)
+        //{
+        //    bool parse = Int32.TryParse(input, out int output);
+        //    if (parse)
+        //    {
+        //        return true;
+        //    }
+        //    else
+        //    {
+        //        return false;
+        //    }
+        //}
 
-            SQL.CreateCustomer(firstname, lastname, address, zipCode, phoneNumber, eMail);
+
+        public static void Write(int left, int top, string text, ConsoleColor color)
+        {
+            ConsoleColor oldColor = Console.ForegroundColor;
+            Console.ForegroundColor = color;
+            Console.SetCursorPosition(left, top);
+            Console.Write(text);
+            Console.ForegroundColor = oldColor;
         }
 
-        public static void FillOutCar()
+        public static string BuildString(int left, int top, int lenght, string output = "")
         {
-            // Takes the info from the textbox and stores it in variables
-            Console.Write("Customer ID:");
-            int customerID = Convert.ToInt32(Console.ReadLine());
-            Console.Write("vinNumber:");
-            string vinNumber = Console.ReadLine();
-            Console.Write("Number plate:");
-            string numberPlate = Console.ReadLine();
-            Console.Write("Car Brand:");
-            string carBrand = Console.ReadLine();
-            Console.Write("Car Model:");
-            string carModel = Console.ReadLine();
-            Console.Write("Production Year:");
-            int productionYear = Convert.ToInt32(Console.ReadLine());
-            Console.Write("KM count:");
-            int kmCount = Convert.ToInt32(Console.ReadLine());
-            Console.Write("Fuel type:");
-            string fuelType = Console.ReadLine();
-            
-            SQL.CreateCar(customerID, vinNumber, numberPlate, carBrand, carModel, productionYear, kmCount, fuelType);
+            Console.SetCursorPosition(left, top);
+            ColorChange(false);
+            Console.Write(new string(' ', lenght));
+            ConsoleKeyInfo cki;
+
+            do
+            {
+                Console.SetCursorPosition(left, top);
+                Console.WriteLine(output);
+
+                Console.SetCursorPosition(left + output.Length, top);
+                cki = Console.ReadKey(true);
+
+                if ((Char.IsLetterOrDigit(cki.KeyChar) || cki.Key == ConsoleKey.Spacebar) && output.Length < lenght)
+                {
+                    output += cki.KeyChar.ToString();
+                }
+                else if (cki.Key == ConsoleKey.Backspace && output.Length > 0)
+                {
+                    output = output.Substring(0, output.Length - 1);
+                    Console.SetCursorPosition(left + output.Length, top);
+                    Console.Write(' ');
+                }
+
+            } while (cki.Key != ConsoleKey.Enter);
+
+            ColorChange();
+            Console.SetCursorPosition(left, top);
+            Console.Write(new string(' ', lenght));
+            Console.SetCursorPosition(left, top);
+            Console.Write(output);
+
+            return output;
         }
-        */
+
+        public static int BuildInt(int left, int top, int lenght, string output = "")
+        {
+            Console.SetCursorPosition(left, top);
+            ColorChange(false);
+            Console.Write(new string(' ', lenght));
+            ConsoleKeyInfo cki;
+
+            do
+            {
+                Console.SetCursorPosition(left, top);
+                Console.WriteLine(output);
+
+                Console.SetCursorPosition(left + output.Length, top);
+                cki = Console.ReadKey(true);
+
+                if ((Char.IsDigit(cki.KeyChar)) && output.Length < lenght)
+                {
+                    output += cki.KeyChar.ToString();
+                }
+                else if (cki.Key == ConsoleKey.Backspace && output.Length > 0)
+                {
+                    output = output.Substring(0, output.Length - 1);
+                    Console.SetCursorPosition(left + output.Length, top);
+                    Console.Write(' ');
+                }
+            } while (cki.Key != ConsoleKey.Enter || output.Length <= 0);
+
+            ColorChange();
+            Console.SetCursorPosition(left, top);
+            Console.Write(new string(' ', lenght));
+            Console.SetCursorPosition(left, top);
+            Console.Write(output);
+
+            return Convert.ToInt32(output);
+        }
+
+        public static string BuildEmail(int left, int top, int lenght, string output = "")
+        {
+            Console.SetCursorPosition(left, top);
+            ColorChange(false);
+            Console.Write(new string(' ', lenght));
+            ConsoleKeyInfo cki;
+
+            do
+            {
+                Console.SetCursorPosition(left, top);
+                Console.WriteLine(output);
+
+                Console.SetCursorPosition(left + output.Length, top);
+                cki = Console.ReadKey(true);
+
+                if ((Char.IsLetterOrDigit(cki.KeyChar) || cki.KeyChar == '@' || cki.KeyChar == '.') && output.Length < lenght)
+                {
+                    output += cki.KeyChar.ToString();
+                }
+                else if (cki.Key == ConsoleKey.Backspace && output.Length > 0)
+                {
+                    output = output.Substring(0, output.Length - 1);
+                    Console.SetCursorPosition(left + output.Length, top);
+                    Console.Write(' ');
+                }
+            } while (cki.Key != ConsoleKey.Enter);
+
+            ColorChange();
+            Console.SetCursorPosition(left, top);
+            Console.Write(new string(' ', lenght));
+            Console.SetCursorPosition(left, top);
+            Console.Write(output);
+
+            return output;
+        }
+
+        public static string FormatString(int[] buffer, string[] input)
+        {
+            string output = "";
+            int currentStringLength = 0;
+
+            for (int i = 0; i < buffer.Length; i++)
+            {
+                if (buffer[i] > currentStringLength)
+                {
+                    int temp = buffer[i] - currentStringLength;
+                    output += new string(' ', temp);
+                }
+                else if (buffer[i] < currentStringLength)
+                {
+                    int temp = currentStringLength - buffer[i];
+                    output = output.Substring(0, output.Length - temp);
+                }
+                output += input[i];
+                currentStringLength = output.Length;
+            }
+
+            return output;
+        }
+
+        private static void ColorChange(bool useOldColors = true)
+        {
+            ConsoleColor[] palette = { ConsoleColor.Black, ConsoleColor.Gray };
+
+            if (useOldColors == true)
+            {
+                Console.ForegroundColor = palette[1];
+                Console.BackgroundColor = palette[0];
+            }
+            else
+            {
+                Console.ForegroundColor = palette[0];
+                Console.BackgroundColor = palette[1];
+            }
+        }
+
+        //public static void printLoop(int left, int top, int max, List<Car> list)
+        //{
+        //    if (list.Count < max)
+        //        max = list.Count;
+
+        //    for (int i = 0; i < max; i++)
+        //    {
+        //        Console.SetCursorPosition(left, top + i);
+        //        Console.WriteLine(list[i].StringFormat);
+        //    }
+        //}
     }
 }

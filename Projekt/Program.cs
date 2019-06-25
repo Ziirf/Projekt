@@ -8,34 +8,25 @@ namespace Projekt
 {
     class Program
     {
-
         static void Main(string[] args)
         {
+            // Sets the console size
+            int[] winSize = { 190, 40 }; // Height, Width
+            Console.SetWindowSize(winSize[0], winSize[1]);
+            Console.SetBufferSize(winSize[0], winSize[1]);
+            Console.SetWindowPosition(0, 0);
+            Console.CursorVisible = false;
+
+            // Reads all the information from the SQL server into the project
             SQL.ReadCustomerToObj();
             SQL.ReadCarToObj();
             SQL.ReadShopVisitToObj();
 
-            foreach (Customer customer in Customer.customerList)
-            {
-                Console.Write(customer.CustomerID + "\t ");
-                Console.Write(customer.Firstname + "\t ");
-                Console.WriteLine(customer.City);
-            }
-            foreach (Car car in Car.carList)
-            {
-                Console.Write(car.VinNumber + "\t ");
-                Console.Write(car.CustomerID + "\t ");
-                Console.WriteLine(car.KmCount);
-            }
-
-            foreach (ShopVisit visit in ShopVisit.shopVisitList)
-            {
-                Console.Write(visit.VinNumber + "\t");
-                Console.WriteLine(visit.VisitID);
-            }
-            
-
-            Console.ReadKey();
+            Windows.MainWindow();
         }
+    }
+    interface ITester
+    {
+        
     }
 }
