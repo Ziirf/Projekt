@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Data;
 using System.IO;
-using Projekt;
 
 namespace Projekt
 {
@@ -104,8 +103,6 @@ namespace Projekt
 
             query = "SELECT ZipAndCity.city FROM Customer left join ZipAndCity on Customer.zipCode = ZipAndCity.zipCode WHERE customerID = @customerID";
 
-            //cmd = new SqlCommand(query, con);
-
             SqlDataAdapter sda = new SqlDataAdapter(query, con);
             sda.SelectCommand.Parameters.AddWithValue("@customerID", customerID);
             DataTable dt = new DataTable();
@@ -165,7 +162,7 @@ namespace Projekt
 
             // A loop used to export data from the SQL database into objects
             for (int i = 0; i < dt.Rows.Count; i++)
-            { //int , string , string , string , string , int , int , string 
+            {
                 DataRow dr = dt.Rows[i];
                 int customerID = Convert.ToInt32(dr["customerID"]);
                 string vinNumber = dr["vinNumber"].ToString();
@@ -222,7 +219,6 @@ namespace Projekt
 
 
             // Creates an object and adds it to the customer list
-
             Car.carList.Add(new Car(customerID, vinNumber, numberPlate, carBrand, carModel, productionYear, kmCount, fuelType, createdDate));
             con.Close();
         }
@@ -348,7 +344,6 @@ namespace Projekt
 
 
             // Creates an object and adds it to the customer list
-
             ShopVisit.shopVisitList.Add(new ShopVisit(visitID, dateTimeVisit, mechanic, vinNumber, kmCount, issue, notes));
             con.Close();
         }
