@@ -8,20 +8,6 @@ namespace Projekt
 {
     class Tool
     {
-        //public static bool CheckInt(string input)
-        //{
-        //    bool parse = Int32.TryParse(input, out int output);
-        //    if (parse)
-        //    {
-        //        return true;
-        //    }
-        //    else
-        //    {
-        //        return false;
-        //    }
-        //}
-
-
         public static void Write(int left, int top, string text, ConsoleColor color)
         {
             ConsoleColor oldColor = Console.ForegroundColor;
@@ -179,17 +165,5 @@ namespace Projekt
                 Console.BackgroundColor = palette[1];
             }
         }
-
-        //public static void printLoop(int left, int top, int max, List<Car> list)
-        //{
-        //    if (list.Count < max)
-        //        max = list.Count;
-
-        //    for (int i = 0; i < max; i++)
-        //    {
-        //        Console.SetCursorPosition(left, top + i);
-        //        Console.WriteLine(list[i].StringFormat);
-        //    }
-        //}
     }
 }
