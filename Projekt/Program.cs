@@ -22,11 +22,8 @@ namespace Projekt
             SQL.ReadCarToObj();
             SQL.ReadShopVisitToObj();
 
+            // Opens the MainWindow where the program runs from
             Windows.MainWindow();
         }
-    }
-    interface ITester
-    {
-        
     }
 }

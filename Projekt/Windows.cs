@@ -65,9 +65,11 @@ namespace Projekt
                         break;
                     case 3:
                         run = false;
+                        Console.Clear();
                         break;
                     case -1:
                         run = false;
+                        Console.Clear();
                         break;
                     default:
                         break;
@@ -257,7 +259,7 @@ namespace Projekt
                         ShopVisit.Overview(frameVisit, 34, 27, shopVisitTitle, selectedShopVisitList, 5);
                         break;
                     case 2: // Update
-                        if(selectedShopVisitIndex >= 0)
+                        if (selectedShopVisitIndex >= 0)
                         {
                             ShopVisit.Update(frameVisit, selectedShopVisitList[selectedShopVisitIndex], 35, 3);
                             selectedShopVisitList.Clear();
@@ -266,19 +268,29 @@ namespace Projekt
                         }
                         break;
                     case 3: // Delete
+                        if (selectedShopVisitID > 0)
+                        {
+                            SQL.DeleteShopVisit(selectedShopVisitID);
+                            selectedShopVisitList.Clear();
+                            selectedShopVisitList = ShopVisit.shopVisitList.Where(car => car.VinNumber == vinNumber).ToList();
+                            ShopVisit.Overview(frameVisit, 34, 27, shopVisitTitle, selectedShopVisitList, 5);
+                            selectedShopVisitID = -1;
+                            selectedShopVisitIndex = -1;
+                        }
+                        break;
                     case 4: // Back
                         run = false;
+                        Console.Clear();
                         break;
                     case -1: // Escape
                         run = false;
+                        Console.Clear();
                         break;
                     default:
                         break;
                 }
 
             } while (run);
-
-            Console.ReadKey();
         }
     }
 }

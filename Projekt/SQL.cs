@@ -128,6 +128,15 @@ namespace Projekt
 
         public static void DeleteCustomer(int customerID)
         {
+            List<Car> carList = Car.carList.Where(car => car.CustomerID == customerID).ToList();
+            if (carList.Count > 0)
+            {
+                for (int i = 0; i < carList.Count; i++)
+                {
+                    DeleteCar(carList[i].VinNumber);
+                }
+            }
+
             con.Open();
             string query = "DELETE FROM Customer WHERE customerID = @customerID";
 
@@ -252,6 +261,15 @@ namespace Projekt
 
         public static void DeleteCar(string vinNumber)
         {
+            List<ShopVisit> shopVisitList = ShopVisit.shopVisitList.Where(shopvisit => shopvisit.VinNumber == vinNumber).ToList();
+            if (shopVisitList.Count > 0)
+            {
+                for (int i = 0; i < shopVisitList.Count; i++)
+                {
+                    DeleteShopVisit(shopVisitList[i].VisitID);
+                }
+            }
+
             con.Open();
             string query = "DELETE FROM Car WHERE vinNumber = @vinNumber";
 
@@ -368,7 +386,7 @@ namespace Projekt
         public static void DeleteShopVisit(int visitID)
         {
             con.Open();
-            string query = "DELETE FROM Car WHERE visitID = @visitID";
+            string query = "DELETE FROM ShopVisit WHERE visitID = @visitID";
 
             using (SqlCommand cmd = new SqlCommand(query, con))
             {
