@@ -138,6 +138,10 @@ namespace Projekt
                         }
                         break;
                     case 1: // Open Shop Visits
+                        if (selectedCarVin != "")
+                        {
+                            ShopVisitWindow(Car.carList[selectedCarIndex].VinNumber);
+                        }
                         break;
                     case 2: // Edit Customer
                         Customer.Update(frameCustomer, Customer.customerList[selectedCustomerIndex], 35, 3);
@@ -207,10 +211,6 @@ namespace Projekt
             // Makes the menu to choose from.
             Navigation menuSelection = new Navigation(frameVisit, 3, 5, new string[] { "Select ShopVisit", "Create ShopVisit", "Edit ShopVisit", "Remove ShopVisit", "Back" });
 
-            //string selectedCarVin = "";
-            //int selectedCarIndex = -1;
-            //bool run = true;
-
             int selectedShopVisitIndex = -1;
             int selectedShopVisitID = -1;
             bool run = true;
@@ -229,7 +229,7 @@ namespace Projekt
                 frameVisit.Print();
                 switch (menuSelection.Selector())
                 {
-                    case 0:
+                    case 0: // Select
                         if (selectedShopVisitList.Count > 0)
                         {
                             List<string> shopVisitFormattedList = new List<string>();
@@ -246,7 +246,27 @@ namespace Projekt
                             }
                         }
                         break;
-                    case 1:
+                    case 1: // Create
+                        ShopVisit.Create(frameVisit, 35, 3);
+                        selectedShopVisitList.Clear();
+                        selectedShopVisitList = ShopVisit.shopVisitList.Where(car => car.VinNumber == vinNumber).ToList();
+                        ShopVisit.Overview(frameVisit, 34, 27, shopVisitTitle, selectedShopVisitList, 5);
+                        break;
+                    case 2: // Update
+                        if(selectedShopVisitIndex >= 0)
+                        {
+                            ShopVisit.Update(frameVisit, selectedShopVisitList[selectedShopVisitIndex], 35, 3);
+                            selectedShopVisitList.Clear();
+                            selectedShopVisitList = ShopVisit.shopVisitList.Where(car => car.VinNumber == vinNumber).ToList();
+                            ShopVisit.Overview(frameVisit, 34, 27, shopVisitTitle, selectedShopVisitList, 5);
+                        }
+                        break;
+                    case 3: // Delete
+                    case 4: // Back
+                        run = false;
+                        break;
+                    case -1: // Escape
+                        run = false;
                         break;
                     default:
                         break;

@@ -246,7 +246,6 @@ namespace Projekt
                 Car.carList[carIndex].KmCount = kmCount;
                 Car.carList[carIndex].FuelType = fuelType;
                 Car.carList[carIndex].StringFormat = Tool.FormatString(Car.buffer, Car.carList[carIndex].Info());
-
             }
             con.Close();
         }
@@ -339,6 +338,8 @@ namespace Projekt
 
         public static void UpdateShopVisit(int visitID, DateTime dateTimeVisit, string mechanic, string vinNumber, int kmCount, string issue, string notes)
         {
+            int shopVisitIndex = ShopVisit.shopVisitList.FindIndex(visit => visit.VisitID == visitID);
+
             con.Open();
             string query = "UPDATE ShopVisit SET dateTimeVisit = @dateTimeVisit, mechanic = @mechanic, vinNumber = @vinNumber, kmCount = @kmCount, issue = @issue, notes = @notes WHERE visitID = @visitID";
 
@@ -353,6 +354,13 @@ namespace Projekt
                 cmd.Parameters.AddWithValue("@visitID", visitID);
 
                 cmd.ExecuteNonQuery();
+
+                ShopVisit.shopVisitList[shopVisitIndex].Mechanic = mechanic;
+                ShopVisit.shopVisitList[shopVisitIndex].VinNumber = vinNumber;
+                ShopVisit.shopVisitList[shopVisitIndex].KmCount = kmCount;
+                ShopVisit.shopVisitList[shopVisitIndex].Issue = issue;
+                ShopVisit.shopVisitList[shopVisitIndex].Notes = notes;
+                ShopVisit.shopVisitList[shopVisitIndex].StringFormat = Tool.FormatString(ShopVisit.buffer, ShopVisit.shopVisitList[shopVisitIndex].Info());
             }
             con.Close();
         }
