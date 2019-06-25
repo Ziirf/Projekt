@@ -8,62 +8,35 @@ namespace Projekt
 {
     class Navigation
     {
-        private Frame frame;
-        public Frame Frame
-        {
-            get { return frame; }
-            set { frame = value; }
-        }
+        public Frame Frame { get; set; }
+        public int OffsetLeft { get; set; }
 
-        private int offsetLeft;
-        public int OffsetLeft
-        {
-            get { return offsetLeft; }
-            set { offsetLeft = value; }
-        }
+        public int OffsetTop { get; set; }
 
-        private int offsetTop;
-        public int OffsetTop
-        {
-            get { return offsetTop; }
-            set { offsetTop = value; }
-        }
-
-        private string[] options;
-        public string[] Options
-        {
-            get { return options; }
-            set { options = value; }
-        }
-
-        private string title;
-        public string Title
-        {
-            get { return title; }
-            set { title = value; }
-        }
+        public string[] Options { get; set; }
+        public string Title { get; set; }
 
         public Navigation(Frame frame, int offsetLeft, int offsetTop, string[] options)
         {
-            this.frame = frame;
-            this.offsetLeft = offsetLeft;
-            this.offsetTop = offsetTop;
-            this.options = options;
+            Frame = frame;
+            OffsetLeft = offsetLeft;
+            OffsetTop = offsetTop;
+            Options = options;
         }
 
         public Navigation(Frame frame, int offsetLeft, int offsetTop, string[] options, string title)
         {
-            this.frame = frame;
-            this.offsetLeft = offsetLeft;
-            this.offsetTop = offsetTop;
-            this.options = options;
-            this.title = title;
+            Frame = frame;
+            OffsetLeft = offsetLeft;
+            OffsetTop = offsetTop;
+            Options = options;
+            Title = title;
         }
 
         public void PrintTitle()
         {
-            Console.SetCursorPosition(offsetLeft, offsetTop - 2);
-            Console.Write(title);
+            Console.SetCursorPosition(OffsetLeft, OffsetTop - 2);
+            Console.Write(Title);
         }
 
         public int Selector()
@@ -75,10 +48,10 @@ namespace Projekt
             var color = Console.ForegroundColor;
             ConsoleKeyInfo cki;
 
-            for (int i = 0; i < options.Length; i++)
+            for (int i = 0; i < Options.Length; i++)
             {
-                Console.SetCursorPosition(offsetLeft, offsetTop + i);
-                Console.WriteLine(options[i]);
+                Console.SetCursorPosition(OffsetLeft, OffsetTop + i);
+                Console.WriteLine(Options[i]);
             }
 
             // Starter vælgeren, som bliver ved med at køre igennem indtil man trykker enter.
@@ -87,12 +60,12 @@ namespace Projekt
                 if (selectorPos != selectorPos_old)
                 {
                     color = Console.ForegroundColor;
-                    Console.SetCursorPosition(offsetLeft, offsetTop + selectorPos_old);
-                    Console.Write(options[selectorPos_old]);
+                    Console.SetCursorPosition(OffsetLeft, OffsetTop + selectorPos_old);
+                    Console.Write(Options[selectorPos_old]);
 
                     Console.ForegroundColor = ConsoleColor.Green;
-                    Console.SetCursorPosition(offsetLeft, offsetTop + selectorPos);
-                    Console.WriteLine(options[selectorPos]);
+                    Console.SetCursorPosition(OffsetLeft, OffsetTop + selectorPos);
+                    Console.WriteLine(Options[selectorPos]);
 
                     Console.ForegroundColor = color;
                 }
@@ -104,7 +77,7 @@ namespace Projekt
                 // hopper op og ned i menuen alt efter hvad der bliver trykket.
                 if (cki.Key == ConsoleKey.UpArrow && selectorPos > 0)
                     selectorPos--;
-                if (cki.Key == ConsoleKey.DownArrow && selectorPos < options.Length - 1)
+                if (cki.Key == ConsoleKey.DownArrow && selectorPos < Options.Length - 1)
                     selectorPos++;
                 if (cki.Key == ConsoleKey.Escape)
                     return -1;
@@ -113,70 +86,14 @@ namespace Projekt
             } while (cki.Key != ConsoleKey.Enter);
 
             Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.SetCursorPosition(offsetLeft, offsetTop + selectorPos);
-            Console.WriteLine(options[selectorPos]);
+            Console.SetCursorPosition(OffsetLeft, OffsetTop + selectorPos);
+            Console.WriteLine(Options[selectorPos]);
             Console.ForegroundColor = color;
 
             // gendanner cursorens status til den tidligere status og derefter returnere værdien for det valgte emne.
             Console.CursorVisible = cursorState;
             return selectorPos;
         }
-
-        //public int Selector(int maxEntries)
-        //{
-        //    var cursorState = Console.CursorVisible;    // gemmer staten af cursorens blinken-status.
-        //    Console.CursorVisible = false;              // gør cursoren usynlig.
-        //    int selectorPos = 0;
-        //    int min = 0;
-        //    ConsoleColor color = Console.ForegroundColor;
-        //    ConsoleKeyInfo cki;
-
-        //    do
-        //    {
-        //        if (selectorPos >= maxEntries)
-        //        {
-        //            maxEntries++;
-        //            min++;
-        //        }
-        //        else if (selectorPos < min)
-        //        {
-        //            maxEntries--;
-        //            min--;
-        //        }
-
-        //        for (int i = min; i < maxEntries; i++)
-        //        {
-        //            Console.SetCursorPosition(offsetLeft, offsetTop + i - min);
-        //            Console.WriteLine(options[i]);
-        //        }
-
-        //        Console.ForegroundColor = ConsoleColor.Green;
-        //        Console.SetCursorPosition(offsetLeft, offsetTop + selectorPos - min);
-        //        Console.WriteLine(options[selectorPos]);
-        //        Console.ForegroundColor = color;
-
-        //        // reads the key indput.
-        //        cki = Console.ReadKey(true);
-
-        //        // changes menu up and down depending on key press.
-        //        if (cki.Key == ConsoleKey.UpArrow && selectorPos > 0)
-        //            selectorPos--;
-        //        if (cki.Key == ConsoleKey.DownArrow && selectorPos < options.Length - 1)
-        //            selectorPos++;
-        //        if (cki.Key == ConsoleKey.Escape)
-        //            return -1;
-        //        // stops loop if enter is pressed.
-        //    } while (cki.Key != ConsoleKey.Enter);
-
-        //    Console.ForegroundColor = ConsoleColor.DarkGray;
-        //    Console.SetCursorPosition(offsetLeft, offsetTop + selectorPos);
-        //    Console.WriteLine(options[selectorPos]);
-        //    Console.ForegroundColor = color;
-
-        //    // gendanner cursorens status til den tidligere status og derefter returnere værdien for det valgte emne.
-        //    Console.CursorVisible = cursorState;
-        //    return selectorPos;
-        //}
 
         public int Selector(int maxEntries, List<Customer> list)
         {
@@ -188,11 +105,14 @@ namespace Projekt
             int selectorPos = 0;
             int min = 0;
             int sort = 1;
+            string[] sortText = { "Customer ID", "Lastname    ", "Zip Code     " };
             ConsoleColor color = Console.ForegroundColor;
             ConsoleKeyInfo cki;
 
+            Tool.Write(2, 2, "Sorted by: " + sortText[0], ConsoleColor.Gray);
             do
             {
+
                 if (selectorPos >= maxEntries + min)
                     min++;
                 else if (selectorPos < min)
@@ -200,12 +120,12 @@ namespace Projekt
 
                 for (int i = min; i < maxEntries + min; i++)
                 {
-                    Console.SetCursorPosition(offsetLeft, offsetTop + i - min);
+                    Console.SetCursorPosition(OffsetLeft, OffsetTop + i - min);
                     Console.WriteLine(list[i].StringFormat);
                 }
 
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.SetCursorPosition(offsetLeft, offsetTop + selectorPos - min);
+                Console.SetCursorPosition(OffsetLeft, OffsetTop + selectorPos - min);
                 Console.WriteLine(list[selectorPos].StringFormat);
                 Console.ForegroundColor = color;
 
@@ -215,7 +135,7 @@ namespace Projekt
                 // Changes up and down in menu, depending on key press.
                 if (cki.Key == ConsoleKey.UpArrow && selectorPos > 0)
                     selectorPos--;
-                if (cki.Key == ConsoleKey.DownArrow && selectorPos < options.Length - 1)
+                if (cki.Key == ConsoleKey.DownArrow && selectorPos < Options.Length - 1)
                     selectorPos++;
                 if (cki.Key == ConsoleKey.Escape)
                     return -1;
@@ -228,6 +148,7 @@ namespace Projekt
                     else if (sort == 2)
                         list = list.OrderBy(order => order.ZipCode).ToList();
 
+                    Tool.Write(2, 2, "Sorted by: " + sortText[sort], ConsoleColor.Gray);
                     if (sort >= 2)
                         sort = 0;
                     else
@@ -240,7 +161,7 @@ namespace Projekt
             } while (cki.Key != ConsoleKey.Enter);
 
             Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.SetCursorPosition(offsetLeft, offsetTop + selectorPos);
+            Console.SetCursorPosition(OffsetLeft, OffsetTop + selectorPos);
             Console.WriteLine(list[selectorPos].StringFormat);
             Console.ForegroundColor = color;
                         
@@ -259,9 +180,11 @@ namespace Projekt
             int selectorPos = 0;
             int min = 0;
             int sort = 1;
+            string[] sortText = { "Customer ID", "VIN Number  ", "Car Model  " };
             ConsoleColor color = Console.ForegroundColor;
             ConsoleKeyInfo cki;
 
+            Tool.Write(2, 2, "Sorted by: " + sortText[0], ConsoleColor.Gray);
             do
             {
                 if (selectorPos >= maxEntries + min)
@@ -271,12 +194,12 @@ namespace Projekt
 
                 for (int i = min; i < maxEntries + min; i++)
                 {
-                    Console.SetCursorPosition(offsetLeft, offsetTop + i - min);
+                    Console.SetCursorPosition(OffsetLeft, OffsetTop + i - min);
                     Console.WriteLine(list[i].StringFormat);
                 }
 
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.SetCursorPosition(offsetLeft, offsetTop + selectorPos - min);
+                Console.SetCursorPosition(OffsetLeft, OffsetTop + selectorPos - min);
                 Console.WriteLine(list[selectorPos].StringFormat);
                 Console.ForegroundColor = color;
 
@@ -286,7 +209,7 @@ namespace Projekt
                 // Changes up and down in menu, depending on key press.
                 if (cki.Key == ConsoleKey.UpArrow && selectorPos > 0)
                     selectorPos--;
-                if (cki.Key == ConsoleKey.DownArrow && selectorPos < options.Length - 1)
+                if (cki.Key == ConsoleKey.DownArrow && selectorPos < Options.Length - 1)
                     selectorPos++;
                 if (cki.Key == ConsoleKey.Escape)
                     return "-1";
@@ -299,6 +222,7 @@ namespace Projekt
                     else if (sort == 2)
                         list = list.OrderBy(order => order.CarModel).ToList();
 
+                    Tool.Write(2, 2, "Sorted by: " + sortText[sort], ConsoleColor.Gray);
                     if (sort >= 2)
                         sort = 0;
                     else
@@ -311,7 +235,7 @@ namespace Projekt
             } while (cki.Key != ConsoleKey.Enter);
 
             Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.SetCursorPosition(offsetLeft, offsetTop + selectorPos);
+            Console.SetCursorPosition(OffsetLeft, OffsetTop + selectorPos);
             Console.WriteLine(list[selectorPos].StringFormat);
             Console.ForegroundColor = color;
 
@@ -329,9 +253,11 @@ namespace Projekt
             int selectorPos = 0;
             int min = 0;
             int sort = 1;
+            string[] sortText = { "Mechanic   ", "VIN Number  ", "Date       " };
             ConsoleColor color = Console.ForegroundColor;
             ConsoleKeyInfo cki;
 
+            Tool.Write(2, 2, "Sorted by: " + sortText[0], ConsoleColor.Gray);
             do
             {
                 if (selectorPos >= maxEntries + min)
@@ -341,12 +267,12 @@ namespace Projekt
 
                 for (int i = min; i < maxEntries + min; i++)
                 {
-                    Console.SetCursorPosition(offsetLeft, offsetTop + i - min);
+                    Console.SetCursorPosition(OffsetLeft, OffsetTop + i - min);
                     Console.WriteLine(list[i].StringFormat);
                 }
 
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.SetCursorPosition(offsetLeft, offsetTop + selectorPos - min);
+                Console.SetCursorPosition(OffsetLeft, OffsetTop + selectorPos - min);
                 Console.WriteLine(list[selectorPos].StringFormat);
                 Console.ForegroundColor = color;
 
@@ -356,7 +282,7 @@ namespace Projekt
                 // Changes up and down in menu, depending on key press.
                 if (cki.Key == ConsoleKey.UpArrow && selectorPos > 0)
                     selectorPos--;
-                if (cki.Key == ConsoleKey.DownArrow && selectorPos < options.Length - 1)
+                if (cki.Key == ConsoleKey.DownArrow && selectorPos < Options.Length - 1)
                     selectorPos++;
                 if (cki.Key == ConsoleKey.Escape)
                     return -1;
@@ -369,6 +295,7 @@ namespace Projekt
                     else if (sort == 2)
                         list = list.OrderBy(order => order.DateTimeVisit).ToList();
 
+                    Tool.Write(2, 2, "Sorted by: " + sortText[sort], ConsoleColor.Gray);
                     if (sort >= 2)
                         sort = 0;
                     else
@@ -381,13 +308,72 @@ namespace Projekt
             } while (cki.Key != ConsoleKey.Enter);
 
             Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.SetCursorPosition(offsetLeft, offsetTop + selectorPos);
+            Console.SetCursorPosition(OffsetLeft, OffsetTop + selectorPos);
             Console.WriteLine(list[selectorPos].StringFormat);
             Console.ForegroundColor = color;
 
             //Reverts cursor to previous status and returns value for the chosen subject.
             Console.CursorVisible = cursorState;
             return list[selectorPos].VisitID;
+        }
+
+        // Generic liste (uden for pensum) - Sådan her kunne man have gjort. -- Ikke implenteret da jeg er den eneste der har arbejdet med generics
+        public string SelectorGeneric<T>(int maxEntries, List<T> list) where T : IObjects
+        {
+            if (maxEntries > list.Count)
+                maxEntries = list.Count;
+
+            var cursorState = Console.CursorVisible;    // Saves the blinking status of the cursor.
+            Console.CursorVisible = false;              // Makes cursor invisible.
+            int selectorPos = 0;
+            int min = 0;
+            ConsoleColor color = Console.ForegroundColor;
+            ConsoleKeyInfo cki;
+
+            do
+            {
+                if (selectorPos >= maxEntries + min)
+                    min++;
+                else if (selectorPos < min)
+                    min--;
+
+                for (int i = min; i < maxEntries + min; i++)
+                {
+                    Console.SetCursorPosition(OffsetLeft, OffsetTop + i - min);
+                    Console.WriteLine(list[i].StringFormat);
+                }
+
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.SetCursorPosition(OffsetLeft, OffsetTop + selectorPos - min);
+                Console.WriteLine(list[selectorPos].StringFormat);
+                Console.ForegroundColor = color;
+
+                // Read key input.
+                cki = Console.ReadKey(true);
+
+                // Changes up and down in menu, depending on key press.
+                if (cki.Key == ConsoleKey.UpArrow && selectorPos > 0)
+                    selectorPos--;
+                if (cki.Key == ConsoleKey.DownArrow && selectorPos < Options.Length - 1)
+                    selectorPos++;
+                if (cki.Key == ConsoleKey.Escape)
+                    return "1";
+                if (cki.Key == ConsoleKey.S)
+                {
+                    selectorPos = 0;
+                    min = 0;
+                }
+                // Exits loop if enter is pressed.
+            } while (cki.Key != ConsoleKey.Enter);
+
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.SetCursorPosition(OffsetLeft, OffsetTop + selectorPos);
+            Console.WriteLine(list[selectorPos].StringFormat);
+            Console.ForegroundColor = color;
+
+            //Reverts cursor to previous status and returns value for the chosen subject.
+            Console.CursorVisible = cursorState;
+            return list[selectorPos].ToString();
         }
     }
 }

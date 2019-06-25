@@ -6,80 +6,31 @@ using System.Threading.Tasks;
 
 namespace Projekt
 {
-    class Car
+    class Car : IObjects
     {
         public static List<Car> carList = new List<Car>();
         public static int[] buffer = { 0, 7, 26, 42, 60, 78, 88, 103, 117 };
 
-        private int customerID;
-        public int CustomerID
-        {
-            get { return customerID; }
-            set { customerID = value; }
-        }
+        public int CustomerID { get; set; }
 
-        private string vinNumber;
-        public string VinNumber
-        {
-            get { return vinNumber; }
-            set { vinNumber = value; }
-        }
+        public string VinNumber { get; set; }
 
-        private string numberPlate;
-        public string NumberPlate
-        {
-            get { return numberPlate; }
-            set { numberPlate = value; }
-        }
+        public string NumberPlate { get; set; }
 
-        private string carBrand;
-        public string CarBrand
-        {
-            get { return carBrand; }
-            set { carBrand = value; }
-        }
+        public string CarBrand { get; set; }
 
-        private string carModel;
-        public string CarModel
-        {
-            get { return carModel; }
-            set { carModel = value; }
-        }
+        public string CarModel { get; set; }
 
-        private int productionYear;
-        public int ProductionYear
-        {
-            get { return productionYear; }
-            set { productionYear = value; }
-        }
+        public int ProductionYear { get; set; }
 
-        private int kmCount;
-        public int KmCount
-        {
-            get { return kmCount; }
-            set { kmCount = value; }
-        }
+        public int KmCount { get; set; }
 
-        private string fuelType;
-        public string FuelType
-        {
-            get { return fuelType; }
-            set { fuelType = value; }
-        }
+        public string FuelType { get; set; }
 
-        private DateTime createdDate;
-        public DateTime CreatedDate
-        {
-            get { return createdDate; }
-            set { createdDate = value; }
-        }
+        public DateTime CreatedDate { get; set; }
 
-        private string stringFormat;
-        public string StringFormat
-        {
-            get { return stringFormat; }
-            set { stringFormat = value; }
-        }
+        public string StringFormat { get; set; }
+
 
         public Car(int customerID, string vinNumber, string numberPlate, string carBrand, string carModel, int productionYear, int kmCount, string fuelType, DateTime createdDate)
         {
@@ -92,7 +43,7 @@ namespace Projekt
             KmCount = kmCount;
             FuelType = fuelType;
             CreatedDate = createdDate;
-            stringFormat = Tool.FormatString(buffer, Info());
+            StringFormat = Tool.FormatString(buffer, Info());
         }
 
         public string[] Info()
@@ -100,23 +51,6 @@ namespace Projekt
             string[] car = { CustomerID.ToString(), VinNumber, NumberPlate, CarBrand, CarModel, ProductionYear.ToString(), KmCount.ToString(), FuelType, CreatedDate.ToString("dd-MM-yyyy") };
 
             return car;
-        }
-
-        public static void Read(Frame frame, Car car, int offsetLeft, int offsetTop)
-        {
-            string[] information = { "Owner ID", "VIN", "Number plate", "Car Brand", "Car Model", "Production Year", "KM Counter", "Fuel type" };
-            string[] data = { car.customerID.ToString(), car.vinNumber, car.numberPlate, car.carBrand, car.carModel, car.productionYear.ToString(), car.kmCount.ToString(), car.fuelType };
-            offsetTop += frame.OffsetTop;
-            offsetLeft += frame.OffsetLeft;
-
-            Console.SetCursorPosition(offsetLeft, offsetTop);
-            Console.WriteLine("Car Form:");
-
-            for (int i = 0; i < information.Length; i++)
-            {
-                Console.SetCursorPosition(offsetLeft, offsetTop + 2 + i);
-                Console.Write(information[i] + ": " + data[i]);
-            }
         }
 
         public static void Create(Frame frame, int left, int top, int customerID)
@@ -146,10 +80,27 @@ namespace Projekt
             SQL.CreateCar(customerID, vin, numberPlate, brand, model, productionYear, kmCount, fuelType);
         }
 
-        public static void Update(Frame frame, Car car, int offsetLeft, int offsetTop)
+        public void Read(Frame frame, int offsetLeft, int offsetTop)
         {
             string[] information = { "Owner ID", "VIN", "Number plate", "Car Brand", "Car Model", "Production Year", "KM Counter", "Fuel type" };
-            string[] data = { car.customerID.ToString(), car.vinNumber, car.numberPlate, car.carBrand, car.carModel, car.productionYear.ToString(), car.kmCount.ToString(), car.fuelType };
+            string[] data = { CustomerID.ToString(), VinNumber, NumberPlate, CarBrand, CarModel, ProductionYear.ToString(), KmCount.ToString(), FuelType };
+            offsetTop += frame.OffsetTop;
+            offsetLeft += frame.OffsetLeft;
+
+            Console.SetCursorPosition(offsetLeft, offsetTop);
+            Console.WriteLine("Car Form:");
+
+            for (int i = 0; i < information.Length; i++)
+            {
+                Console.SetCursorPosition(offsetLeft, offsetTop + 2 + i);
+                Console.Write(information[i] + ": " + data[i]);
+            }
+        }
+
+        public void Update(Frame frame, int offsetLeft, int offsetTop)
+        {
+            string[] information = { "Owner ID", "VIN", "Number plate", "Car Brand", "Car Model", "Production Year", "KM Counter", "Fuel type" };
+            string[] data = { CustomerID.ToString(), VinNumber, NumberPlate, CarBrand, CarModel, ProductionYear.ToString(), KmCount.ToString(), FuelType };
             offsetTop += frame.OffsetTop;
             offsetLeft += frame.OffsetLeft;
 
@@ -170,7 +121,7 @@ namespace Projekt
             int kmCount = Tool.BuildInt(offsetLeft + information[6].Length + 2, offsetTop + 8, 20, data[6]);
             string fuelType = Tool.BuildString(offsetLeft + information[7].Length + 2, offsetTop + 9, 20, data[7]);
 
-            SQL.UpdateCar(car.customerID, vin, numberPlate, brand, model, productionYear, kmCount, fuelType, car.VinNumber);
+            SQL.UpdateCar(CustomerID, vin, numberPlate, brand, model, productionYear, kmCount, fuelType, VinNumber);
         }
 
         public static void Overview(Frame frame, int left, int top,  string title, List<Car> list, int max)
