@@ -168,6 +168,8 @@ namespace Projekt
 
         public static string BuildPascalCase(string input)
         {
+            if (input.Length == 0)
+                return input;
             string firstLetter = input.Substring(0, 1).ToUpper();
             string rest = input.Substring(1, input.Length - 1).ToLower();
 

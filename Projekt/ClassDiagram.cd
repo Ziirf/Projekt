@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="Projekt.Car">
+    <Position X="6.5" Y="5.75" Width="2.25" />
+    <Members>
+      <Field Name="buffer" Hidden="true" />
+      <Field Name="carBrand" Hidden="true" />
+      <Field Name="carList" Hidden="true" />
+      <Field Name="carModel" Hidden="true" />
+      <Field Name="fuelType" Hidden="true" />
+      <Field Name="numberPlate" Hidden="true" />
+      <Field Name="vinNumber" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAYAAEACQAAAAAAAAAAgAACgEAAQgEAAEgBgAkAAAAI=</HashCode>
+      <FileName>Object Folder\Car.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Projekt.Customer">
+    <Position X="3" Y="5.75" Width="2.25" />
+    <Members>
+      <Field Name="address" Hidden="true" />
+      <Field Name="buffer" Hidden="true" />
+      <Field Name="customerList" Hidden="true" />
+      <Field Name="eMail" Hidden="true" />
+      <Field Name="firstname" Hidden="true" />
+      <Field Name="lastname" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAYAAEAAAAhAAAAIAAAAQAAgECIAAEAjAgBAAEAAAAA=</HashCode>
+      <FileName>Object Folder\Customer.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Projekt.ShopVisit">
+    <Position X="9.75" Y="5.75" Width="2.25" />
+    <Members>
+      <Field Name="buffer" Hidden="true" />
+      <Field Name="mechanic" Hidden="true" />
+      <Field Name="shopVisitList" Hidden="true" />
+      <Field Name="vinNumber" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAcgAEACAAAAAEAAAAAgAAAgAAAAAEgAAABoAEAQBAA=</HashCode>
+      <FileName>Object Folder\ShopVisit.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Projekt.Frame">
+    <Position X="13.75" Y="0.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAABAAAAAAAAAAAAEAAAAQAAAEAAAAAIACEABA=</HashCode>
+      <FileName>Frame.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Projekt.Navigation">
+    <Position X="9.75" Y="0.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAEAAAAQAAIAAAAQAAAEAAAAAAABAAAE=</HashCode>
+      <FileName>Navigation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Projekt.Program">
+    <Position X="4" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Projekt.SQL">
+    <Position X="0.5" Y="0.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQAQgAAAQABAACAQACAgAAAAAAAEAAAABAACA=</HashCode>
+      <FileName>SQL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Projekt.Tool">
+    <Position X="13.75" Y="5.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAAAAIAABAAAQAAAAAAIAAAAAAAAFAAAA=</HashCode>
+      <FileName>Tool.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Projekt.Windows">
+    <Position X="6.5" Y="0.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAACQAAQAAIAAEAAQAACAAAAAAAAAAAABIQAA=</HashCode>
+      <FileName>Windows.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="Projekt.IObjects">
+    <Position X="0.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Object Folder\IObjects.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

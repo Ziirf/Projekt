@@ -38,39 +38,52 @@ namespace Projekt
                 switch (menuSelection.Selector())
                 {
                     case 0: // Select Customer
-                        Information(2, 30, "[S] Sort List");
-                        // Makes a list of strings and populates it
-                        List<string> customerFormattedList = new List<string>();
-                        foreach (var item in Customer.customerList)
-                            customerFormattedList.Add(item.StringFormat);
+                        if (Customer.customerList.Count > 0)
+                        {
+                            Information(2, 30, "[S] Sort List");
+                            // Makes a list of strings and populates it
+                            List<string> customerFormattedList = new List<string>();
+                            foreach (var item in Customer.customerList)
+                                customerFormattedList.Add(item.StringFormat);
 
-                        // Instanciate a Nagation object
-                        Navigation CustomerSelection = new Navigation(frameMain, 35, 6, customerFormattedList.ToArray(), customerTitle);
-                        CustomerSelection.PrintTitle();
+                            // Instanciate a Nagation object
+                            Navigation CustomerSelection = new Navigation(frameMain, 35, 6, customerFormattedList.ToArray(), customerTitle);
+                            CustomerSelection.PrintTitle();
 
-                        // Uses the object, and return the ID of the selected customer, if escape is pressed it will return -1.
-                        selectedCustomerID = CustomerSelection.Selector(28, Customer.customerList);
-                        if (selectedCustomerID >= 0)
-                            Windows.CustomerWindow(selectedCustomerID);
-
+                            // Uses the object, and return the ID of the selected customer, if escape is pressed it will return -1.
+                            selectedCustomerID = CustomerSelection.Selector(28, Customer.customerList);
+                            if (selectedCustomerID >= 0)
+                                Windows.CustomerWindow(selectedCustomerID);
+                        }
+                        {
+                            NoListAvaiable(107, 4, "< No Customers >");
+                            System.Threading.Thread.Sleep(2000);
+                        }
                         break;
                     case 1: // Select Car
-                        Information(2, 30, "[S] Sort List");
-                        // Makes a list of strings and populates it
-                        List<string> carFormattedList = new List<string>();
-                        foreach (var item in Car.carList)
-                            carFormattedList.Add(item.StringFormat);
+                        if (Car.carList.Count > 0)
+                        {
+                            Information(2, 30, "[S] Sort List");
+                            // Makes a list of strings and populates it
+                            List<string> carFormattedList = new List<string>();
+                            foreach (var item in Car.carList)
+                                carFormattedList.Add(item.StringFormat);
 
-                        // Instanciate a Nagation object
-                        Navigation navigationCar = new Navigation(frameMain, 35, 6, carFormattedList.ToArray(), carTitle);
-                        navigationCar.PrintTitle();
+                            // Instanciate a Nagation object
+                            Navigation navigationCar = new Navigation(frameMain, 35, 6, carFormattedList.ToArray(), carTitle);
+                            navigationCar.PrintTitle();
 
-                        // Uses the object, and return the VIN number of the selected Car, if escape is pressed it will return -1. 
-                        selectedCarVin = navigationCar.Selector(5, Car.carList);
-                        selectedCarIndex = Car.carList.FindIndex(car => car.VinNumber == selectedCarVin);
-                        if (selectedCarIndex >= 0)
-                            Windows.CustomerWindow(Car.carList[selectedCarIndex].CustomerID, selectedCarVin);
-
+                            // Uses the object, and return the VIN number of the selected Car, if escape is pressed it will return -1.
+                            selectedCarVin = navigationCar.Selector(28, Car.carList);
+                            selectedCarIndex = Car.carList.FindIndex(car => car.VinNumber == selectedCarVin);
+                            if (selectedCarIndex >= 0)
+                                Windows.CustomerWindow(Car.carList[selectedCarIndex].CustomerID, selectedCarVin);
+                        }
+                        else
+                        {
+                            NoListAvaiable(107, 4, "< No Cars >");
+                            System.Threading.Thread.Sleep(2000);
+                        }
                         break;
                     case 2: // Create Customer
                         Customer.Create(frameMain, 35, 3);

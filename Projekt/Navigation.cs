@@ -182,6 +182,8 @@ namespace Projekt
 
         public string Selector(int maxEntries, List<Car> list)
         {
+            if (list.Count == 0)
+
             if (maxEntries > list.Count)
                 maxEntries = list.Count;
 

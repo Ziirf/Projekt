@@ -11,33 +11,13 @@ namespace Projekt
         List<int[]> DividerHorizontal = new List<int[]>();
         List<int[]> DividerVertical = new List<int[]>();
 
-        private int height;
-        public int Height
-        {
-            get { return height; }
-            set { height = value; }
-        }
+        public int Height { get; private set; }
 
-        private int width;
-        public int Width
-        {
-            get { return width; }
-            set { width = value; }
-        }
+        public int Width { get; private set; }
 
-        private int offsetTop;
-        public int OffsetTop
-        {
-            get { return offsetTop; }
-            set { offsetTop = value; }
-        }
+        public int OffsetTop { get; private set; }
 
-        private int offsetLeft;
-        public int OffsetLeft
-        {
-            get { return offsetLeft; }
-            set { offsetLeft = value; }
-        }
+        public int OffsetLeft { get; private set; }
 
         public Frame(int[] frameDim)
         {
@@ -65,23 +45,23 @@ namespace Projekt
 
         public void Print()
         {
-            Console.SetCursorPosition(offsetLeft, offsetTop);
+            Console.SetCursorPosition(OffsetLeft, OffsetTop);
             Console.Write("╔");
-            for (int i = 0; i < width - 2; i++)
+            for (int i = 0; i < Width - 2; i++)
             {
                 Console.Write("═");
             }
             Console.Write("╗");
-            for (int i = 0; i < height - 3; i++)
+            for (int i = 0; i < Height - 3; i++)
             {
-                Console.SetCursorPosition(offsetLeft, offsetTop + i + 1);
+                Console.SetCursorPosition(OffsetLeft, OffsetTop + i + 1);
                 Console.Write("║");
-                Console.SetCursorPosition(offsetLeft + width - 1, offsetTop + i + 1);
+                Console.SetCursorPosition(OffsetLeft + Width - 1, OffsetTop + i + 1);
                 Console.Write("║");
             }
-            Console.SetCursorPosition(offsetLeft, offsetTop + height - 2);
+            Console.SetCursorPosition(OffsetLeft, OffsetTop + Height - 2);
             Console.Write("╚");
-            for (int i = 0; i < width - 2; i++)
+            for (int i = 0; i < Width - 2; i++)
             {
                 Console.Write("═");
             }
@@ -91,7 +71,7 @@ namespace Projekt
             {
                 for (int i = 0; i < DividerHorizontal.Count; i++)
                 {
-                    Console.SetCursorPosition(OffsetLeft + DividerHorizontal[i][1], offsetTop + DividerHorizontal[i][0]);
+                    Console.SetCursorPosition(OffsetLeft + DividerHorizontal[i][1], OffsetTop + DividerHorizontal[i][0]);
                     Console.Write("╠");
                     for (int j = 0; j < DividerHorizontal[i][2] - DividerHorizontal[i][1] - 2; j++)
                     {
@@ -105,14 +85,14 @@ namespace Projekt
             {
                 for (int i = 0; i < DividerVertical.Count; i++)
                 {
-                    Console.SetCursorPosition(DividerVertical[i][0] + offsetLeft, DividerVertical[i][1] + offsetTop);
+                    Console.SetCursorPosition(DividerVertical[i][0] + OffsetLeft, DividerVertical[i][1] + OffsetTop);
                     Console.Write("╦");
                     for (int j = 0; j < DividerVertical[i][2] - DividerVertical[i][1] - 1; j++)
                     {
-                        Console.SetCursorPosition(DividerVertical[i][0] + offsetLeft, DividerVertical[i][1] + offsetTop + j + 1);
+                        Console.SetCursorPosition(DividerVertical[i][0] + OffsetLeft, DividerVertical[i][1] + OffsetTop + j + 1);
                         Console.Write("║");
                     }
-                    Console.SetCursorPosition(DividerVertical[i][0] + offsetLeft, DividerVertical[i][2] + offsetTop);
+                    Console.SetCursorPosition(DividerVertical[i][0] + OffsetLeft, DividerVertical[i][2] + OffsetTop);
                     Console.Write("╩");
                 }
             }
@@ -128,50 +108,6 @@ namespace Projekt
         {
             int[] output = { collumn, start, stop };
             DividerVertical.Add(output);
-        }
-
-        public void CustomerOverview(int offsetLeft, int offsetTop, int[] buffer, string[] titles)
-        {
-            offsetTop += this.OffsetTop;
-            offsetLeft += this.OffsetLeft;
-
-            for (int i = 0; i < titles.Length; i++)
-            {
-                Console.SetCursorPosition(offsetLeft + buffer[i], offsetTop);
-                Console.Write(titles[i]);
-            }
-
-            for (int i = 0; i < Customer.customerList.Count; i++)
-            {
-                string[] strArrayCustomer = Customer.customerList[i].Info();
-                for (int j = 0; j < buffer.Length; j++)
-                {
-                Console.SetCursorPosition(offsetLeft + buffer[j], offsetTop + 2 + i);
-                Console.WriteLine(strArrayCustomer[j]);
-                }
-            }
-        }
-
-        public void CarOverview(int offsetLeft, int offsetTop, int[] buffer, string[] titles)
-        {
-            offsetTop += this.OffsetTop;
-            offsetLeft += this.OffsetLeft;
-
-            for (int i = 0; i < titles.Length; i++)
-            {
-                Console.SetCursorPosition(offsetLeft + buffer[i], offsetTop);
-                Console.Write(titles[i]);
-            }
-
-            for (int i = 0; i < Car.carList.Count; i++)
-            {
-                string[] strArrayCar = Car.carList[i].Info();
-                for (int j = 0; j < buffer.Length; j++)
-                {
-                    Console.SetCursorPosition(offsetLeft + buffer[j], offsetTop + 2 + i);
-                    Console.WriteLine(strArrayCar[j]);
-                }
-            }
         }
     }
 }

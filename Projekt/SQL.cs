@@ -13,7 +13,7 @@ namespace Projekt
     {
         static readonly string path = Path.GetFullPath(Path.Combine(Path.Combine(Environment.CurrentDirectory), @"..\..\"));
         static readonly SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename= " + path + "MechanicDB.mdf ;Integrated Security=True");
-        
+
         public static void ReadCustomerToObj()
         {
             con.Open();
