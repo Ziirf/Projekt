@@ -8,7 +8,7 @@ namespace Projekt
 {
     class Tool
     {
-        public static void Write(int left, int top, string text, ConsoleColor color)
+        public static void Write(int left, int top, string text, ConsoleColor color = ConsoleColor.Gray)
         {
             ConsoleColor oldColor = Console.ForegroundColor;
             Console.ForegroundColor = color;

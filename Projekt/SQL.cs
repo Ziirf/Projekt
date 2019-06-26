@@ -145,8 +145,8 @@ namespace Projekt
             }
             con.Close();
 
-            int selectedCustomerIndex = Customer.customerList.FindIndex(customer => customer.CustomerID == customerID);
-            Customer.customerList.RemoveAt(selectedCustomerIndex);
+            int customerIndex = Customer.customerList.FindIndex(customer => customer.CustomerID == customerID);
+            Customer.customerList.RemoveAt(customerIndex);
         }
 
         public static void ReadCarToObj()
@@ -277,8 +277,8 @@ namespace Projekt
             }
             con.Close();
 
-            int selectedCarIndex = Car.carList.FindIndex(car => car.VinNumber == vinNumber);
-            Car.carList.RemoveAt(selectedCarIndex);
+            int carIndex = Car.carList.FindIndex(car => car.VinNumber == vinNumber);
+            Car.carList.RemoveAt(carIndex);
         }
 
 
@@ -310,7 +310,6 @@ namespace Projekt
 
             con.Close();
         }
-
 
         public static void CreateShopVisit(string mechanic, string vinNumber, int kmCount, string issue, string notes)
         {
@@ -389,8 +388,11 @@ namespace Projekt
 
                 cmd.ExecuteNonQuery();
             }
+
+            int visitIndex = ShopVisit.shopVisitList.FindIndex(visit => visit.VisitID == visitID);
+            ShopVisit.shopVisitList.RemoveAt(visitIndex);
+
             con.Close();
         }
-
     }
 }

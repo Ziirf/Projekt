@@ -46,25 +46,25 @@ namespace Projekt
             return car;
         }
 
-        public static void Create(Frame frame, int offsetLeft, int offsetTop)
+        public static void Create(Frame frame, int left, int top, string vin)
         {
             string[] information = { "Mechanic", "VIN", "KM Count", "Issue", "Note" };
-            offsetTop += frame.OffsetTop;
-            offsetLeft += frame.OffsetLeft;
+            top += frame.OffsetTop;
+            left += frame.OffsetLeft;
 
-            Console.SetCursorPosition(offsetLeft, offsetTop);
+            Console.SetCursorPosition(left, top);
             Console.WriteLine("Shop Visit Form:");
 
             for (int i = 0; i < information.Length; i++)
             {
-                Console.SetCursorPosition(offsetLeft, offsetTop + 2 + i);
-                Console.Write(information[i] + ": ");
+                Console.SetCursorPosition(left, top + 2 + i);
+                Console.Write(information[i] + ": " + new string(' ', 50));
             }
-            string mechanic = Tool.BuildString(offsetLeft + information[0].Length + 2, offsetTop + 2, 20);
-            string vin = Tool.BuildString(offsetLeft + information[1].Length + 2, offsetTop + 3, 20);
-            int kmCount = Tool.BuildInt(offsetLeft + information[2].Length + 2, offsetTop + 4, 20);
-            string issue = Tool.BuildString(offsetLeft + information[3].Length + 2, offsetTop + 5, 20);
-            string note = Tool.BuildString(offsetLeft + information[4].Length + 2, offsetTop + 6, 50);
+            Tool.Write(left + information[1].Length + 2, top + 3, vin, ConsoleColor.DarkGray);
+            string mechanic = Tool.BuildString(left + information[0].Length + 2, top + 2, 20);
+            int kmCount = Tool.BuildInt(left + information[2].Length + 2, top + 4, 20);
+            string issue = Tool.BuildString(left + information[3].Length + 2, top + 5, 20);
+            string note = Tool.BuildString(left + information[4].Length + 2, top + 6, 50);
 
             SQL.CreateShopVisit(mechanic, vin, kmCount, issue, note);
         }

@@ -74,6 +74,7 @@ namespace Projekt
                 Console.Write(information[i] + ": ");
             }
 
+            //Tool.Write(frame.OffsetLeft + information[5].Length + 2, frame.OffsetTop + 7, "---", ConsoleColor.DarkGray);
             string Firstname = Tool.BuildString(left + information[0].Length + 2, top + 2, 20);
             string Lastname = Tool.BuildString(left + information[1].Length + 2, top + 3, 20);
             string address = Tool.BuildString(left + information[2].Length + 2, top + 4, 40);
@@ -85,8 +86,8 @@ namespace Projekt
         }
         public void Read(Frame frame, int offsetLeft, int offsetTop)
         {
-            string[] information = { "ID", "Firstname", "Lastname", "Address", "Zip code", "Phone number", "E-Mail" };
-            string[] data = { CustomerID.ToString() ,Firstname, Lastname, Address, ZipCode.ToString(), PhoneNumber.ToString(), EMail };
+            string[] information = { "ID", "Firstname", "Lastname", "Address", "Zip code", "City", "Phone number", "E-Mail" };
+            string[] data = { CustomerID.ToString() ,Firstname, Lastname, Address, ZipCode.ToString(), City, PhoneNumber.ToString(), EMail };
             offsetTop += frame.OffsetTop;
             offsetLeft += frame.OffsetLeft;
 
@@ -102,8 +103,8 @@ namespace Projekt
 
         public void Update(Frame frame, int offsetLeft, int offsetTop)
         {
-            string[] information = { "ID", "Firstname", "Lastname", "Address", "Zip code", "Phone number", "E-Mail" };
-            string[] data = { CustomerID.ToString(), Firstname, Lastname, Address, ZipCode.ToString(), PhoneNumber.ToString(), EMail };
+            string[] information = { "ID", "Firstname", "Lastname", "Address", "Zip code", "City", "Phone number", "E-Mail" };
+            string[] data = { CustomerID.ToString(), Firstname, Lastname, Address, ZipCode.ToString(), City, PhoneNumber.ToString(), EMail };
             offsetTop += frame.OffsetTop;
             offsetLeft += frame.OffsetLeft;
 
@@ -117,12 +118,13 @@ namespace Projekt
             }
 
             Tool.Write(offsetLeft + information[0].Length + 2, offsetTop + 2, CustomerID.ToString(), ConsoleColor.DarkGray);
+            Tool.Write(offsetLeft + information[5].Length + 2, offsetTop + 7, City, ConsoleColor.DarkGray);
             string newFirstname = Tool.BuildString(offsetLeft + information[1].Length + 2, offsetTop + 3, 20, data[1]);
             string newLastname = Tool.BuildString(offsetLeft + information[2].Length + 2, offsetTop + 4, 20, data[2]);
             string newAddress = Tool.BuildString(offsetLeft + information[3].Length + 2, offsetTop + 5, 40, data[3]);
             int newZipCode = Tool.BuildInt(offsetLeft + information[4].Length + 2, offsetTop + 6, 4, data[4]);
-            int newPhoneNumber = Tool.BuildInt(offsetLeft + information[5].Length + 2, offsetTop + 7, 8, data[5]);
-            string newEmail = Tool.BuildEmail(offsetLeft + information[6].Length + 2, offsetTop + 8, 30, data[6]).ToLower();
+            int newPhoneNumber = Tool.BuildInt(offsetLeft + information[6].Length + 2, offsetTop + 8, 8, data[6]);
+            string newEmail = Tool.BuildEmail(offsetLeft + information[7].Length + 2, offsetTop + 9, 30, data[7]).ToLower();
 
             SQL.UpdateCustomer(newFirstname, newLastname, newAddress, newZipCode, newPhoneNumber, newEmail, CustomerID);
         }

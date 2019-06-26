@@ -104,6 +104,7 @@ namespace Projekt
             Console.CursorVisible = false;              // Makes cursor invisible.
             int selectorPos = 0;
             int min = 0;
+            int listCount = list.Count;
             int sort = 1;
             string[] sortText = { "Customer ID", "Lastname    ", "Zip Code     " };
             ConsoleColor color = Console.ForegroundColor;
@@ -128,6 +129,15 @@ namespace Projekt
                 Console.SetCursorPosition(OffsetLeft, OffsetTop + selectorPos - min);
                 Console.WriteLine(list[selectorPos].StringFormat);
                 Console.ForegroundColor = color;
+
+                if (min + maxEntries < listCount)
+                    Tool.Write(OffsetLeft + 130,OffsetTop + maxEntries - 1, "V", ConsoleColor.Gray);
+                else
+                    Tool.Write(OffsetLeft + 130, OffsetTop + maxEntries - 1, " ", ConsoleColor.Gray);
+                if (min > 0)
+                    Tool.Write(OffsetLeft + 130, OffsetTop - 1, "A", ConsoleColor.Gray);
+                else
+                    Tool.Write(OffsetLeft + 130, OffsetTop - 1, " ", ConsoleColor.Gray);
 
                 // Read key input.
                 cki = Console.ReadKey(true);
@@ -179,6 +189,7 @@ namespace Projekt
             Console.CursorVisible = false;              // Makes cursor invisible.
             int selectorPos = 0;
             int min = 0;
+            int listCount = list.Count;
             int sort = 1;
             string[] sortText = { "Customer ID", "VIN Number  ", "Car Model  " };
             ConsoleColor color = Console.ForegroundColor;
@@ -197,6 +208,15 @@ namespace Projekt
                     Console.SetCursorPosition(OffsetLeft, OffsetTop + i - min);
                     Console.WriteLine(list[i].StringFormat);
                 }
+
+                if (min + maxEntries < listCount)
+                    Tool.Write(OffsetLeft + 130, OffsetTop + maxEntries - 1, "V", ConsoleColor.Gray);
+                else
+                    Tool.Write(OffsetLeft + 130, OffsetTop + maxEntries - 1, " ", ConsoleColor.Gray);
+                if (min > 0)
+                    Tool.Write(OffsetLeft + 130, OffsetTop - 1, "A", ConsoleColor.Gray);
+                else
+                    Tool.Write(OffsetLeft + 130, OffsetTop - 1, " ", ConsoleColor.Gray);
 
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.SetCursorPosition(OffsetLeft, OffsetTop + selectorPos - min);
@@ -252,6 +272,7 @@ namespace Projekt
             Console.CursorVisible = false;              // Makes cursor invisible.
             int selectorPos = 0;
             int min = 0;
+            int listCount = list.Count;
             int sort = 1;
             string[] sortText = { "Mechanic   ", "VIN Number  ", "Date       " };
             ConsoleColor color = Console.ForegroundColor;
@@ -270,6 +291,15 @@ namespace Projekt
                     Console.SetCursorPosition(OffsetLeft, OffsetTop + i - min);
                     Console.WriteLine(list[i].StringFormat);
                 }
+
+                if (min + maxEntries < listCount)
+                    Tool.Write(OffsetLeft + 130, OffsetTop + maxEntries - 1, "V", ConsoleColor.Gray);
+                else
+                    Tool.Write(OffsetLeft + 130, OffsetTop + maxEntries - 1, " ", ConsoleColor.Gray);
+                if (min > 0)
+                    Tool.Write(OffsetLeft + 130, OffsetTop - 1, "A", ConsoleColor.Gray);
+                else
+                    Tool.Write(OffsetLeft + 130, OffsetTop - 1, " ", ConsoleColor.Gray);
 
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.SetCursorPosition(OffsetLeft, OffsetTop + selectorPos - min);

@@ -65,7 +65,7 @@ namespace Projekt
             for (int i = 0; i < information.Length; i++)
             {
                 Console.SetCursorPosition(left, top + 2 + i);
-                Console.Write(information[i] + ": ");
+                Console.Write(information[i] + ": " + new string(' ', 40));
             }
 
             Tool.Write(left + information[0].Length + 2, top + 2, customerID.ToString(), ConsoleColor.DarkGray);

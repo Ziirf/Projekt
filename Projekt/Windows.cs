@@ -161,8 +161,13 @@ namespace Projekt
                         break;
                     case 3: // Remove Customer case
                         // Remove the customer, all his cars and all his shop visits
-                        SQL.DeleteCustomer(selectedCustomerID);
-                        run = false;
+                        if (ConfirmDelete() == true)
+                        {
+                            SQL.DeleteCustomer(selectedCustomerID);
+                            run = false;
+                        }
+                        //SQL.DeleteCustomer(selectedCustomerID);
+                        //run = false;
                         break;
                     case 4: // Create Car case
                         // Creates a car, and refreshes the list of the customers cars
@@ -258,7 +263,7 @@ namespace Projekt
                         break;
                     case 1: // Create Entry
                         // Creates a entry into shop visit and refreshes the cars shop visit list
-                        ShopVisit.Create(frameVisit, 35, 3);
+                        ShopVisit.Create(frameVisit, 35, 3, vinNumber);
                         selectedShopVisitList.Clear();
                         selectedShopVisitList = ShopVisit.shopVisitList.Where(car => car.VinNumber == vinNumber).ToList();
                         ShopVisit.Overview(frameVisit, 34, 27, shopVisitTitle, selectedShopVisitList, 5);
@@ -296,15 +301,6 @@ namespace Projekt
             } while (run);
         }
 
-        private static void NoListAvaiable(int left, int top, string message)
-        {
-            var color = Console.ForegroundColor;
-            Console.SetCursorPosition(left, top);
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine(message);
-            Console.ForegroundColor = color;
-        }
-
         // Generic metode man kunne have brugt -- Bruger den dog ikke da jeg er den eneste der kan forsvare hvad den gør
         private static List<string> BuildList<T>(List<T> importList) where T : IObjects
         {
@@ -314,6 +310,15 @@ namespace Projekt
             return outputList;
         }
 
+        private static void NoListAvaiable(int left, int top, string message)
+        {
+            var color = Console.ForegroundColor;
+            Console.SetCursorPosition(left, top);
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(message);
+            Console.ForegroundColor = color;
+        }
+
         private static void Information(int left, int top, params string[] text)
         {
             for (int i = 0; i < text.Length; i++)
@@ -321,6 +326,36 @@ namespace Projekt
                 Console.SetCursorPosition(left, top + i);
                 Console.Write(text[i]);
             }
+        }
+
+        private static bool ConfirmDelete()
+        {
+            int[] frameSize = { 40, 7 };
+            int[] pos = { ((Console.WindowWidth - frameSize[0]) / 2), ((Console.WindowHeight - frameSize[1]) / 2) };
+            Frame frame = new Frame(frameSize[0], frameSize[1], pos[0], pos[1]);
+            
+
+            string message = "Confirm Deletion";
+            Tool.Write(pos[0] + ((frameSize[0] - message.Length) / 2), pos[1] + 2, message);
+            message = "[Enter] Yes / [Esc] No";
+            Tool.Write(pos[0] + ((frameSize[0] - message.Length) / 2), pos[1] + 3, message);
+            frame.Print();
+
+            ConsoleKeyInfo cki;
+            bool output;
+
+            do
+            {
+                cki = Console.ReadKey(true);
+                if (cki.Key == ConsoleKey.Enter)
+                    output = true;
+                else
+                    output = false;
+
+            } while (cki.Key != ConsoleKey.Enter && cki.Key != ConsoleKey.Escape);
+
+
+            return output;
         }
     }
 }
