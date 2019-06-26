@@ -27,14 +27,6 @@ namespace Projekt
             OffsetTop = frameDim[3];
         }
 
-        public Frame(int width, int height)
-        {
-            Width = width;
-            Height = height;
-            OffsetLeft = 0;
-            OffsetTop = 0;
-        }
-
         public Frame(int width, int height, int offsetLeft, int offsetTop)
         {
             Width = width;
@@ -45,6 +37,7 @@ namespace Projekt
 
         public void Print()
         {
+            // Prints out the top line
             Console.SetCursorPosition(OffsetLeft, OffsetTop);
             Console.Write("╔");
             for (int i = 0; i < Width - 2; i++)
@@ -52,6 +45,7 @@ namespace Projekt
                 Console.Write("═");
             }
             Console.Write("╗");
+            // Prints out the sides
             for (int i = 0; i < Height - 3; i++)
             {
                 Console.SetCursorPosition(OffsetLeft, OffsetTop + i + 1);
@@ -59,6 +53,7 @@ namespace Projekt
                 Console.SetCursorPosition(OffsetLeft + Width - 1, OffsetTop + i + 1);
                 Console.Write("║");
             }
+            // Prints out the bottom line
             Console.SetCursorPosition(OffsetLeft, OffsetTop + Height - 2);
             Console.Write("╚");
             for (int i = 0; i < Width - 2; i++)
@@ -67,6 +62,7 @@ namespace Projekt
             }
             Console.Write("╝");
 
+            // If there is any horizontal dividers then it will draw all of those first
             if (DividerHorizontal.Count > 0)
             {
                 for (int i = 0; i < DividerHorizontal.Count; i++)
@@ -81,6 +77,7 @@ namespace Projekt
                 }
             }
 
+            // then draw all the vertical dividers
             if (DividerVertical.Count > 0)
             {
                 for (int i = 0; i < DividerVertical.Count; i++)
@@ -98,12 +95,14 @@ namespace Projekt
             }
         }
 
+        // method to add a divider to the model
         public void AddHorizontalDivider(int row, int start, int stop)
         {
             int[] output = { row, start, stop };
             DividerHorizontal.Add(output);
         }
 
+        // method to add a divider to the model
         public void AddVerticalDivider(int collumn, int start, int stop)
         {
             int[] output = { collumn, start, stop };

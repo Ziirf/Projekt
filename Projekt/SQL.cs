@@ -11,11 +11,13 @@ namespace Projekt
 {
     class SQL
     {
+        // SQL connection, and the path of the mdf file
         static readonly string path = Path.GetFullPath(Path.Combine(Path.Combine(Environment.CurrentDirectory), @"..\..\"));
         static readonly SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename= " + path + "MechanicDB.mdf ;Integrated Security=True");
 
         public static void ReadCustomerToObj()
         {
+            // Opens the connection
             con.Open();
 
             string query = "SELECT customerID, firstname, lastname, [address], Customer.zipCode, ZipAndCity.city, phoneNumber, eMail, createdDate FROM Customer left join ZipAndCity on Customer.zipCode = ZipAndCity.zipCode;";
@@ -38,6 +40,8 @@ namespace Projekt
                 int phoneNumber = Convert.ToInt32(dr["phoneNumber"]);
                 string eMail = dr["eMail"].ToString();
                 DateTime createdDate = Convert.ToDateTime(dr["createdDate"]);
+
+                // makes an object matching the data
                 Customer.customerList.Add(new Customer(customerID, firstName, lastName, address, zipCode, city, phoneNumber, eMail, createdDate));
             }
 
@@ -47,12 +51,11 @@ namespace Projekt
         public static void CreateCustomer(string firstname, string lastname, string address, int zipCode, int phoneNumber, string eMail)
         {
             // Opens the connection
-            SqlCommand cmd;
             con.Open();
             string query = "INSERT INTO Customer(firstname, lastname, [address], zipCode, phoneNumber, email, createdDate) VALUES (@firstName, @lastName, @address, @zipCode, @phoneNumber, @eMail, GETDATE());";
 
             // Using SqlCommand to inject the variables into the query string
-            using (cmd = new SqlCommand(query, con))
+            using (SqlCommand cmd = new SqlCommand(query, con))
             {
                 cmd.Parameters.AddWithValue("@firstName", firstname);
                 cmd.Parameters.AddWithValue("@lastName", lastname);
@@ -60,17 +63,20 @@ namespace Projekt
                 cmd.Parameters.AddWithValue("@zipCode", zipCode);
                 cmd.Parameters.AddWithValue("@phoneNumber", phoneNumber);
                 cmd.Parameters.AddWithValue("@eMail", eMail);
+
+                cmd.ExecuteNonQuery();
             }
             // Executes the query, and are therefore inserted into the database
-            cmd.ExecuteNonQuery();
 
-            // Pulls out the data for the newly made customer, to get back the information for the ID, date and status which created in SQL
+            // Pulls out the data for the newly made customer, to get back the information for the ID, date and city which created in SQL
             query = "SELECT TOP 1 customerID, firstname, lastname, [address], Customer.zipCode, ZipAndCity.city, phoneNumber, eMail, createdDate FROM Customer left join ZipAndCity on Customer.zipCode = ZipAndCity.zipCode ORDER BY CustomerID DESC ";
             SqlDataAdapter sda = new SqlDataAdapter(query, con);
 
+            // Inserts the query into a data table
             DataTable dt = new DataTable();
             sda.Fill(dt);
 
+            // sets the information just gather from the latest SQL query
             DataRow dr = dt.Rows[0];
             int customerID = Convert.ToInt32(dr["customerID"]);
             DateTime creationDate = Convert.ToDateTime(dr["createdDate"]);
@@ -83,12 +89,13 @@ namespace Projekt
 
         public static void UpdateCustomer(string firstname, string lastname, string address, int zipCode, int phoneNumber, string eMail, int customerID)
         {
+            // Uses LingQ to find the index of the customerID in customerList
             int customerIndex = Customer.customerList.FindIndex(customer => customer.CustomerID == customerID);
-            SqlCommand cmd;
             con.Open();
             string query = "UPDATE Customer SET firstname = @firstname, lastname = @lastname, [address] = @address, zipCode = @zipCode, phoneNumber = @phoneNumber, eMail = @eMail WHERE customerID = @customerID";
 
-            using (cmd = new SqlCommand(query, con))
+            // Using SqlCommand to inject the variables into the query string
+            using (SqlCommand cmd = new SqlCommand(query, con))
             {
                 cmd.Parameters.AddWithValue("@firstname", firstname);
                 cmd.Parameters.AddWithValue("@lastname", lastname);
@@ -101,16 +108,20 @@ namespace Projekt
                 cmd.ExecuteNonQuery();
             }
 
+            // Pulls out the data for the editted made customer, to get back the information for the City created in SQL
             query = "SELECT ZipAndCity.city FROM Customer left join ZipAndCity on Customer.zipCode = ZipAndCity.zipCode WHERE customerID = @customerID";
-
             SqlDataAdapter sda = new SqlDataAdapter(query, con);
             sda.SelectCommand.Parameters.AddWithValue("@customerID", customerID);
+
+            // Inserts the query into a data table
             DataTable dt = new DataTable();
             sda.Fill(dt);
 
+            // sets the information just gather from the latest SQL query
             DataRow dr = dt.Rows[0];
             string city = Convert.ToString(dr["city"]);
 
+            // Updates the C# customer
             Customer.customerList[customerIndex].Firstname = firstname;
             Customer.customerList[customerIndex].Lastname = lastname;
             Customer.customerList[customerIndex].Address = address;
@@ -125,6 +136,8 @@ namespace Projekt
 
         public static void DeleteCustomer(int customerID)
         {
+            // Finds all the cars that this customer owns, and call the SQL delete method for the cars, if any is owned
+            // (We use an LinQ funktion to make a new list to check, which he owns, if any)
             List<Car> carList = Car.carList.Where(car => car.CustomerID == customerID).ToList();
             if (carList.Count > 0)
             {
@@ -137,6 +150,7 @@ namespace Projekt
             con.Open();
             string query = "DELETE FROM Customer WHERE customerID = @customerID";
 
+            // Deletes the customer from the SQL database
             using (SqlCommand cmd = new SqlCommand(query, con))
             {
                 cmd.Parameters.AddWithValue("@customerID", customerID);
@@ -145,6 +159,7 @@ namespace Projekt
             }
             con.Close();
 
+            // Use LinQ to find the index of this specific customer, and deletes him from the C# list
             int customerIndex = Customer.customerList.FindIndex(customer => customer.CustomerID == customerID);
             Customer.customerList.RemoveAt(customerIndex);
         }
