@@ -55,6 +55,7 @@ namespace Projekt
                             if (selectedCustomerID >= 0)
                                 Windows.CustomerWindow(selectedCustomerID);
                         }
+                        else
                         {
                             NoListAvaiable(107, 4, "< No Customers >");
                             System.Threading.Thread.Sleep(2000);
