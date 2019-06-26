@@ -13,11 +13,27 @@ namespace Projekt
         public static int[] buffer = { 0, 7, 30, 50, 73, 87, 112 };
 
         public int CustomerID { get; set; }
-        public string Firstname { get; set; }
 
-        public string Lastname { get; set; }
+        string firstname;
+        public string Firstname
+        {
+            get { return firstname; }
+            set { firstname = Tool.BuildPascalCase(value); }
+        }
 
-        public string Address { get; set; }
+        string lastname;
+        public string Lastname
+        {
+            get { return lastname; }
+            set { lastname = Tool.BuildPascalCase(value); }
+        }
+
+        string address;
+        public string Address
+        {
+            get { return address; }
+            set { address = Tool.BuildPascalCase(value); }
+        }
 
         public int ZipCode { get; set; }
 
@@ -25,7 +41,12 @@ namespace Projekt
 
         public int PhoneNumber { get; set; }
 
-        public string EMail { get; set; }
+        string eMail;
+        public string EMail
+        {
+            get { return eMail; }
+            set { eMail = value.ToLower(); }
+        }
 
         public DateTime CreatedDate { get; set; }
 

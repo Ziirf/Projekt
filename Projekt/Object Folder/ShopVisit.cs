@@ -15,9 +15,19 @@ namespace Projekt
 
         public DateTime DateTimeVisit { get; set; }
 
-        public string Mechanic { get; set; }
+        string mechanic;
+        public string Mechanic
+        {
+            get { return mechanic; }
+            set { mechanic = Tool.BuildPascalCase(value); }
+        }
 
-        public string VinNumber { get; set; }
+        string vinNumber;
+        public string VinNumber
+        {
+            get { return vinNumber; }
+            set { vinNumber = value.ToUpper(); }
+        }
 
         public int KmCount { get; set; }
 

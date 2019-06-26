@@ -165,5 +165,13 @@ namespace Projekt
                 Console.BackgroundColor = palette[1];
             }
         }
+
+        public static string BuildPascalCase(string input)
+        {
+            string firstLetter = input.Substring(0, 1).ToUpper();
+            string rest = input.Substring(1, input.Length - 1).ToLower();
+
+            return firstLetter + rest;
+        }
     }
 }

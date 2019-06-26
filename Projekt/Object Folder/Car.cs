@@ -13,19 +13,44 @@ namespace Projekt
 
         public int CustomerID { get; set; }
 
-        public string VinNumber { get; set; }
+        string vinNumber;
+        public string VinNumber
+        {
+            get { return vinNumber; }
+            set { vinNumber = value.ToUpper(); }
+        }
 
-        public string NumberPlate { get; set; }
+        string numberPlate;
+        public string NumberPlate
+        {
+            get { return numberPlate; }
+            set { numberPlate = value.ToUpper(); }
+        }
 
-        public string CarBrand { get; set; }
+        string carBrand;
+        public string CarBrand
+        {
+            get { return carBrand; }
+            set { carBrand = Tool.BuildPascalCase(value); }
+        }
 
-        public string CarModel { get; set; }
+        string carModel;
+        public string CarModel
+        {
+            get { return carModel; }
+            set { carModel = Tool.BuildPascalCase(value); }
+        }
 
         public int ProductionYear { get; set; }
 
         public int KmCount { get; set; }
 
-        public string FuelType { get; set; }
+        string fuelType;
+        public string FuelType
+        {
+            get { return fuelType ; }
+            set { fuelType = Tool.BuildPascalCase(value); }
+        }
 
         public DateTime CreatedDate { get; set; }
 

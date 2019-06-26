@@ -333,7 +333,10 @@ namespace Projekt
             int[] frameSize = { 40, 7 };
             int[] pos = { ((Console.WindowWidth - frameSize[0]) / 2), ((Console.WindowHeight - frameSize[1]) / 2) };
             Frame frame = new Frame(frameSize[0], frameSize[1], pos[0], pos[1]);
-            
+            for (int i = 0; i < frameSize[1] - 1; i++)
+            {
+                Tool.Write(pos[0], pos[1] + i, new string(' ', frameSize[0]));
+            }
 
             string message = "Confirm Deletion";
             Tool.Write(pos[0] + ((frameSize[0] - message.Length) / 2), pos[1] + 2, message);
